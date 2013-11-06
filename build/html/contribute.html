@@ -1,0 +1,174 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>如何贡献 &mdash; pelican-docs-zh-cn 3.3.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/pelican.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '3.3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pelican-docs-zh-cn 3.3.0 documentation" href="index.html" />
+    <link rel="next" title="关于Pelican的一些历史" href="report.html" />
+    <link rel="prev" title="小贴士" href="tips.html" /> 
+  </head>
+  <body>
+  
+  
+
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="section" id="id1">
+<h1>如何贡献<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>There are many ways to contribute to Pelican. You can improve the
+documentation, add missing features, and fix bugs (or just report them). You
+can also help out by reviewing and commenting on
+<a class="reference external" href="https://github.com/getpelican/pelican/issues">existing issues</a>.</p>
+<p>Don&#8217;t hesitate to fork Pelican and submit a pull request on GitHub. When doing
+so, please adhere to the following guidelines.</p>
+<div class="section" id="id2">
+<h2>设置开发环境<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>While there are many ways to set up one&#8217;s development environment, following
+is a method that uses <a class="reference external" href="http://www.virtualenv.org/">virtualenv</a>. If you don&#8217;t
+have <tt class="docutils literal"><span class="pre">virtualenv</span></tt> installed, you can install it via:</p>
+<div class="highlight-python"><pre>$ pip install virtualenv</pre>
+</div>
+<p>Virtual environments allow you to work on Python projects which are isolated
+from one another so you can use different packages (and package versions) with
+different projects.</p>
+<p>To create and activate a virtual environment, use the following syntax:</p>
+<div class="highlight-python"><pre>$ virtualenv ~/virtualenvs/pelican
+$ cd ~/virtualenvs/pelican
+$ . bin/activate</pre>
+</div>
+<p>To clone the Pelican source:</p>
+<div class="highlight-python"><pre>$ git clone https://github.com/getpelican/pelican.git src/pelican</pre>
+</div>
+<p>To install the development dependencies:</p>
+<div class="highlight-python"><pre>$ cd src/pelican
+$ pip install -r dev_requirements.txt</pre>
+</div>
+<p>To install Pelican and its dependencies:</p>
+<div class="highlight-python"><pre>$ python setup.py develop</pre>
+</div>
+<p>Or using <tt class="docutils literal"><span class="pre">pip</span></tt>:</p>
+<div class="highlight-python"><pre>$ pip install -e .</pre>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>代码规范<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>Try to respect what is described in the <a class="reference external" href="http://www.python.org/dev/peps/pep-0008/">PEP8 specification</a> when making contributions. This
+can be eased via the <a class="reference external" href="http://pypi.python.org/pypi/pep8">pep8</a> or <a class="reference external" href="http://pypi.python.org/pypi/flake8/">flake8</a> tools, the latter of which in
+particular will give you some useful hints about ways in which the
+code/formatting can be improved.</p>
+</div>
+<div class="section" id="id4">
+<h2>构建文档<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>If you make changes to the documentation, you should preview your changes
+before committing them:</p>
+<div class="highlight-python"><pre>$ pip install sphinx
+$ cd src/pelican/docs
+$ make html</pre>
+</div>
+<p>Open <tt class="docutils literal"><span class="pre">_build/html/index.html</span></tt> in your browser to preview the documentation.</p>
+</div>
+<div class="section" id="id5">
+<h2>运行测试套件<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>Each time you add a feature, there are two things to do regarding tests:
+check that the existing tests pass, and add tests for the new feature
+or bugfix.</p>
+<p>The tests live in <tt class="docutils literal"><span class="pre">pelican/tests</span></tt> and you can run them using the
+&#8220;discover&#8221; feature of <tt class="docutils literal"><span class="pre">unittest</span></tt>:</p>
+<div class="highlight-python"><pre>$ python -m unittest discover</pre>
+</div>
+<p>After making your changes and running the tests, you may see a test failure
+mentioning that &#8220;some generated files differ from the expected functional tests
+output.&#8221; If you have made changes that affect the HTML output generated by
+Pelican, and the changes to that output are expected and deemed correct given
+the nature of your changes, then you should update the output used by the
+functional tests. To do so, you can use the following two commands:</p>
+<div class="highlight-python"><pre>$ pelican -o pelican/tests/output/custom/ -s samples/pelican.conf.py \
+    samples/content/
+$ pelican -o pelican/tests/output/basic/ samples/content/</pre>
+</div>
+<div class="section" id="testing-on-python-2-and-3">
+<h3>Testing on Python 2 and 3<a class="headerlink" href="#testing-on-python-2-and-3" title="Permalink to this headline">¶</a></h3>
+<p>Testing on Python 3 currently requires some extra steps: installing
+Python 3-compatible versions of dependent packages and plugins.</p>
+<p><a class="reference external" href="http://testrun.org/tox/latest/">Tox</a> is a useful tool to run tests on both versions. It will install the
+Python 3-compatible version of dependent packages.</p>
+</div>
+</div>
+<div class="section" id="python-3">
+<h2>Python 3 开发贴士<a class="headerlink" href="#python-3" title="Permalink to this headline">¶</a></h2>
+<p>Here are some tips that may be useful when doing some code for both Python 2.7
+and Python 3 at the same time:</p>
+<ul class="simple">
+<li>Assume every string and literal is unicode (import unicode_literals):<ul>
+<li>Do not use prefix <tt class="docutils literal"><span class="pre">u'</span></tt>.</li>
+<li>Do not encode/decode strings in the middle of sth. Follow the code to the
+source (or target) of a string and encode/decode at the first/last possible
+point.</li>
+<li>In other words, write your functions to expect and to return unicode.</li>
+<li>Encode/decode strings if e.g. the source is a Python function that is known
+to handle this badly, e.g. strftime() in Python 2.</li>
+</ul>
+</li>
+<li>Use new syntax: print function, &#8220;except ... <em>as</em> e&#8221; (not comma) etc.</li>
+<li>Refactor method calls like <tt class="docutils literal"><span class="pre">dict.iteritems()</span></tt>, <tt class="docutils literal"><span class="pre">xrange()</span></tt> etc. in a way
+that runs without code change in both Python versions.</li>
+<li>Do not use magic method <tt class="docutils literal"><span class="pre">__unicode()__</span></tt> in new classes. Use only <tt class="docutils literal"><span class="pre">__str()__</span></tt>
+and decorate the class with <tt class="docutils literal"><span class="pre">&#64;python_2_unicode_compatible</span></tt>.</li>
+<li>Do not start int literals with a zero. This is a syntax error in Py3k.</li>
+<li>Unfortunately I did not find an octal notation that is valid in both
+Pythons. Use decimal instead.</li>
+<li>use six, e.g.:<ul>
+<li><tt class="docutils literal"><span class="pre">isinstance(..,</span> <span class="pre">basestring)</span> <span class="pre">-&gt;</span> <span class="pre">isinstance(..,</span> <span class="pre">six.string_types)</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">isinstance(..,</span> <span class="pre">unicode)</span> <span class="pre">-&gt;</span> <span class="pre">isinstance(..,</span> <span class="pre">six.text_type)</span></tt></li>
+</ul>
+</li>
+<li><tt class="docutils literal"><span class="pre">setlocale()</span></tt> in Python 2 bails when we give the locale name as unicode,
+and since we are using <tt class="docutils literal"><span class="pre">from</span> <span class="pre">__future__</span> <span class="pre">import</span> <span class="pre">unicode_literals</span></tt>, we do
+that everywhere!  As a workaround, I enclosed the localename with <tt class="docutils literal"><span class="pre">str()</span></tt>;
+in Python 2 this casts the name to a byte string, in Python 3 this should do
+nothing, because the locale name already had been unicode.</li>
+<li>Kept range() almost everywhere as-is (2to3 suggests list(range())), just
+changed it where I felt necessary.</li>
+<li>Changed xrange() back to range(), so it is valid in both Python versions.</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+    <a href="http://github.com/bravelee/pelican-docs-zh-cn"><img style="position: fixed; top: 0; right: 0; border: 0;"
+    src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+  
+
+  
+
+  </body>
+</html>

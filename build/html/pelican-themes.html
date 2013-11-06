@@ -1,0 +1,197 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pelican-themes命令 &mdash; pelican-docs-zh-cn 3.3.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/pelican.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '3.3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pelican-docs-zh-cn 3.3.0 documentation" href="index.html" />
+    <link rel="next" title="从其他博客软件导入" href="importer.html" />
+    <link rel="prev" title="Pelican内部构件" href="internals.html" /> 
+  </head>
+  <body>
+  
+  
+
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="section" id="pelican-themes">
+<h1>pelican-themes命令<a class="headerlink" href="#pelican-themes" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>描述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">pelican-themes</span></tt> is a command line tool for managing themes for Pelican.</p>
+<div class="section" id="usage">
+<h3>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h3>
+<div class="line-block">
+<div class="line">pelican-themes [-h] [-l] [-i theme path [theme path ...]]</div>
+<div class="line-block">
+<div class="line">[-r theme name [theme name ...]]</div>
+<div class="line">[-s theme path [theme path ...]] [-v] [&#8211;version]</div>
+</div>
+</div>
+</div>
+<div class="section" id="optional-arguments">
+<h3>Optional arguments:<a class="headerlink" href="#optional-arguments" title="Permalink to this headline">¶</a></h3>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></td>
+<td>Show the help an exit</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-l</span>, <span class="option">--list</span></kbd></td>
+<td>Show the themes already installed</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-i <var>theme_path</var></span>, <span class="option">--install <var>theme_path</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>One or more themes to install</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-r <var>theme_name</var></span>, <span class="option">--remove <var>theme_name</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>One or more themes to remove</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-s <var>theme_path</var></span>, <span class="option">--symlink <var>theme_path</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Same as &#8220;&#8211;install&#8221;, but create a symbolic link instead of copying the theme.
+Useful for theme development</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-v</span>, <span class="option">--verbose</span></kbd></td>
+<td>Verbose output</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--version</span></kbd></td>
+<td>Print the version of this script</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>例子<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="listing-the-installed-themes">
+<h3>Listing the installed themes<a class="headerlink" href="#listing-the-installed-themes" title="Permalink to this headline">¶</a></h3>
+<p>With <tt class="docutils literal"><span class="pre">pelican-themes</span></tt>, you can see the available themes by using the <tt class="docutils literal"><span class="pre">-l</span></tt> or <tt class="docutils literal"><span class="pre">--list</span></tt> option:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> pelican-themes -l
+<span class="go">notmyidea</span>
+<span class="go">two-column@</span>
+<span class="go">simple</span>
+<span class="gp">$</span> pelican-themes --list
+<span class="go">notmyidea</span>
+<span class="go">two-column@</span>
+<span class="go">simple</span>
+</pre></div>
+</div>
+<p>In this example, we can see there are three themes available: <tt class="docutils literal"><span class="pre">notmyidea</span></tt>, <tt class="docutils literal"><span class="pre">simple</span></tt>, and <tt class="docutils literal"><span class="pre">two-column</span></tt>.</p>
+<p><tt class="docutils literal"><span class="pre">two-column</span></tt> is prefixed with an <tt class="docutils literal"><span class="pre">&#64;</span></tt> because this theme is not copied to the Pelican theme path, but is instead just linked to it (see <a class="reference internal" href="#creating-symbolic-links">Creating symbolic links</a> for details about creating symbolic links).</p>
+<p>Note that you can combine the <tt class="docutils literal"><span class="pre">--list</span></tt> option with the <tt class="docutils literal"><span class="pre">-v</span></tt> or <tt class="docutils literal"><span class="pre">--verbose</span></tt> option to get more verbose output, like this:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> pelican-themes -v -l
+<span class="go">/usr/local/lib/python2.6/dist-packages/pelican-2.6.0-py2.6.egg/pelican/themes/notmyidea</span>
+<span class="go">/usr/local/lib/python2.6/dist-packages/pelican-2.6.0-py2.6.egg/pelican/themes/two-column (symbolic link to `/home/skami/Dev/Python/pelican-themes/two-column&#39;)</span>
+<span class="go">/usr/local/lib/python2.6/dist-packages/pelican-2.6.0-py2.6.egg/pelican/themes/simple</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="installing-themes">
+<h3>Installing themes<a class="headerlink" href="#installing-themes" title="Permalink to this headline">¶</a></h3>
+<p>You can install one or more themes using the <tt class="docutils literal"><span class="pre">-i</span></tt> or <tt class="docutils literal"><span class="pre">--install</span></tt> option.
+This option takes as argument the path(s) of the theme(s) you want to install, and can be combined with the verbose option:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> pelican-themes --install ~/Dev/Python/pelican-themes/notmyidea-cms --verbose
+</pre></div>
+</div>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> pelican-themes --install ~/Dev/Python/pelican-themes/notmyidea-cms<span class="se">\</span>
+<span class="go">                           ~/Dev/Python/pelican-themes/martyalchin \</span>
+<span class="go">                           --verbose</span>
+</pre></div>
+</div>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> pelican-themes -vi ~/Dev/Python/pelican-themes/two-column
+</pre></div>
+</div>
+</div>
+<div class="section" id="removing-themes">
+<h3>Removing themes<a class="headerlink" href="#removing-themes" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">pelican-themes</span></tt> command can also remove themes from the Pelican themes path.
+The <tt class="docutils literal"><span class="pre">-r</span></tt> or <tt class="docutils literal"><span class="pre">--remove</span></tt> option takes as argument the name(s) of the theme(s) you want to remove, and can be combined with the <tt class="docutils literal"><span class="pre">--verbose</span></tt> option.</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> pelican-themes --remove two-column
+</pre></div>
+</div>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> pelican-themes -r martyachin notmyidea-cmd -v
+</pre></div>
+</div>
+</div>
+<div class="section" id="creating-symbolic-links">
+<h3>Creating symbolic links<a class="headerlink" href="#creating-symbolic-links" title="Permalink to this headline">¶</a></h3>
+<p><tt class="docutils literal"><span class="pre">pelican-themes</span></tt> can also install themes by creating symbolic links instead of copying entire themes into the Pelican themes path.</p>
+<p>To symbolically link a theme, you can use the <tt class="docutils literal"><span class="pre">-s</span></tt> or <tt class="docutils literal"><span class="pre">--symlink</span></tt>, which works exactly as the <tt class="docutils literal"><span class="pre">--install</span></tt> option:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> pelican-themes --symlink ~/Dev/Python/pelican-themes/two-column
+</pre></div>
+</div>
+<p>In this example, the <tt class="docutils literal"><span class="pre">two-column</span></tt> theme is now symbolically linked to the Pelican themes path, so we can use it, but we can also modify it without having to reinstall it after each modification.</p>
+<p>This is useful for theme development:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo pelican-themes -s ~/Dev/Python/pelican-themes/two-column
+<span class="gp">$</span> pelican ~/Blog/content -o /tmp/out -t two-column
+<span class="gp">$</span> firefox /tmp/out/index.html
+<span class="gp">$</span> vim ~/Dev/Pelican/pelican-themes/two-coumn/static/css/main.css
+<span class="gp">$</span> pelican ~/Blog/content -o /tmp/out -t two-column
+<span class="gp">$</span> cp /tmp/bg.png ~/Dev/Pelican/pelican-themes/two-coumn/static/img/bg.png
+<span class="gp">$</span> pelican ~/Blog/content -o /tmp/out -t two-column
+<span class="gp">$</span> vim ~/Dev/Pelican/pelican-themes/two-coumn/templates/index.html
+<span class="gp">$</span> pelican ~/Blog/content -o /tmp/out -t two-column
+</pre></div>
+</div>
+</div>
+<div class="section" id="doing-several-things-at-once">
+<h3>Doing several things at once<a class="headerlink" href="#doing-several-things-at-once" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">--install</span></tt>, <tt class="docutils literal"><span class="pre">--remove</span></tt> and <tt class="docutils literal"><span class="pre">--symlink</span></tt> option are not mutually exclusive, so you can combine them in the same command line to do more than one operation at time, like this:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> pelican-themes --remove notmyidea-cms two-column <span class="se">\</span>
+<span class="go">                 --install ~/Dev/Python/pelican-themes/notmyidea-cms-fr \</span>
+<span class="go">                 --symlink ~/Dev/Python/pelican-themes/two-column \</span>
+<span class="go">                 --verbose</span>
+</pre></div>
+</div>
+<p>In this example, the theme <tt class="docutils literal"><span class="pre">notmyidea-cms</span></tt> is replaced by the theme <tt class="docutils literal"><span class="pre">notmyidea-cms-fr</span></tt></p>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>另请参阅<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://docs.notmyidea.org/alexis/pelican/">http://docs.notmyidea.org/alexis/pelican/</a></li>
+<li><tt class="docutils literal"><span class="pre">/usr/share/doc/pelican/</span></tt> if you have installed Pelican using the <a class="reference external" href="http://skami18.github.com/pelican-packages/">APT repository</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+    <a href="http://github.com/bravelee/pelican-docs-zh-cn"><img style="position: fixed; top: 0; right: 0; border: 0;"
+    src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+  
+
+  
+
+  </body>
+</html>

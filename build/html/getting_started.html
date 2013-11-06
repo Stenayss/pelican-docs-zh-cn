@@ -1,0 +1,462 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>入门指南 &mdash; pelican-docs-zh-cn 3.3.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/pelican.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '3.3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pelican-docs-zh-cn 3.3.0 documentation" href="index.html" />
+    <link rel="next" title="设置" href="settings.html" />
+    <link rel="prev" title="Pelican" href="index.html" /> 
+  </head>
+  <body>
+  
+  
+
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="section" id="id1">
+<h1>入门指南<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="pelican">
+<h2>安装Pelican<a class="headerlink" href="#pelican" title="Permalink to this headline">¶</a></h2>
+<p>当前 Pelican 最好运行在 Python 2.7.x 上，更早版本的 Python 不被支持。对 Python 3.3 仅是临时地支持，尽管可能有一些未完善的地方，尤其对于可选的第三方组件。</p>
+<p>你可以通过很多种不同的方法安装 Pelican 。最简单的是通过 <a class="reference external" href="http://www.pip-installer.org/">pip</a>:</p>
+<div class="highlight-python"><pre>$ pip install pelican</pre>
+</div>
+<p>如果你尚未安装 <tt class="docutils literal"><span class="pre">pip</span></tt>， 一个替代的方法是 <tt class="docutils literal"><span class="pre">easy_install</span></tt>:</p>
+<div class="highlight-python"><pre>$ easy_install pelican</pre>
+</div>
+<p>(记住，操作系统经常要求你给上面的命令加上``sudo``前缀，以在整个系统范围内安装 Pelican 。)</p>
+<p>尽管上面是最简单的方法，但推荐的方法是在安装Pelican之前用 <a class="reference external" href="http://www.virtualenv.org/">virtualenv</a> 为其创建一个虚拟环境。
+假设你已安装 <a class="reference external" href="http://www.virtualenv.org/">virtualenv</a> ，你可以打开一个新的终端会话，然后为Pelican创建一个新的虚拟环境:</p>
+<div class="highlight-python"><pre>$ virtualenv ~/virtualenvs/pelican
+$ cd ~/virtualenvs/pelican
+$ . bin/activate</pre>
+</div>
+<p>Once the virtual environment has been created and activated, Pelican can be
+be installed via <tt class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pelican</span></tt> as noted above. Alternatively, if
+you have the project source, you can install Pelican using the distutils
+method:</p>
+<div class="highlight-python"><pre>$ cd path-to-Pelican-source
+$ python setup.py install</pre>
+</div>
+<p>If you have Git installed and prefer to install the latest bleeding-edge
+version of Pelican rather than a stable release, use the following command:</p>
+<div class="highlight-python"><pre>$ pip install -e git://github.com/getpelican/pelican#egg=pelican</pre>
+</div>
+<p>If you plan on using Markdown as a markup format, you&#8217;ll need to install the
+Markdown library as well:</p>
+<div class="highlight-python"><pre>$ pip install Markdown</pre>
+</div>
+<p>If you want to use AsciiDoc you need to install it from <a class="reference external" href="http://www.methods.co.nz/asciidoc/INSTALL.html">source</a> or use your operating
+system&#8217;s package manager.</p>
+<div class="section" id="id2">
+<h3>基本用法<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Once Pelican is installed, you can use it to convert your Markdown or reST
+content into HTML via the <tt class="docutils literal"><span class="pre">pelican</span></tt> command, specifying the path to your
+content and (optionally) the path to your settings file:</p>
+<div class="highlight-python"><pre>$ pelican /path/to/your/content/ [-s path/to/your/settings.py]</pre>
+</div>
+<p>The above command will generate your site and save it in the <tt class="docutils literal"><span class="pre">output/</span></tt>
+folder, using the default theme to produce a simple site. The default theme
+consists of very simple HTML without styling and is provided so folks may use
+it as a basis for creating their own themes.</p>
+<p>You can also tell Pelican to watch for your modifications, instead of
+manually re-running it every time you want to see your changes. To enable this,
+run the <tt class="docutils literal"><span class="pre">pelican</span></tt> command with the <tt class="docutils literal"><span class="pre">-r</span></tt> or <tt class="docutils literal"><span class="pre">--autoreload</span></tt> option.</p>
+<p>Pelican has other command-line switches available. Have a look at the help to
+see all the options you can use:</p>
+<div class="highlight-python"><pre>$ pelican --help</pre>
+</div>
+<p>Continue reading below for more detail, and check out the Pelican wiki&#8217;s
+<a class="reference external" href="https://github.com/getpelican/pelican/wiki/Tutorials">Tutorials</a> page for
+links to community-published tutorials.</p>
+</div>
+<div class="section" id="id3">
+<h3>查看生成的文件<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>The files generated by Pelican are static files, so you don&#8217;t actually need
+anything special to view them. You can either use your browser to open the
+files on your disk:</p>
+<div class="highlight-python"><pre>firefox output/index.html</pre>
+</div>
+<p>Or run a simple web server using Python:</p>
+<div class="highlight-python"><pre>cd output &amp;&amp; python -m SimpleHTTPServer</pre>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>更新<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>If you installed a stable Pelican release via <tt class="docutils literal"><span class="pre">pip</span></tt> or <tt class="docutils literal"><span class="pre">easy_install</span></tt> and
+wish to upgrade to the latest stable release, you can do so by adding
+<tt class="docutils literal"><span class="pre">--upgrade</span></tt> to the relevant command. For pip, that would be:</p>
+<div class="highlight-python"><pre>$ pip install --upgrade pelican</pre>
+</div>
+<p>If you installed Pelican via distutils or the bleeding-edge method, simply
+perform the same step to install the most recent version.</p>
+</div>
+<div class="section" id="id5">
+<h3>依赖<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>When Pelican is installed, the following dependent Python packages should be
+automatically installed without any action on your part:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://pypi.python.org/pypi/feedgenerator">feedgenerator</a>, to generate the
+Atom feeds</li>
+<li><a class="reference external" href="http://pypi.python.org/pypi/Jinja2">jinja2</a>, for templating support</li>
+<li><a class="reference external" href="http://pypi.python.org/pypi/Pygments">pygments</a>, for syntax highlighting</li>
+<li><a class="reference external" href="http://pypi.python.org/pypi/docutils">docutils</a>, for supporting
+reStructuredText as an input format</li>
+<li><a class="reference external" href="http://pypi.python.org/pypi/pytz">pytz</a>, for timezone definitions</li>
+<li><a class="reference external" href="http://pypi.python.org/pypi/blinker">blinker</a>, an object-to-object and
+broadcast signaling system</li>
+<li><a class="reference external" href="http://pypi.python.org/pypi/Unidecode">unidecode</a>, for ASCII
+transliterations of Unicode text</li>
+<li><a class="reference external" href="http://pypi.python.org/pypi/six">six</a>,  for Python 2 and 3 compatibility
+utilities</li>
+<li><a class="reference external" href="http://pypi.python.org/pypi/MarkupSafe">MarkupSafe</a>, for a markup safe
+string implementation</li>
+</ul>
+<p>If you want the following optional packages, you will need to install them
+manually via <tt class="docutils literal"><span class="pre">pip</span></tt>:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://pypi.python.org/pypi/Markdown">markdown</a>, for supporting Markdown as
+an input format</li>
+<li><a class="reference external" href="http://pypi.python.org/pypi/typogrify">typogrify</a>, for typographical
+enhancements</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>启动您的站点<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>Once Pelican has been installed, you can create a skeleton project via the
+<tt class="docutils literal"><span class="pre">pelican-quickstart</span></tt> command, which begins by asking some questions about
+your site:</p>
+<div class="highlight-python"><pre>$ pelican-quickstart</pre>
+</div>
+<p>Once you finish answering all the questions, your project will consist of the
+following hierarchy (except for &#8220;pages&#8221;, which you can optionally add yourself
+if you plan to create non-chronological content):</p>
+<div class="highlight-python"><pre>yourproject/
+├── content
+│   └── (pages)
+├── output
+├── develop_server.sh
+├── Makefile
+├── pelicanconf.py       # Main settings file
+└── publishconf.py       # Settings to use when ready to publish</pre>
+</div>
+<p>The next step is to begin to adding content to the <em>content</em> folder that has
+been created for you. (See <em>Writing articles using Pelican</em> section below for
+more information about how to format your content.)</p>
+<p>Once you have written some content to generate, you can use the <tt class="docutils literal"><span class="pre">pelican</span></tt>
+command to generate your site, which will be placed in the output folder.
+Alternatively, you can use automation tools that &#8220;wrap&#8221; the <tt class="docutils literal"><span class="pre">pelican</span></tt> command
+to simplify the process of generating, previewing, and uploading your site. One
+such tool is the <tt class="docutils literal"><span class="pre">Makefile</span></tt> that&#8217;s automatically created for you when you use
+<tt class="docutils literal"><span class="pre">pelican-quickstart</span></tt> to create a skeleton project. To use <tt class="docutils literal"><span class="pre">make</span></tt> to
+generate your site, run:</p>
+<div class="highlight-python"><pre>$ make html</pre>
+</div>
+<p>If you&#8217;d prefer to have Pelican automatically regenerate your site every time a
+change is detected (which is handy when testing locally), use the following
+command instead:</p>
+<div class="highlight-python"><pre>$ make regenerate</pre>
+</div>
+<p>To serve the generated site so it can be previewed in your browser at
+<a class="reference external" href="http://localhost:8000">http://localhost:8000</a>:</p>
+<div class="highlight-python"><pre>$ make serve</pre>
+</div>
+<p>Normally you would need to run <tt class="docutils literal"><span class="pre">make</span> <span class="pre">regenerate</span></tt> and <tt class="docutils literal"><span class="pre">make</span> <span class="pre">serve</span></tt> in two
+separate terminal sessions, but you can run both at once via:</p>
+<div class="highlight-python"><pre>$ make devserver</pre>
+</div>
+<p>The above command will simultaneously run Pelican in regeneration mode as well
+as serve the output at <a class="reference external" href="http://localhost:8000">http://localhost:8000</a>. Once you are done testing your
+changes, you should stop the development server via:</p>
+<div class="highlight-python"><pre>$ ./develop_server.sh stop</pre>
+</div>
+<p>When you&#8217;re ready to publish your site, you can upload it via the method(s) you
+chose during the <tt class="docutils literal"><span class="pre">pelican-quickstart</span></tt> questionnaire. For this example, we&#8217;ll
+use rsync over ssh:</p>
+<div class="highlight-python"><pre>$ make rsync_upload</pre>
+</div>
+<p>That&#8217;s it! Your site should now be live.</p>
+</div>
+<div class="section" id="id7">
+<h2>使用Pelican书写内容<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id8">
+<h3>文章和页面<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>Pelican considers &#8220;articles&#8221; to be chronological content, such as posts on a
+blog, and thus associated with a date.</p>
+<p>The idea behind &#8220;pages&#8221; is that they are usually not temporal in nature and are
+used for content that does not change very often (e.g., &#8220;About&#8221; or &#8220;Contact&#8221;
+pages).</p>
+</div>
+<div class="section" id="internal-metadata">
+<span id="id9"></span><h3>文件元数据<a class="headerlink" href="#internal-metadata" title="Permalink to this headline">¶</a></h3>
+<p>Pelican tries to be smart enough to get the information it needs from the
+file system (for instance, about the category of your articles), but some
+information you need to provide in the form of metadata inside your files.</p>
+<p>If you are writing your content in reStructuredText format, you can provide
+this metadata in text files via the following syntax (give your file the
+<tt class="docutils literal"><span class="pre">.rst</span></tt> extension):</p>
+<div class="highlight-python"><pre>My super title
+##############
+
+:date: 2010-10-03 10:20
+:tags: thats, awesome
+:category: yeah
+:slug: my-super-post
+:author: Alexis Metaireau
+:summary: Short version for index and feeds</pre>
+</div>
+<p>Pelican implements an extension to reStructuredText to enable support for the
+<tt class="docutils literal"><span class="pre">abbr</span></tt> HTML tag. To use it, write something like this in your post:</p>
+<div class="highlight-python"><pre>This will be turned into :abbr:`HTML (HyperText Markup Language)`.</pre>
+</div>
+<p>You can also use Markdown syntax (with a file ending in <tt class="docutils literal"><span class="pre">.md</span></tt>,
+<tt class="docutils literal"><span class="pre">.markdown</span></tt>, <tt class="docutils literal"><span class="pre">.mkd</span></tt>, or <tt class="docutils literal"><span class="pre">.mdown</span></tt>). Markdown generation requires that you
+first explicitly install the <tt class="docutils literal"><span class="pre">Markdown</span></tt> package, which can be done via <tt class="docutils literal"><span class="pre">pip</span>
+<span class="pre">install</span> <span class="pre">Markdown</span></tt>. Metadata syntax for Markdown posts should follow this
+pattern:</p>
+<div class="highlight-python"><pre>Title: My super title
+Date: 2010-12-03 10:20
+Category: Python
+Tags: pelican, publishing
+Slug: my-super-post
+Author: Alexis Metaireau
+Summary: Short version for index and feeds
+
+This is the content of my super blog post.</pre>
+</div>
+<p>Pelican can also process HTML files ending in <tt class="docutils literal"><span class="pre">.html</span></tt> and <tt class="docutils literal"><span class="pre">.htm</span></tt>. Pelican
+interprets the HTML in a very straightforward manner, reading metadata from
+<tt class="docutils literal"><span class="pre">meta</span></tt> tags, the title from the <tt class="docutils literal"><span class="pre">title</span></tt> tag, and the body out from the
+<tt class="docutils literal"><span class="pre">body</span></tt> tag:</p>
+<div class="highlight-python"><pre>&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;My super title&lt;/title&gt;
+        &lt;meta name="tags" contents="thats, awesome" /&gt;
+        &lt;meta name="date" contents="2012-07-09 22:28" /&gt;
+        &lt;meta name="category" contents="yeah" /&gt;
+        &lt;meta name="author" contents="Alexis Métaireau" /&gt;
+        &lt;meta name="summary" contents="Short version for index and feeds" /&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        This is the content of my super blog post.
+    &lt;/body&gt;
+&lt;/html&gt;</pre>
+</div>
+<p>With HTML, there is one simple exception to the standard metadata: <tt class="docutils literal"><span class="pre">tags</span></tt> can
+be specified either via the <tt class="docutils literal"><span class="pre">tags</span></tt> metadata, as is standard in Pelican, or
+via the <tt class="docutils literal"><span class="pre">keywords</span></tt> metadata, as is standard in HTML. The two can be used
+interchangeably.</p>
+<p>Note that, aside from the title, none of this article metadata is mandatory:
+if the date is not specified and <tt class="docutils literal"><span class="pre">DEFAULT_DATE</span></tt> is set to <tt class="docutils literal"><span class="pre">fs</span></tt>, Pelican
+will rely on the file&#8217;s &#8220;mtime&#8221; timestamp, and the category can be determined
+by the directory in which the file resides. For example, a file located at
+<tt class="docutils literal"><span class="pre">python/foobar/myfoobar.rst</span></tt> will have a category of <tt class="docutils literal"><span class="pre">foobar</span></tt>. If you would
+like to organize your files in other ways where the name of the subfolder would
+not be a good category name, you can set the setting <tt class="docutils literal"><span class="pre">USE_FOLDER_AS_CATEGORY</span></tt>
+to <tt class="docutils literal"><span class="pre">False</span></tt>.  When parsing dates given in the page metadata, Pelican supports
+the W3C&#8217;s <a class="reference external" href="http://www.w3.org/TR/NOTE-datetime">suggested subset ISO 8601</a>.</p>
+<p>If you do not explicitly specify summary metadata for a given post, the
+<tt class="docutils literal"><span class="pre">SUMMARY_MAX_LENGTH</span></tt> setting can be used to specify how many words from the
+beginning of an article are used as the summary.</p>
+<p>You can also extract any metadata from the filename through a regular
+expression to be set in the <tt class="docutils literal"><span class="pre">FILENAME_METADATA</span></tt> setting. All named groups
+that are matched will be set in the metadata object. The default value for the
+<tt class="docutils literal"><span class="pre">FILENAME_METADATA</span></tt> setting will only extract the date from the filename. For
+example, if you would like to extract both the date and the slug, you could set
+something like: <tt class="docutils literal"><span class="pre">'(?P&lt;date&gt;\d{4}-\d{2}-\d{2})_(?P&lt;slug&gt;.*)'</span></tt></p>
+<p>Please note that the metadata available inside your files takes precedence over
+the metadata extracted from the filename.</p>
+</div>
+<div class="section" id="id11">
+<h3>页面<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p>If you create a folder named <tt class="docutils literal"><span class="pre">pages</span></tt> inside the content folder, all the
+files in it will be used to generate static pages, such as <strong>About</strong> or
+<strong>Contact</strong> pages. (See example filesystem layout below.)</p>
+<p>You can use the <tt class="docutils literal"><span class="pre">DISPLAY_PAGES_ON_MENU</span></tt> setting to control whether all those
+pages are displayed in the primary navigation menu. (Default is <tt class="docutils literal"><span class="pre">True</span></tt>.)</p>
+<p>If you want to exclude any pages from being linked to or listed in the menu
+then add a <tt class="docutils literal"><span class="pre">status:</span> <span class="pre">hidden</span></tt> attribute to its metadata. This is useful for
+things like making error pages that fit the generated theme of your site.</p>
+</div>
+<div class="section" id="id12">
+<h3>链接到内部内容<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p>From Pelican 3.1 onwards, it is now possible to specify intra-site links to
+files in the <em>source content</em> hierarchy instead of files in the <em>generated</em>
+hierarchy. This makes it easier to link from the current post to other posts
+and images that may be sitting alongside the current post (instead of having
+to determine where those resources will be placed after site generation).</p>
+<p>To link to internal content (files in the <tt class="docutils literal"><span class="pre">content</span></tt> directory), use the
+following syntax: <tt class="docutils literal"><span class="pre">|filename|path/to/file</span></tt>:</p>
+<div class="highlight-python"><pre>website/
+├── content
+│   ├── article1.rst
+│   ├── cat/
+│   │   └── article2.md
+│   └── pages
+│       └── about.md
+└── pelican.conf.py</pre>
+</div>
+<p>In this example, <tt class="docutils literal"><span class="pre">article1.rst</span></tt> could look like:</p>
+<div class="highlight-python"><pre>The first article
+#################
+
+:date: 2012-12-01 10:02
+
+See below intra-site link examples in reStructuredText format.
+
+`a link relative to content root &lt;|filename|/cat/article2.md&gt;`_
+`a link relative to current file &lt;|filename|cat/article2.md&gt;`_</pre>
+</div>
+<p>and <tt class="docutils literal"><span class="pre">article2.md</span></tt>:</p>
+<div class="highlight-python"><pre>Title: The second article
+Date: 2012-12-01 10:02
+
+See below intra-site link examples in Markdown format.
+
+[a link relative to content root](|filename|/article1.rst)
+[a link relative to current file](|filename|../article1.rst)</pre>
+</div>
+<p>Embedding non-article or non-page content is slightly different in that the
+directories need to be specified in <tt class="docutils literal"><span class="pre">pelicanconf.py</span></tt> file. The <tt class="docutils literal"><span class="pre">images</span></tt>
+directory is configured for this by default but others will need to be added
+manually:</p>
+<div class="highlight-python"><pre>content
+├── images
+│   └── han.jpg
+└── misc
+    └── image-test.md</pre>
+</div>
+<p>And <tt class="docutils literal"><span class="pre">image-test.md</span></tt> would include:</p>
+<div class="highlight-python"><pre>![Alt Text](|filename|/images/han.jpg)</pre>
+</div>
+<p>Any content can be linked in this way. What happens is that the <tt class="docutils literal"><span class="pre">images</span></tt>
+directory gets copied to <tt class="docutils literal"><span class="pre">output/static/</span></tt> upon publishing. This is
+because <tt class="docutils literal"><span class="pre">images</span></tt> is in the <tt class="docutils literal"><span class="pre">settings[&quot;STATIC_PATHS&quot;]</span></tt> list by default. If
+you want to have another directory, say <tt class="docutils literal"><span class="pre">pdfs</span></tt> you would need to add the
+following to <tt class="docutils literal"><span class="pre">pelicanconf.py</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">STATIC_PATHS</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;images&#39;</span><span class="p">,</span> <span class="s">&#39;pdfs&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>And then the <tt class="docutils literal"><span class="pre">pdfs</span></tt> directory would also be copied to <tt class="docutils literal"><span class="pre">output/static/</span></tt>.</p>
+</div>
+<div class="section" id="id13">
+<h3>导入一个已有的博客<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<p>It is possible to import your blog from Dotclear, WordPress, and RSS feeds using
+a simple script. See <a class="reference internal" href="importer.html#import"><em>从其他博客软件导入</em></a>.</p>
+</div>
+<div class="section" id="id14">
+<h3>翻译<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<p>It is possible to translate articles. To do so, you need to add a <tt class="docutils literal"><span class="pre">lang</span></tt> meta
+attribute to your articles/pages and set a <tt class="docutils literal"><span class="pre">DEFAULT_LANG</span></tt> setting (which is
+English [en] by default). With those settings in place, only articles with the
+default language will be listed, and each article will be accompanied by a list
+of available translations for that article.</p>
+<p>Pelican uses the article&#8217;s URL &#8220;slug&#8221; to determine if two or more articles are
+translations of one another. The slug can be set manually in the file&#8217;s
+metadata; if not set explicitly, Pelican will auto-generate the slug from the
+title of the article.</p>
+<p>Here is an example of two articles, one in English and the other in French.</p>
+<p>The English article:</p>
+<div class="highlight-python"><pre>Foobar is not dead
+##################
+
+:slug: foobar-is-not-dead
+:lang: en
+
+That's true, foobar is still alive!</pre>
+</div>
+<p>And the French version:</p>
+<div class="highlight-python"><pre>Foobar n'est pas mort !
+#######################
+
+:slug: foobar-is-not-dead
+:lang: fr
+
+Oui oui, foobar est toujours vivant !</pre>
+</div>
+<p>Post content quality notwithstanding, you can see that only item in common
+between the two articles is the slug, which is functioning here as an
+identifier. If you&#8217;d rather not explicitly define the slug this way, you must
+then instead ensure that the translated article titles are identical, since the
+slug will be auto-generated from the article title.</p>
+<p>If you do not want the original version of one specific article to be detected
+by the <tt class="docutils literal"><span class="pre">DEFAULT_LANG</span></tt> setting, use the <tt class="docutils literal"><span class="pre">translation</span></tt> metadata to specify
+which posts are translations:</p>
+<div class="highlight-python"><pre>Foobar is not dead
+##################
+
+:slug: foobar-is-not-dead
+:lang: en
+:translation: true
+
+That's true, foobar is still alive!</pre>
+</div>
+</div>
+<div class="section" id="id15">
+<h3>语法高亮<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p>Pelican is able to provide colorized syntax highlighting for your code blocks.
+To do so, you have to use the following conventions inside your content files.</p>
+<p>For reStructuredText, use the code-block directive:</p>
+<div class="highlight-python"><pre>.. code-block:: identifier
+
+   &lt;indented code block goes here&gt;</pre>
+</div>
+<p>For Markdown, include the language identifier just above the code block,
+indenting both the identifier and code:</p>
+<div class="highlight-python"><pre>A block of text.
+
+    :::identifier
+    &lt;code goes here&gt;</pre>
+</div>
+<p>The specified identifier (e.g. <tt class="docutils literal"><span class="pre">python</span></tt>, <tt class="docutils literal"><span class="pre">ruby</span></tt>) should be one that
+appears on the <a class="reference external" href="http://pygments.org/docs/lexers/">list of available lexers</a>.</p>
+</div>
+<div class="section" id="id16">
+<h3>发布草稿<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<p>If you want to publish an article as a draft (for friends to review before
+publishing, for example), you can add a <tt class="docutils literal"><span class="pre">status:</span> <span class="pre">draft</span></tt> attribute to its
+metadata. That article will then be output to the <tt class="docutils literal"><span class="pre">drafts</span></tt> folder and not
+listed on the index page nor on any category page.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+    <a href="http://github.com/bravelee/pelican-docs-zh-cn"><img style="position: fixed; top: 0; right: 0; border: 0;"
+    src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+  
+
+  
+
+  </body>
+</html>

@@ -1,0 +1,213 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>常见问题 &mdash; pelican-docs-zh-cn 3.3.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/pelican.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '3.3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pelican-docs-zh-cn 3.3.0 documentation" href="index.html" />
+    <link rel="next" title="小贴士" href="tips.html" />
+    <link rel="prev" title="从其他博客软件导入" href="importer.html" /> 
+  </head>
+  <body>
+  
+  
+
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="section" id="id1">
+<h1>常见问题<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>Here are some frequently asked questions about Pelican.</p>
+<div class="section" id="id2">
+<h2>交流一个难题、疑问或者建议的最佳途径是什么？<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>If you have a problem, question, or suggestion, please start by striking up a
+conversation on <a class="reference external" href="irc://irc.freenode.net/pelican">#pelican on Freenode</a>.
+Those who don&#8217;t have an IRC client handy can jump in immediately via
+<a class="reference external" href="http://webchat.freenode.net/?channels=pelican&amp;uio=d4">IRC webchat</a>. Because
+of differing time zones, you may not get an immediate response to your
+question, but please be patient and stay logged into IRC — someone will almost
+always respond if you wait long enough (it may take a few hours).</p>
+<p>If you&#8217;re unable to resolve your issue or if you have a feature request, please
+refer to the <a class="reference external" href="https://github.com/getpelican/pelican/issues">issue tracker</a>.</p>
+</div>
+<div class="section" id="id3">
+<h2>我能做些什么？<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>There are several ways to help out. First, you can report any Pelican
+suggestions or problems you might have via IRC or the <a class="reference external" href="https://github.com/getpelican/pelican/issues">issue tracker</a>. If submitting an issue
+report, please check the existing issue list first in order to avoid submitting
+a duplicate issue.</p>
+<p>If you want to contribute, please fork <a class="reference external" href="https://github.com/getpelican/pelican/">the git repository</a>, create a new feature branch, make
+your changes, and issue a pull request. Someone will review your changes as
+soon as possible. Please refer to the <a class="reference internal" href="contribute.html"><em>How to Contribute</em></a>
+section for more details.</p>
+<p>You can also contribute by creating themes and improving the documentation.</p>
+</div>
+<div class="section" id="id5">
+<h2>是否强制需要一个配置文件？<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>Configuration files are optional and are just an easy way to configure Pelican.
+For basic operations, it&#8217;s possible to specify options while invoking Pelican
+via the command line. See <tt class="docutils literal"><span class="pre">pelican</span> <span class="pre">--help</span></tt> for more information.</p>
+</div>
+<div class="section" id="pygments">
+<h2>我在创建我自己的主题，我怎样使用Pygments来实现语法高亮？<a class="headerlink" href="#pygments" title="Permalink to this headline">¶</a></h2>
+<p>Pygments adds some classes to the generated content. These classes are used by
+themes to style code syntax highlighting via CSS. Specifically, you can
+customize the appearance of your syntax highlighting via the <tt class="docutils literal"><span class="pre">.highlight</span> <span class="pre">pre</span></tt>
+class in your theme&#8217;s CSS file. To see how various styles can be used to render
+Django code, for example, use the style selector drop-down at top-right on the
+<a class="reference external" href="http://pygments.org/demo/15101/">Pygments project demo site</a>.</p>
+<p>You can use the following example commands to generate a starting CSS file from
+a Pygments built-in style (in this case, &#8220;monokai&#8221;) and then copy the generated
+CSS file to your new theme:</p>
+<div class="highlight-python"><pre>pygmentize -S monokai -f html -a .highlight &gt; pygment.css
+cp pygment.css path/to/theme/static/css/</pre>
+</div>
+<p>Don&#8217;t forget to import your <tt class="docutils literal"><span class="pre">pygment.css</span></tt> file from your main CSS file.</p>
+</div>
+<div class="section" id="id6">
+<h2>我怎样创建自己的主题？<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>Please refer to <a class="reference internal" href="themes.html#theming-pelican"><em>怎样给Pelican创建主题</em></a>.</p>
+</div>
+<div class="section" id="markdown">
+<h2>我想使用Markdown，但我收到一个错误<a class="headerlink" href="#markdown" title="Permalink to this headline">¶</a></h2>
+<p>Markdown is not a hard dependency for Pelican, so you will need to explicitly
+install it. You can do so by typing the following command, prepending <tt class="docutils literal"><span class="pre">sudo</span></tt>
+if permissions require it:</p>
+<div class="highlight-python"><pre>pip install markdown</pre>
+</div>
+<p>If you don&#8217;t have <tt class="docutils literal"><span class="pre">pip</span></tt> installed, consider installing it via:</p>
+<div class="highlight-python"><pre>easy_install pip</pre>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>我能否在我的模板里使用任意的元数据？<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>Yes. For example, to include a modified date in a Markdown post, one could
+include the following at the top of the article:</p>
+<div class="highlight-python"><pre>Modified: 2012-08-08</pre>
+</div>
+<p>For reStructuredText, this metadata should of course be prefixed with a colon:</p>
+<div class="highlight-python"><pre>:Modified: 2012-08-08</pre>
+</div>
+<p>This metadata can then be accessed in the template:</p>
+<div class="highlight-python"><pre>{% if article.modified %}
+Last modified: {{ article.modified }}
+{% endif %}</pre>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>我怎样给每一页分配一个定制的模板？<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>It&#8217;s as simple as adding an extra line of metadata to any page or article that
+you want to have its own template. For example, this is how it would be handled
+for content in reST format:</p>
+<div class="highlight-python"><pre>:template: template_name</pre>
+</div>
+<p>For content in Markdown format:</p>
+<div class="highlight-python"><pre>Template: template_name</pre>
+</div>
+<p>Then just make sure your theme contains the relevant template file (e.g.
+<tt class="docutils literal"><span class="pre">template_name.html</span></tt>).</p>
+</div>
+<div class="section" id="url">
+<h2>我怎样覆盖一个特定的页面或文章生成的URL？<a class="headerlink" href="#url" title="Permalink to this headline">¶</a></h2>
+<p>Include <tt class="docutils literal"><span class="pre">url</span></tt> and <tt class="docutils literal"><span class="pre">save_as</span></tt> metadata in any pages or articles that you want
+to override the generated URL. Here is an example page in reST format:</p>
+<div class="highlight-python"><pre>Override url/save_as page
+#########################
+
+:url: override/url/
+:save_as: override/url/index.html</pre>
+</div>
+<p>With this metadata, the page will be written to <tt class="docutils literal"><span class="pre">override/url/index.html</span></tt>
+and Pelican will use url <tt class="docutils literal"><span class="pre">override/url/</span></tt> to link to this page.</p>
+</div>
+<div class="section" id="id9">
+<h2>我怎样使用一个静态页面作为我的主页？<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>The override feature mentioned above can be used to specify a static page as
+your home page. The following Markdown example could be stored in
+<tt class="docutils literal"><span class="pre">content/pages/home.md</span></tt>:</p>
+<div class="highlight-python"><pre>Title: Welcome to My Site
+URL:
+save_as: index.html
+
+Thank you for visiting. Welcome!</pre>
+</div>
+</div>
+<div class="section" id="feed">
+<h2>如果我让feed生成失效将会怎样？<a class="headerlink" href="#feed" title="Permalink to this headline">¶</a></h2>
+<p>To disable feed generation, all feed settings should be set to <tt class="docutils literal"><span class="pre">None</span></tt>.
+All but three feed settings already default to <tt class="docutils literal"><span class="pre">None</span></tt>, so if you want to
+disable all feed generation, you only need to specify the following settings:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">FEED_ALL_ATOM</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">CATEGORY_FEED_ATOM</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">TRANSLATION_FEED_ATOM</span> <span class="o">=</span> <span class="bp">None</span>
+</pre></div>
+</div>
+<p>Please note that <tt class="docutils literal"><span class="pre">None</span></tt> and <tt class="docutils literal"><span class="pre">''</span></tt> are not the same thing. The word <tt class="docutils literal"><span class="pre">None</span></tt>
+should not be surrounded by quotes.</p>
+</div>
+<div class="section" id="feedssiteurl">
+<h2>我收到一个警告：生成feeds时SITEURL未正确设置<a class="headerlink" href="#feedssiteurl" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://validator.w3.org/feed/docs/rss2.html#comments">RSS and Atom feeds require all URL links to be absolute</a>.
+In order to properly generate links in Pelican you will need to set <tt class="docutils literal"><span class="pre">SITEURL</span></tt>
+to the full path of your site.</p>
+<p>Feeds are still generated when this warning is displayed, but links within may
+be malformed and thus the feed may not validate.</p>
+</div>
+<div class="section" id="pelican-3-x">
+<h2>自从我升级到Pelican 3.x，供稿就被破坏了<a class="headerlink" href="#pelican-3-x" title="Permalink to this headline">¶</a></h2>
+<p>Starting in 3.0, some of the FEED setting names were changed to more explicitly
+refer to the Atom feeds they inherently represent (much like the FEED_RSS
+setting names). Here is an exact list of the renamed settings:</p>
+<div class="highlight-python"><pre>FEED -&gt; FEED_ATOM
+TAG_FEED -&gt; TAG_FEED_ATOM
+CATEGORY_FEED -&gt; CATEGORY_FEED_ATOM</pre>
+</div>
+<p>Starting in 3.1, the new feed <tt class="docutils literal"><span class="pre">FEED_ALL_ATOM</span></tt> has been introduced: this
+feed will aggregate all posts regardless of their language. This setting
+generates <tt class="docutils literal"><span class="pre">'feeds/all.atom.xml'</span></tt> by default and <tt class="docutils literal"><span class="pre">FEED_ATOM</span></tt> now defaults to
+<tt class="docutils literal"><span class="pre">None</span></tt>. The following feed setting has also been renamed:</p>
+<div class="highlight-python"><pre>TRANSLATION_FEED -&gt; TRANSLATION_FEED_ATOM</pre>
+</div>
+<p>Older themes that referenced the old setting names may not link properly.
+In order to rectify this, please update your theme for compatibility by changing
+the relevant values in your template files. For an example of complete feed
+headers and usage please check out the <tt class="docutils literal"><span class="pre">simple</span></tt> theme.</p>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+    <a href="http://github.com/bravelee/pelican-docs-zh-cn"><img style="position: fixed; top: 0; right: 0; border: 0;"
+    src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+  
+
+  
+
+  </body>
+</html>

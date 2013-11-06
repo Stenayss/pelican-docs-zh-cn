@@ -1,0 +1,179 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>从其他博客软件导入 &mdash; pelican-docs-zh-cn 3.3.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/pelican.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '3.3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pelican-docs-zh-cn 3.3.0 documentation" href="index.html" />
+    <link rel="next" title="常见问题" href="faq.html" />
+    <link rel="prev" title="pelican-themes命令" href="pelican-themes.html" /> 
+  </head>
+  <body>
+  
+  
+
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="section" id="import">
+<span id="id1"></span><h1>从其他博客软件导入<a class="headerlink" href="#import" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>描述<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">pelican-import</span></tt> is a command-line tool for converting articles from other
+software to reStructuredText or Markdown. The supported import formats are:</p>
+<ul class="simple">
+<li>WordPress XML export</li>
+<li>Dotclear export</li>
+<li>Posterous API</li>
+<li>RSS/Atom feed</li>
+</ul>
+<p>The conversion from HTML to reStructuredText or Markdown relies on <a class="reference external" href="http://johnmacfarlane.net/pandoc/">Pandoc</a>.
+For Dotclear, if the source posts are written with Markdown syntax, they will
+not be converted (as Pelican also supports Markdown).</p>
+</div>
+<div class="section" id="id3">
+<h2>依赖<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">pelican-import</span></tt> has some dependencies not required by the rest of Pelican:</p>
+<ul class="simple">
+<li><em>BeautifulSoup4</em> and <em>lxml</em>, for WordPress and Dotclear import. Can be installed like
+any other Python package (<tt class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">BeautifulSoup4</span> <span class="pre">lxml</span></tt>).</li>
+<li><em>Feedparser</em>, for feed import (<tt class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">feedparser</span></tt>).</li>
+<li><em>Pandoc</em>, see the <a class="reference external" href="http://johnmacfarlane.net/pandoc/installing.html">Pandoc site</a> for installation instructions on your
+operating system.</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2>用法<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><pre>pelican-import [-h] [--wpfile] [--dotclear] [--posterous] [--feed] [-o OUTPUT]
+               [-m MARKUP] [--dir-cat] [--dir-page] [--strip-raw] [--disable-slugs]
+               [-e EMAIL] [-p PASSWORD]
+               input|api_token</pre>
+</div>
+<div class="section" id="id5">
+<h3>位置参数<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>input                 The input file to read
+api_token             [Posterous only] api_token can be obtained from <a class="reference external" href="http://posterous.com/api/">http://posterous.com/api/</a></div></blockquote>
+</div>
+<div class="section" id="id6">
+<h3>可选参数<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></td>
+<td>Show this help message and exit</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--wpfile</span></kbd></td>
+<td>WordPress XML export (default: False)</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--dotclear</span></kbd></td>
+<td>Dotclear export (default: False)</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--posterous</span></kbd></td>
+<td>Posterous API (default: False)</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--feed</span></kbd></td>
+<td>Feed to parse (default: False)</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-o <var>OUTPUT</var></span>, <span class="option">--output <var>OUTPUT</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Output path (default: output)</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-m <var>MARKUP</var></span>, <span class="option">--markup <var>MARKUP</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Output markup format (supports rst &amp; markdown)
+(default: rst)</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--dir-cat</span></kbd></td>
+<td>Put files in directories with categories name
+(default: False)</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--dir-page</span></kbd></td>
+<td>Put files recognised as pages in &#8220;pages/&#8221; sub-
+directory (wordpress import only) (default: False)</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--strip-raw</span></kbd></td>
+<td>Strip raw HTML code that can&#8217;t be converted to markup
+such as flash embeds or iframes (wordpress import
+only) (default: False)</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">--disable-slugs</span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Disable storing slugs from imported posts within
+output. With this disabled, your Pelican URLs may not
+be consistent with your original posts. (default:
+False)</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-e <var>EMAIL</var></span>, <span class="option">--email=<var>EMAIL</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Email used to authenticate Posterous API</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-p <var>PASSWORD</var></span>, <span class="option">--password=<var>PASSWORD</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Password used to authenticate Posterous API</td></tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>样例<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>For WordPress:</p>
+<div class="highlight-python"><pre>$ pelican-import --wpfile -o ~/output ~/posts.xml</pre>
+</div>
+<p>For Dotclear:</p>
+<div class="highlight-python"><pre>$ pelican-import --dotclear -o ~/output ~/backup.txt</pre>
+</div>
+<p>for Posterous:</p>
+<div class="highlight-python"><pre>$ pelican-import --posterous -o ~/output --email=&lt;email_address&gt; --password=&lt;password&gt; &lt;api_token&gt;</pre>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>测试<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>To test the module, one can use sample files:</p>
+<ul class="simple">
+<li>for WordPress: <a class="reference external" href="http://wpcandy.com/made/the-sample-post-collection">http://wpcandy.com/made/the-sample-post-collection</a></li>
+<li>for Dotclear: <a class="reference external" href="http://themes.dotaddict.org/files/public/downloads/lorem-backup.txt">http://themes.dotaddict.org/files/public/downloads/lorem-backup.txt</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+    <a href="http://github.com/bravelee/pelican-docs-zh-cn"><img style="position: fixed; top: 0; right: 0; border: 0;"
+    src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+  
+
+  
+
+  </body>
+</html>

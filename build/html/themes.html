@@ -1,0 +1,495 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>怎样给Pelican创建主题 &mdash; pelican-docs-zh-cn 3.3.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/pelican.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '3.3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pelican-docs-zh-cn 3.3.0 documentation" href="index.html" />
+    <link rel="next" title="插件" href="plugins.html" />
+    <link rel="prev" title="设置" href="settings.html" /> 
+  </head>
+  <body>
+  
+  
+
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="section" id="pelican">
+<span id="theming-pelican"></span><h1>怎样给Pelican创建主题<a class="headerlink" href="#pelican" title="Permalink to this headline">¶</a></h1>
+<p>Pelican uses the great <a class="reference external" href="http://jinja.pocoo.org/">Jinja2</a> templating engine to
+generate its HTML output. Jinja2 syntax is really simple. If you want to
+create your own theme, feel free to take inspiration from the <a class="reference external" href="https://github.com/getpelican/pelican/tree/master/pelican/themes/simple/templates">&#8220;simple&#8221; theme</a>.</p>
+<div class="section" id="id1">
+<h2>结构<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>To make your own theme, you must follow the following structure:</p>
+<div class="highlight-python"><pre>├── static
+│   ├── css
+│   └── images
+└── templates
+    ├── archives.html         // to display archives
+    ├── period_archives.html  // to display time-period archives
+    ├── article.html          // processed for each article
+    ├── author.html           // processed for each author
+    ├── authors.html          // must list all the authors
+    ├── categories.html       // must list all the categories
+    ├── category.html         // processed for each category
+    ├── index.html            // the index. List all the articles
+    ├── page.html             // processed for each page
+    ├── tag.html              // processed for each tag
+    └── tags.html             // must list all the tags. Can be a tag cloud.</pre>
+</div>
+<ul class="simple">
+<li><cite>static</cite> contains all the static assets, which will be copied to the output
+<cite>theme</cite> folder. I&#8217;ve put the CSS and image folders here, but they are
+just examples. Put what you need here.</li>
+<li><cite>templates</cite> contains all the templates that will be used to generate the content.
+I&#8217;ve just put the mandatory templates here; you can define your own if it helps
+you keep things organized while creating your theme.</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>模板和变量<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>The idea is to use a simple syntax that you can embed into your HTML pages.
+This document describes which templates should exist in a theme, and which
+variables will be passed to each template at generation time.</p>
+<p>All templates will receive the variables defined in your settings file, if they
+are in all-caps. You can access them directly.</p>
+<div class="section" id="id3">
+<h3>公共变量<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>All of these settings will be available to all templates.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Variable</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>output_file</td>
+<td>The name of the file currently being generated. For
+instance, when Pelican is rendering the homepage,
+output_file will be &#8220;index.html&#8221;.</td>
+</tr>
+<tr class="row-odd"><td>articles</td>
+<td>The list of articles, ordered descending by date
+All the elements are <cite>Article</cite> objects, so you can
+access their attributes (e.g. title, summary, author
+etc.). Sometimes this is shadowed (for instance in
+the tags page). You will then find info about it
+in the <cite>all_articles</cite> variable.</td>
+</tr>
+<tr class="row-even"><td>dates</td>
+<td>The same list of articles, but ordered by date,
+ascending</td>
+</tr>
+<tr class="row-odd"><td>tags</td>
+<td>A list of (tag, articles) tuples, containing all
+the tags.</td>
+</tr>
+<tr class="row-even"><td>categories</td>
+<td>A list of (category, articles) tuples, containing
+all the categories.
+and the list of respective articles (values)</td>
+</tr>
+<tr class="row-odd"><td>pages</td>
+<td>The list of pages</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id4">
+<h3>排序<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>URL wrappers (currently categories, tags, and authors), have
+comparison methods that allow them to be easily sorted by name:</p>
+<div class="highlight-python"><pre>{% for tag, articles in tags|sort %}</pre>
+</div>
+<p>If you want to sort based on different criteria, <a class="reference external" href="http://jinja.pocoo.org/docs/templates/#sort">Jinja&#8217;s sort
+command</a> has a number of options.</p>
+</div>
+<div class="section" id="id6">
+<h3>日期格式化<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>Pelican formats the date with according to your settings and locale
+(<tt class="docutils literal"><span class="pre">DATE_FORMATS</span></tt>/<tt class="docutils literal"><span class="pre">DEFAULT_DATE_FORMAT</span></tt>) and provides a
+<tt class="docutils literal"><span class="pre">locale_date</span></tt> attribute. On the other hand, <tt class="docutils literal"><span class="pre">date</span></tt> attribute will
+be a <a class="reference external" href="http://docs.python.org/2/library/datetime.html#datetime-objects">datetime</a> object. If you need custom formatting for a date
+different than your settings, use the Jinja filter <tt class="docutils literal"><span class="pre">strftime</span></tt>
+that comes with Pelican. Usage is same as Python <a class="reference external" href="http://docs.python.org/2/library/datetime.html#strftime-strptime-behavior">strftime</a> format,
+but the filter will do the right thing and format your date according
+to the locale given in your settings:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{{</span> <span class="n">article</span><span class="o">.</span><span class="n">date</span><span class="o">|</span><span class="n">strftime</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%d</span><span class="s"> %B %Y&#39;</span><span class="p">)</span> <span class="p">}}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id7">
+<h3>首页<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>This is the home page of your blog, generated at output/index.html.</p>
+<p>If pagination is active, subsequent pages will reside in output/index`n`.html.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="27%" />
+<col width="73%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Variable</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>articles_paginator</td>
+<td>A paginator object for the list of articles</td>
+</tr>
+<tr class="row-odd"><td>articles_page</td>
+<td>The current page of articles</td>
+</tr>
+<tr class="row-even"><td>dates_paginator</td>
+<td>A paginator object for the article list, ordered by
+date, ascending.</td>
+</tr>
+<tr class="row-odd"><td>dates_page</td>
+<td>The current page of articles, ordered by date,
+ascending.</td>
+</tr>
+<tr class="row-even"><td>page_name</td>
+<td>&#8216;index&#8217; &#8211; useful for pagination links</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id8">
+<h3>作者页<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>This template will be processed for each of the existing authors, with
+output generated at output/author/<cite>author_name</cite>.html.</p>
+<p>If pagination is active, subsequent pages will reside as defined by setting
+AUTHOR_SAVE_AS (<cite>Default:</cite> output/author/<cite>author_name&#8217;n&#8217;</cite>.html).</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="27%" />
+<col width="73%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Variable</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>author</td>
+<td>The name of the author being processed</td>
+</tr>
+<tr class="row-odd"><td>articles</td>
+<td>Articles by this author</td>
+</tr>
+<tr class="row-even"><td>dates</td>
+<td>Articles by this author, but ordered by date,
+ascending</td>
+</tr>
+<tr class="row-odd"><td>articles_paginator</td>
+<td>A paginator object for the list of articles</td>
+</tr>
+<tr class="row-even"><td>articles_page</td>
+<td>The current page of articles</td>
+</tr>
+<tr class="row-odd"><td>dates_paginator</td>
+<td>A paginator object for the article list, ordered by
+date, ascending.</td>
+</tr>
+<tr class="row-even"><td>dates_page</td>
+<td>The current page of articles, ordered by date,
+ascending.</td>
+</tr>
+<tr class="row-odd"><td>page_name</td>
+<td>AUTHOR_URL where everything after <cite>{slug}</cite> is
+removed &#8211; useful for pagination links</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id9">
+<h3>分类页<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>This template will be processed for each of the existing categories, with
+output generated at output/category/<cite>category_name</cite>.html.</p>
+<p>If pagination is active, subsequent pages will reside as defined by setting
+CATEGORY_SAVE_AS (<cite>Default:</cite> output/category/<cite>category_name&#8217;n&#8217;</cite>.html).</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="27%" />
+<col width="73%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Variable</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>category</td>
+<td>The name of the category being processed</td>
+</tr>
+<tr class="row-odd"><td>articles</td>
+<td>Articles for this category</td>
+</tr>
+<tr class="row-even"><td>dates</td>
+<td>Articles for this category, but ordered by date,
+ascending</td>
+</tr>
+<tr class="row-odd"><td>articles_paginator</td>
+<td>A paginator object for the list of articles</td>
+</tr>
+<tr class="row-even"><td>articles_page</td>
+<td>The current page of articles</td>
+</tr>
+<tr class="row-odd"><td>dates_paginator</td>
+<td>A paginator object for the list of articles,
+ordered by date, ascending</td>
+</tr>
+<tr class="row-even"><td>dates_page</td>
+<td>The current page of articles, ordered by date,
+ascending</td>
+</tr>
+<tr class="row-odd"><td>page_name</td>
+<td>CATEGORY_URL where everything after <cite>{slug}</cite> is
+removed &#8211; useful for pagination links</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id10">
+<h3>文章页<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>This template will be processed for each article, with .html files saved
+as output/<cite>article_name</cite>.html. Here are the specific variables it gets.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Variable</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>article</td>
+<td>The article object to be displayed</td>
+</tr>
+<tr class="row-odd"><td>category</td>
+<td>The name of the category for the current article</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id11">
+<h3>静态页<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p>This template will be processed for each page, with corresponding .html files
+saved as output/<cite>page_name</cite>.html.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Variable</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>page</td>
+<td>The page object to be displayed. You can access its
+title, slug, and content.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id12">
+<h3>标签页<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p>This template will be processed for each tag, with corresponding .html files
+saved as output/tag/<cite>tag_name</cite>.html.</p>
+<p>If pagination is active, subsequent pages will reside as defined in setting
+TAG_SAVE_AS (<cite>Default:</cite> output/tag/<cite>tag_name&#8217;n&#8217;</cite>.html).</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="27%" />
+<col width="73%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Variable</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>tag</td>
+<td>The name of the tag being processed</td>
+</tr>
+<tr class="row-odd"><td>articles</td>
+<td>Articles related to this tag</td>
+</tr>
+<tr class="row-even"><td>dates</td>
+<td>Articles related to this tag, but ordered by date,
+ascending</td>
+</tr>
+<tr class="row-odd"><td>articles_paginator</td>
+<td>A paginator object for the list of articles</td>
+</tr>
+<tr class="row-even"><td>articles_page</td>
+<td>The current page of articles</td>
+</tr>
+<tr class="row-odd"><td>dates_paginator</td>
+<td>A paginator object for the list of articles,
+ordered by date, ascending</td>
+</tr>
+<tr class="row-even"><td>dates_page</td>
+<td>The current page of articles, ordered by date,
+ascending</td>
+</tr>
+<tr class="row-odd"><td>page_name</td>
+<td>TAG_URL where everything after <cite>{slug}</cite> is removed
+&#8211; useful for pagination links</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="id13">
+<h2>供稿<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<p>The feed variables changed in 3.0. Each variable now explicitly lists ATOM or
+RSS in the name. ATOM is still the default. Old themes will need to be updated.
+Here is a complete list of the feed variables:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">FEED_ATOM</span>
+<span class="n">FEED_RSS</span>
+<span class="n">FEED_ALL_ATOM</span>
+<span class="n">FEED_ALL_RSS</span>
+<span class="n">CATEGORY_FEED_ATOM</span>
+<span class="n">CATEGORY_FEED_RSS</span>
+<span class="n">TAG_FEED_ATOM</span>
+<span class="n">TAG_FEED_RSS</span>
+<span class="n">TRANSLATION_FEED_ATOM</span>
+<span class="n">TRANSLATION_FEED_RSS</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id14">
+<h2>继承<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<p>Since version 3.0, Pelican supports inheritance from the <tt class="docutils literal"><span class="pre">simple</span></tt> theme, so
+you can re-use the <tt class="docutils literal"><span class="pre">simple</span></tt> theme templates in your own themes.</p>
+<p>If one of the mandatory files in the <tt class="docutils literal"><span class="pre">templates/</span></tt> directory of your theme is
+missing, it will be replaced by the matching template from the <tt class="docutils literal"><span class="pre">simple</span></tt> theme.
+So if the HTML structure of a template in the <tt class="docutils literal"><span class="pre">simple</span></tt> theme is right for you,
+you don&#8217;t have to write a new template from scratch.</p>
+<p>You can also extend templates from the <tt class="docutils literal"><span class="pre">simple</span></tt> themes in your own themes by using the <tt class="docutils literal"><span class="pre">{%</span> <span class="pre">extends</span> <span class="pre">%}</span></tt> directive as in the following example:</p>
+<div class="highlight-html+jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">extends</span> <span class="s2">&quot;!simple/index.html&quot;</span> <span class="cp">%}</span>   <span class="c">&lt;!-- extends the ``index.html`` template from the ``simple`` theme --&gt;</span>
+
+<span class="cp">{%</span> <span class="k">extends</span> <span class="s2">&quot;index.html&quot;</span> <span class="cp">%}</span>   <span class="c">&lt;!-- &quot;regular&quot; extending --&gt;</span>
+</pre></div>
+</div>
+<div class="section" id="id15">
+<h3>样例<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p>With this system, it is possible to create a theme with just two files.</p>
+<div class="section" id="base-html">
+<h4>base.html<a class="headerlink" href="#base-html" title="Permalink to this headline">¶</a></h4>
+<p>The first file is the <tt class="docutils literal"><span class="pre">templates/base.html</span></tt> template:</p>
+<div class="highlight-html+jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">extends</span> <span class="s2">&quot;!simple/base.html&quot;</span> <span class="cp">%}</span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">head</span> <span class="cp">%}</span>
+<span class="cp">{{</span> <span class="nb">super</span><span class="o">()</span> <span class="cp">}}</span>
+   <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span> <span class="na">href=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">SITEURL</span> <span class="cp">}}</span><span class="s">/theme/css/style.css&quot;</span> <span class="nt">/&gt;</span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li>On the first line, we extend the <tt class="docutils literal"><span class="pre">base.html</span></tt> template from the <tt class="docutils literal"><span class="pre">simple</span></tt> theme, so we don&#8217;t have to rewrite the entire file.</li>
+<li>On the third line, we open the <tt class="docutils literal"><span class="pre">head</span></tt> block which has already been defined in the <tt class="docutils literal"><span class="pre">simple</span></tt> theme.</li>
+<li>On the fourth line, the function <tt class="docutils literal"><span class="pre">super()</span></tt> keeps the content previously inserted in the <tt class="docutils literal"><span class="pre">head</span></tt> block.</li>
+<li>On the fifth line, we append a stylesheet to the page.</li>
+<li>On the last line, we close the <tt class="docutils literal"><span class="pre">head</span></tt> block.</li>
+</ol>
+<p>This file will be extended by all the other templates, so the stylesheet will be linked from all pages.</p>
+</div>
+<div class="section" id="style-css">
+<h4>style.css<a class="headerlink" href="#style-css" title="Permalink to this headline">¶</a></h4>
+<p>The second file is the <tt class="docutils literal"><span class="pre">static/css/style.css</span></tt> CSS stylesheet:</p>
+<div class="highlight-css"><div class="highlight"><pre><span class="nt">body</span> <span class="p">{</span>
+    <span class="k">font-family</span> <span class="o">:</span> <span class="k">monospace</span> <span class="p">;</span>
+    <span class="k">font-size</span> <span class="o">:</span> <span class="m">100</span><span class="o">%</span> <span class="p">;</span>
+    <span class="k">background-color</span> <span class="o">:</span> <span class="nb">white</span> <span class="p">;</span>
+    <span class="k">color</span> <span class="o">:</span> <span class="m">#111</span> <span class="p">;</span>
+    <span class="k">width</span> <span class="o">:</span> <span class="m">80</span><span class="o">%</span> <span class="p">;</span>
+    <span class="k">min-width</span> <span class="o">:</span> <span class="m">400px</span> <span class="p">;</span>
+    <span class="k">min-height</span> <span class="o">:</span> <span class="m">200px</span> <span class="p">;</span>
+    <span class="k">padding</span> <span class="o">:</span> <span class="m">1em</span> <span class="p">;</span>
+    <span class="k">margin</span> <span class="o">:</span> <span class="m">5</span><span class="o">%</span> <span class="m">10</span><span class="o">%</span> <span class="p">;</span>
+    <span class="k">border</span> <span class="o">:</span> <span class="k">thin</span> <span class="k">solid</span> <span class="nb">gray</span> <span class="p">;</span>
+    <span class="k">border</span><span class="o">-</span><span class="n">radius</span> <span class="o">:</span> <span class="m">5px</span> <span class="p">;</span>
+    <span class="k">display</span> <span class="o">:</span> <span class="k">block</span> <span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">a</span><span class="nd">:link</span>    <span class="p">{</span> <span class="k">color</span> <span class="o">:</span> <span class="nb">blue</span> <span class="p">;</span> <span class="k">text-decoration</span> <span class="o">:</span> <span class="k">none</span> <span class="p">;</span>      <span class="p">}</span>
+<span class="nt">a</span><span class="nd">:hover</span>   <span class="p">{</span> <span class="k">color</span> <span class="o">:</span> <span class="nb">blue</span> <span class="p">;</span> <span class="k">text-decoration</span> <span class="o">:</span> <span class="k">underline</span> <span class="p">;</span> <span class="p">}</span>
+<span class="nt">a</span><span class="nd">:visited</span> <span class="p">{</span> <span class="k">color</span> <span class="o">:</span> <span class="nb">blue</span> <span class="p">;</span>                               <span class="p">}</span>
+
+<span class="nt">h1</span> <span class="nt">a</span> <span class="p">{</span> <span class="k">color</span> <span class="o">:</span> <span class="k">inherit</span> <span class="cp">!important</span> <span class="p">}</span>
+<span class="nt">h2</span> <span class="nt">a</span> <span class="p">{</span> <span class="k">color</span> <span class="o">:</span> <span class="k">inherit</span> <span class="cp">!important</span> <span class="p">}</span>
+<span class="nt">h3</span> <span class="nt">a</span> <span class="p">{</span> <span class="k">color</span> <span class="o">:</span> <span class="k">inherit</span> <span class="cp">!important</span> <span class="p">}</span>
+<span class="nt">h4</span> <span class="nt">a</span> <span class="p">{</span> <span class="k">color</span> <span class="o">:</span> <span class="k">inherit</span> <span class="cp">!important</span> <span class="p">}</span>
+<span class="nt">h5</span> <span class="nt">a</span> <span class="p">{</span> <span class="k">color</span> <span class="o">:</span> <span class="k">inherit</span> <span class="cp">!important</span> <span class="p">}</span>
+<span class="nt">h6</span> <span class="nt">a</span> <span class="p">{</span> <span class="k">color</span> <span class="o">:</span> <span class="k">inherit</span> <span class="cp">!important</span> <span class="p">}</span>
+
+<span class="nt">pre</span> <span class="p">{</span>
+    <span class="k">margin</span> <span class="o">:</span> <span class="m">2em</span> <span class="m">1em</span> <span class="m">2em</span> <span class="m">4em</span> <span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nf">#menu</span> <span class="nt">li</span> <span class="p">{</span>
+    <span class="k">display</span> <span class="o">:</span> <span class="k">inline</span> <span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nf">#post-list</span> <span class="p">{</span>
+    <span class="k">margin-bottom</span> <span class="o">:</span> <span class="m">1em</span> <span class="p">;</span>
+    <span class="k">margin-top</span> <span class="o">:</span> <span class="m">1em</span> <span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="download">
+<h4>Download<a class="headerlink" href="#download" title="Permalink to this headline">¶</a></h4>
+<p>You can download this example theme <a class="reference download internal" href="_downloads/theme-basic.zip"><tt class="xref download docutils literal"><span class="pre">here</span></tt></a>.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+    <a href="http://github.com/bravelee/pelican-docs-zh-cn"><img style="position: fixed; top: 0; right: 0; border: 0;"
+    src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+  
+
+  
+
+  </body>
+</html>

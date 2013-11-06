@@ -1,0 +1,133 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Pelican内部构件 &mdash; pelican-docs-zh-cn 3.3.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/pelican.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '3.3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pelican-docs-zh-cn 3.3.0 documentation" href="index.html" />
+    <link rel="next" title="pelican-themes命令" href="pelican-themes.html" />
+    <link rel="prev" title="插件" href="plugins.html" /> 
+  </head>
+  <body>
+  
+  
+
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="section" id="pelican">
+<h1>Pelican内部构件<a class="headerlink" href="#pelican" title="Permalink to this headline">¶</a></h1>
+<p>This section describe how Pelican works internally. As you&#8217;ll see, it&#8217;s
+quite simple, but a bit of documentation doesn&#8217;t hurt.  :)</p>
+<p>You can also find in the <a class="reference internal" href="report.html"><em>关于Pelican的一些历史</em></a> section an excerpt of a report the
+original author wrote with some software design information.</p>
+<div class="section" id="id1">
+<h2>总体结构<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>What Pelican does is take a list of files and process them into some sort of
+output. Usually, the input files are reStructuredText, Markdown and AsciiDoc
+files, and the output is a blog, but both input and output can be anything you
+want.</p>
+<p>The logic is separated into different classes and concepts:</p>
+<ul class="simple">
+<li><strong>Writers</strong> are responsible for writing files: .html files, RSS feeds, and so
+on. Since those operations are commonly used, the object is created once and
+then passed to the generators.</li>
+<li><strong>Readers</strong> are used to read from various formats (AsciiDoc, HTML, Markdown and
+reStructuredText for now, but the system is extensible). Given a file, they
+return metadata (author, tags, category, etc.) and content (HTML-formatted).</li>
+<li><strong>Generators</strong> generate the different outputs. For instance, Pelican comes with
+<tt class="docutils literal"><span class="pre">ArticlesGenerator</span></tt> and <tt class="docutils literal"><span class="pre">PageGenerator</span></tt>. Given a configuration, they can do
+whatever they want. Most of the time, it&#8217;s generating files from inputs.</li>
+<li>Pelican also uses templates, so it&#8217;s easy to write your own theme. The
+syntax is <a class="reference external" href="http://jinja.pocoo.org/">Jinja2</a> and is very easy to learn, so
+don&#8217;t hesitate to jump in and build your own theme.</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>怎样实现一个新的阅读器？<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>Is there an awesome markup language you want to add to Pelican?
+Well, the only thing you have to do is to create a class with a <tt class="docutils literal"><span class="pre">read</span></tt>
+method that returns HTML content and some metadata.</p>
+<p>Take a look at the Markdown reader:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">MarkdownReader</span><span class="p">(</span><span class="n">Reader</span><span class="p">):</span>
+    <span class="n">enabled</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">Markdown</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source_path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Parse content and metadata of markdown files&quot;&quot;&quot;</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">pelican_open</span><span class="p">(</span><span class="n">source_path</span><span class="p">)</span>
+        <span class="n">md</span> <span class="o">=</span> <span class="n">Markdown</span><span class="p">(</span><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;meta&#39;</span><span class="p">,</span> <span class="s">&#39;codehilite&#39;</span><span class="p">])</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+
+        <span class="n">metadata</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">md</span><span class="o">.</span><span class="n">Meta</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="n">meta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_metadata</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">metadata</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">meta</span>
+        <span class="k">return</span> <span class="n">content</span><span class="p">,</span> <span class="n">metadata</span>
+</pre></div>
+</div>
+<p>Simple, isn&#8217;t it?</p>
+<p>If your new reader requires additional Python dependencies, then you should wrap
+their <tt class="docutils literal"><span class="pre">import</span></tt> statements in a <tt class="docutils literal"><span class="pre">try...except</span></tt> block.  Then inside the reader&#8217;s
+class, set the <tt class="docutils literal"><span class="pre">enabled</span></tt> class attribute to mark import success or failure.
+This makes it possible for users to continue using their favourite markup method
+without needing to install modules for formats they don&#8217;t use.</p>
+</div>
+<div class="section" id="id3">
+<h2>怎样实现一个新的生成器？<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>Generators have two important methods. You&#8217;re not forced to create
+both; only the existing ones will be called.</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">generate_context</span></tt>, that is called first, for all the generators.
+Do whatever you have to do, and update the global context if needed. This
+context is shared between all generators, and will be passed to the
+templates. For instance, the <tt class="docutils literal"><span class="pre">PageGenerator</span></tt> <tt class="docutils literal"><span class="pre">generate_context</span></tt> method
+finds all the pages, transforms them into objects, and populates the context
+with them. Be careful <em>not</em> to output anything using this context at this
+stage, as it is likely to change by the effect of other generators.</li>
+<li><tt class="docutils literal"><span class="pre">generate_output</span></tt> is then called. And guess what is it made for? Oh,
+generating the output.  :) It&#8217;s here that you may want to look at the context
+and call the methods of the <tt class="docutils literal"><span class="pre">writer</span></tt> object that is passed as the first
+argument of this function. In the <tt class="docutils literal"><span class="pre">PageGenerator</span></tt> example, this method will
+look at all the pages recorded in the global context and output a file on
+the disk (using the writer method <tt class="docutils literal"><span class="pre">write_file</span></tt>) for each page encountered.</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+    <a href="http://github.com/bravelee/pelican-docs-zh-cn"><img style="position: fixed; top: 0; right: 0; border: 0;"
+    src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+  
+
+  
+
+  </body>
+</html>
