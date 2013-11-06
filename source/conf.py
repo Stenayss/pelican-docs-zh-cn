@@ -222,8 +222,12 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'pelican-docs-zh-cn', u'pelican-docs-zh-cn Documentation',
-     [u'Bravelee'], 1)
+    ('index', 'pelican-docs-zh-cn', 'pelican-docs-zh-cn Documentation',
+     ['Alexis Metaireau'], 1),
+     ('pelican-themes', 'pelican-themes', 'A theme manager for Pelican',
+     ['Mickal Raybaud'], 1),
+    ('themes', 'pelican-theming', 'How to create themes for Pelican',
+     ['The Pelican contributors'], 1)
 ]
 
 # If true, show URL addresses after external links.

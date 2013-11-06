@@ -45,6 +45,41 @@ can also help out by reviewing and commenting on
 <a class="reference external" href="https://github.com/getpelican/pelican/issues">existing issues</a>.</p>
 <p>Don&#8217;t hesitate to fork Pelican and submit a pull request on GitHub. When doing
 so, please adhere to the following guidelines.</p>
+<div class="section" id="contribution-submission-guidelines">
+<h2>Contribution submission guidelines<a class="headerlink" href="#contribution-submission-guidelines" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Consider whether your new feature might be better suited as a <a class="reference external" href="http://docs.getpelican.com/en/latest/plugins.html">plugin</a>. Folks
+are usually available in the <a class="reference external" href="http://webchat.freenode.net/?channels=pelican&amp;uio=d4">#pelican IRC channel</a> if help is needed to
+make that determination.</li>
+<li><a class="reference external" href="https://github.com/getpelican/pelican/wiki/Git-Tips#making-your-changes">Create a new git branch</a> specific to your change (as opposed to making
+your commits in the master branch).</li>
+<li><strong>Don&#8217;t put multiple fixes/features in the same branch / pull request.</strong>
+For example, if you&#8217;re hacking on a new feature and find a bugfix that
+doesn&#8217;t <em>require</em> your new feature, <strong>make a new distinct branch and pull
+request</strong> for the bugfix.</li>
+<li>Adhere to PEP8 coding standards whenever possible.</li>
+<li>Check for unnecessary whitespace via <tt class="docutils literal"><span class="pre">git</span> <span class="pre">diff</span> <span class="pre">--check</span></tt> before committing.</li>
+<li><strong>Add docs and tests for your changes</strong>.</li>
+<li><a class="reference external" href="http://docs.getpelican.com/en/latest/contribute.html#running-the-test-suite">Run all the tests</a> <strong>on both Python 2.7 and 3.3</strong> to ensure nothing was
+accidentally broken.</li>
+<li>First line of your commit message should start with present-tense verb, be 50
+characters or less, and include the relevant issue number(s) if applicable.
+<em>Example:</em> <tt class="docutils literal"><span class="pre">Ensure</span> <span class="pre">proper</span> <span class="pre">PLUGIN_PATH</span> <span class="pre">behavior.</span> <span class="pre">Refs</span> <span class="pre">#428.</span></tt> If the commit
+<em>completely fixes</em> an existing bug report, please use <tt class="docutils literal"><span class="pre">Fixes</span> <span class="pre">#585</span></tt> or <tt class="docutils literal"><span class="pre">Fix</span>
+<span class="pre">#585</span></tt> syntax (so the relevant issue is automatically closed upon PR merge).</li>
+<li>After the first line of the commit message, add a blank line and then a more
+detailed explanation (when relevant).</li>
+<li>If you have previously filed a GitHub issue and want to contribute code that
+addresses that issue, <strong>please use</strong> <tt class="docutils literal"><span class="pre">hub</span> <span class="pre">pull-request</span></tt> instead of using
+GitHub&#8217;s web UI to submit the pull request. This isn&#8217;t an absolute
+requirement, but makes the maintainers&#8217; lives much easier! Specifically:
+<a class="reference external" href="https://github.com/defunkt/hub/#installation">install hub</a> and then run
+<a class="reference external" href="https://github.com/defunkt/hub/#git-pull-request">hub pull-request</a> to
+turn your GitHub issue into a pull request containing your code.</li>
+</ul>
+<p>Check out our <a class="reference external" href="https://github.com/getpelican/pelican/wiki/Git-Tips">Git Tips</a> page or ask on the <a class="reference external" href="http://webchat.freenode.net/?channels=pelican&amp;uio=d4">#pelican IRC channel</a> if you
+need assistance or have any questions about these guidelines.</p>
+</div>
 <div class="section" id="id2">
 <h2>设置开发环境<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>While there are many ways to set up one&#8217;s development environment, following

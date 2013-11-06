@@ -842,6 +842,56 @@ adding the following to your configuration:</p>
 </div>
 <div class="section" id="id20">
 <h2>设置样例<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span>
+
+<span class="n">AUTHOR</span> <span class="o">=</span> <span class="s">&#39;Alexis Métaireau&#39;</span>
+<span class="n">SITENAME</span> <span class="o">=</span> <span class="s">&quot;Alexis&#39; log&quot;</span>
+<span class="n">SITEURL</span> <span class="o">=</span> <span class="s">&#39;http://blog.notmyidea.org&#39;</span>
+<span class="n">TIMEZONE</span> <span class="o">=</span> <span class="s">&quot;Europe/Paris&quot;</span>
+
+<span class="c"># can be useful in development, but set to False when you&#39;re ready to publish</span>
+<span class="n">RELATIVE_URLS</span> <span class="o">=</span> <span class="bp">True</span>
+
+<span class="n">GITHUB_URL</span> <span class="o">=</span> <span class="s">&#39;http://github.com/ametaireau/&#39;</span>
+<span class="n">DISQUS_SITENAME</span> <span class="o">=</span> <span class="s">&quot;blog-notmyidea&quot;</span>
+<span class="n">PDF_GENERATOR</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="n">REVERSE_CATEGORY_ORDER</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">LOCALE</span> <span class="o">=</span> <span class="s">&quot;C&quot;</span>
+<span class="n">DEFAULT_PAGINATION</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">DEFAULT_DATE</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2012</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">FEED_ALL_RSS</span> <span class="o">=</span> <span class="s">&#39;feeds/all.rss.xml&#39;</span>
+<span class="n">CATEGORY_FEED_RSS</span> <span class="o">=</span> <span class="s">&#39;feeds/</span><span class="si">%s</span><span class="s">.rss.xml&#39;</span>
+
+<span class="n">LINKS</span> <span class="o">=</span> <span class="p">((</span><span class="s">&#39;Biologeek&#39;</span><span class="p">,</span> <span class="s">&#39;http://biologeek.org&#39;</span><span class="p">),</span>
+         <span class="p">(</span><span class="s">&#39;Filyb&#39;</span><span class="p">,</span> <span class="s">&quot;http://filyb.info/&quot;</span><span class="p">),</span>
+         <span class="p">(</span><span class="s">&#39;Libert-fr&#39;</span><span class="p">,</span> <span class="s">&quot;http://www.libert-fr.com&quot;</span><span class="p">),</span>
+         <span class="p">(</span><span class="s">&#39;N1k0&#39;</span><span class="p">,</span> <span class="s">&quot;http://prendreuncafe.com/blog/&quot;</span><span class="p">),</span>
+         <span class="p">(</span><span class="s">&#39;Tarek Ziadé&#39;</span><span class="p">,</span> <span class="s">&quot;http://ziade.org/blog&quot;</span><span class="p">),</span>
+         <span class="p">(</span><span class="s">&#39;Zubin Mithra&#39;</span><span class="p">,</span> <span class="s">&quot;http://zubin71.wordpress.com/&quot;</span><span class="p">),)</span>
+
+<span class="n">SOCIAL</span> <span class="o">=</span> <span class="p">((</span><span class="s">&#39;twitter&#39;</span><span class="p">,</span> <span class="s">&#39;http://twitter.com/ametaireau&#39;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s">&#39;lastfm&#39;</span><span class="p">,</span> <span class="s">&#39;http://lastfm.com/user/akounet&#39;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s">&#39;github&#39;</span><span class="p">,</span> <span class="s">&#39;http://github.com/ametaireau&#39;</span><span class="p">),)</span>
+
+<span class="c"># global metadata to all the contents</span>
+<span class="n">DEFAULT_METADATA</span> <span class="o">=</span> <span class="p">((</span><span class="s">&#39;yeah&#39;</span><span class="p">,</span> <span class="s">&#39;it is&#39;</span><span class="p">),)</span>
+
+<span class="c"># static paths will be copied under the same name</span>
+<span class="n">STATIC_PATHS</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;pictures&quot;</span><span class="p">,</span> <span class="p">]</span>
+
+<span class="c"># A list of files to copy from the source to the destination</span>
+<span class="n">FILES_TO_COPY</span> <span class="o">=</span> <span class="p">((</span><span class="s">&#39;extra/robots.txt&#39;</span><span class="p">,</span> <span class="s">&#39;robots.txt&#39;</span><span class="p">),)</span>
+
+<span class="c"># custom page generated with a jinja2 template</span>
+<span class="n">TEMPLATE_PAGES</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;pages/jinja2_template.html&#39;</span><span class="p">:</span> <span class="s">&#39;jinja2_template.html&#39;</span><span class="p">}</span>
+
+<span class="c"># foobar will not be used, because it&#39;s not in caps. All configuration keys</span>
+<span class="c"># have to be in caps</span>
+<span class="n">foobar</span> <span class="o">=</span> <span class="s">&quot;barbaz&quot;</span>
+</pre></div>
+</div>
 </div>
 </div>
 
