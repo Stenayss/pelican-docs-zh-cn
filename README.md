@@ -3,4 +3,4 @@
 
 Chinese version 4 Pelican-Document @2013 by Bravelee
 
-###test for 小乌龟123
+###test for 小乌龟推送功能 @ 20131123
