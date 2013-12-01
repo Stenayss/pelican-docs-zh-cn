@@ -1,0 +1,475 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>快速入门 &mdash; pelican-docs-zh-cn 3.3.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/pelican.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '3.3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pelican-docs-zh-cn 3.3.0 documentation" href="index.html" />
+    <link rel="next" title="设置" href="settings.html" />
+    <link rel="prev" title="Pelican" href="index.html" /> 
+  </head>
+  <body>
+  
+  
+
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="section" id="id1">
+<h1>快速入门<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>安装<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>Pelican目前基于Python2.7.x 环境运行最佳；暂时支持Python3.3，但是可能会出现不可预知的问题，尤其是关于可选的第三方组件。</p>
+<p>可以使用多种方法安装Pelican，最简洁的方法则是通过 <a class="reference external" href="http://www.pip-installer.org/">pip</a>:</p>
+<div class="highlight-python"><pre>$ pip install pelican</pre>
+</div>
+<p>如果您并未安装 <tt class="docutils literal"><span class="pre">pip</span></tt> 命令，也可以使用 <tt class="docutils literal"><span class="pre">easy_install</span></tt>:</p>
+<div class="highlight-python"><pre>$ easy_install pelican</pre>
+</div>
+<p>（记住：为了便于安装Pelican，操作系统将会经常提醒您加上 <tt class="docutils literal"><span class="pre">sudo</span></tt> 前缀。）</p>
+<p>虽然上面的方法十分简单，但是仍然推荐使用虚拟环境安装Pelican，如果您已经安装 <a class="reference external" href="http://www.virtualenv.org/">virtualenv</a> ，则可以打开终端并且为Pelican创建一个新的虚拟环境:</p>
+<div class="highlight-python"><pre>$ virtualenv ~/virtualenvs/pelican
+$ cd ~/virtualenvs/pelican
+$ . bin/activate</pre>
+</div>
+<p>一旦虚拟环境创建并激活，您就可以通过上面提到的pip命令来安装Pelican。如果您拥有项目源码，还可以通过distutils方法来安装Pelican:</p>
+<div class="highlight-python"><pre>$ cd path-to-Pelican-source //Pelican源代码路径
+$ python setup.py install</pre>
+</div>
+<p>如果您已经安装Git并且希望安装最新版的Pelican，使用以下命令:</p>
+<div class="highlight-python"><pre>$ pip install -e git+https://github.com/getpelican/pelican.git#egg=pelican</pre>
+</div>
+<p>如果您计划使用Markdown语法格式，您需要安装如下的Markdown库:</p>
+<div class="highlight-python"><pre>$ pip install Markdown</pre>
+</div>
+<p>如果您想使用 <a class="reference external" href="http://www.methods.co.nz/asciidoc/">AsciiDoc</a> 语法格式，则需要从 <a class="reference external" href="http://www.methods.co.nz/asciidoc/INSTALL.html">项目源</a> ，或者使用操作系统的包管理安装 <a class="reference external" href="http://www.methods.co.nz/asciidoc/">AsciiDoc</a> 。</p>
+<div class="section" id="id4">
+<h3>基本用法<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>只要安装Pelican，就可以通过 <tt class="docutils literal"><span class="pre">pelican</span></tt> 命令将Markdown或者reST等内容翻译成HTML格式，可以随意指定内容路径以及settings.py文件路径:</p>
+<div class="highlight-python"><pre>$ pelican /path/to/your/content/ [-s path/to/your/settings.py]</pre>
+</div>
+<p>通过以上命令可以在 <tt class="docutils literal"><span class="pre">output/</span></tt> 目录下，使用默认主题制作一个简单的网站。默认的主题包括较简单的HTML格式，非常普通，不具备任何风格，但是您可以以此为基础制作专属主题。</p>
+<p>可以通过设置Pelican对您所作的修改进行监视，而无须每次想要查看变化时，都要手动地重新运行。运行 <tt class="docutils literal"><span class="pre">pelican</span> <span class="pre">-r</span></tt> 或者 <tt class="docutils literal"><span class="pre">pelican</span> <span class="pre">--autoreload</span></tt> 命令可以设置。</p>
+<p>Pelican命令行包含其它选项，可以通过&#8211;help命令查看:</p>
+<div class="highlight-python"><pre>$ pelican --help</pre>
+</div>
+<p>继续阅读更多细节，请查阅Pelican在社区发布的参考文档 <a class="reference external" href="https://github.com/getpelican/pelican/wiki/Tutorials">Tutorials</a> 。</p>
+</div>
+<div class="section" id="id5">
+<h3>查看生成的文件<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>Pelican生成静态文件，所以您可以使用浏览器直接打开HTML文件:</p>
+<div class="highlight-python"><pre>firefox output/index.html</pre>
+</div>
+<p>由于以上方法在载入CSS或者其他链接资源时可能会产生错误，因此使用Python运行一个简单的Web服务器，往往会提供更加可靠的预览体验:</p>
+<div class="highlight-python"><pre>cd output &amp;&amp; python -m SimpleHTTPServer</pre>
+</div>
+<p>一旦 <tt class="docutils literal"><span class="pre">SimpleHTTPServer</span></tt> 启动, 则可以通过 <a class="reference external" href="http://localhost:8000/">http://localhost:8000/</a> 浏览您的网站</p>
+</div>
+<div class="section" id="id6">
+<h3>更新<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>如果您通过 <tt class="docutils literal"><span class="pre">pip</span></tt> 或者 <tt class="docutils literal"><span class="pre">easy_install</span></tt> 方法安装稳定版的Pelican，并且希望升级到最新稳定版，您可以在相关命令之后添加 <tt class="docutils literal"><span class="pre">--upgrade</span></tt> 进行升级，例如pip安装方式，升级命令如下:</p>
+<div class="highlight-python"><pre>$ pip install --upgrade pelican</pre>
+</div>
+<p>如果您是通过distutils或者源代码方法安装Pelican，简单地执行相同的步骤，安装最新版本即可。</p>
+</div>
+<div class="section" id="id7">
+<h3>依赖包<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>Pelican安装之后，依赖于以下的Python包都将会自动安装：</p>
+<ul class="simple">
+<li><a class="reference external" href="http://pypi.python.org/pypi/feedgenerator">feedgenerator</a>, 生成Atom</li>
+<li><a class="reference external" href="http://pypi.python.org/pypi/Jinja2">jinja2</a>, 模板支持</li>
+<li><a class="reference external" href="http://pypi.python.org/pypi/Pygments">pygments</a>, 语法高亮</li>
+<li><a class="reference external" href="http://pypi.python.org/pypi/docutils">docutils</a>, 支持reStructuredText输入格式</li>
+<li><a class="reference external" href="http://pypi.python.org/pypi/pytz">pytz</a>, 定义时区</li>
+<li><a class="reference external" href="http://pypi.python.org/pypi/blinker">blinker</a>, 消息分发系统</li>
+<li><a class="reference external" href="http://pypi.python.org/pypi/Unidecode">unidecode</a>, Unicode文件转码</li>
+<li><a class="reference external" href="http://pypi.python.org/pypi/six">six</a>,  兼容Python2、3</li>
+<li><a class="reference external" href="http://pypi.python.org/pypi/MarkupSafe">MarkupSafe</a>, 安全标记字符串</li>
+</ul>
+<p>如果需要以下安装包，可以通过 <tt class="docutils literal"><span class="pre">pip</span></tt> 命令手动安装：</p>
+<ul class="simple">
+<li><a class="reference external" href="http://pypi.python.org/pypi/Markdown">markdown</a>, 支持Markdown格式输入</li>
+<li><a class="reference external" href="http://pypi.python.org/pypi/typogrify">typogrify</a>, 增强排版</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>快速部署您的网站<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>Pelican安装之后，您可以通过 <tt class="docutils literal"><span class="pre">pelican-quickstart</span></tt> 命令创建一个项目框架，需要按照提示要求输入一些内容:</p>
+<div class="highlight-python"><pre>$ pelican-quickstart</pre>
+</div>
+<p>安装完毕，您的项目将包含以下目录树（除了“pages”目录，如果您计划创建按照时间序列排序的内容，您可以选择性地自己添加）:</p>
+<div class="highlight-python"><pre>yourproject/
+├── content
+│   └── (pages)
+├── output
+├── develop_server.sh
+├── fabfile.py
+├── Makefile
+├── pelicanconf.py       # 主要设置文件
+└── publishconf.py       # 文章发布设置</pre>
+</div>
+<p>下一步就是要开始向您创建的 <em>content</em> 目录添加内容。（请参考 <strong>Writing content using Pelican</strong> 小节内容，查看如何格式化写作内容。）</p>
+<p>如果您已经写好文章准备生成html，你可以使用 <tt class="docutils literal"><span class="pre">pelican</span></tt> 命令在output目录生成对应的网页。</p>
+</div>
+<div class="section" id="id9">
+<h2>自动化工具<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>可以使用 <tt class="docutils literal"><span class="pre">pelican</span></tt> 命令结合自动化工具简化生成和发布的流程。在 <tt class="docutils literal"><span class="pre">pelican-quickstart</span></tt> 命令执行时，涉及是否要自动生成并发布页面等相关问题。如果你回答“是”，  将会在您创建的项目根目录下生成 <tt class="docutils literal"><span class="pre">fabfile.py</span></tt> 和 <tt class="docutils literal"><span class="pre">Makefile</span></tt> 文件。这些文件会记录安装过程中所做的相关设置，因此从一开始，就应该根据特定需求及其使用模式来设置相关信息。如果你发现某些自动化工具使用受限，可以随时删除这些文件，并不会影响使用标准的 <tt class="docutils literal"><span class="pre">pelican</span></tt> 命令。</p>
+<p>以下是“围绕” <tt class="docutils literal"><span class="pre">pelican</span></tt> 命令的自动化工具，可以简化生成，预览和上传网站的过程。</p>
+<div class="section" id="fabric">
+<h3>Fabric<a class="headerlink" href="#fabric" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="http://fabfile.org/">Fabric</a> 的优点在于：使用Python编写，应用环境更为广泛。缺点是必须单独安装，使用如下命令安装Fabric，如果环境需要，需加上 <tt class="docutils literal"><span class="pre">sudo</span></tt> 前缀:</p>
+<div class="highlight-python"><pre>$ pip install Fabric</pre>
+</div>
+<p>稍后打开在项目根目录下生成的 <tt class="docutils literal"><span class="pre">fabfile.py</span></tt> 文件，你将会发现一系列命令，其中任何一个都可以重命名、删除或者根据喜好自定义。使用现成配置，通过以下途径生成网页:</p>
+<div class="highlight-python"><pre>$ fab build</pre>
+</div>
+<p>如果每次检测到变化时，你希望Pelican会自动重新生成页面（本地测试都是基于手动生成），可以使用如下命令:</p>
+<div class="highlight-python"><pre>$ fab regenerate</pre>
+</div>
+<p>为生成的页面启动服务，通过浏览器访问 <a class="reference external" href="http://localhost:8000/">http://localhost:8000/</a> 进行预览:</p>
+<div class="highlight-python"><pre>$ fab serve</pre>
+</div>
+<p>如果在pelican-quickstart过程中，当提及是否通过SSH上传你的页面，你选择回答“yes”，那么你可以通过SSH同步使用以下命令来发布页面:</p>
+<div class="highlight-python"><pre>$ fab publish</pre>
+</div>
+<p>这些只是默认的一些可用命令，所以自行研究 <tt class="docutils literal"><span class="pre">fabfile.py</span></tt> 文件，查看其它可用命令。更重要的是，您可以定制 <tt class="docutils literal"><span class="pre">fabfile.py</span></tt> 文件适应特定需求和喜好。</p>
+</div>
+<div class="section" id="id10">
+<h3>生成<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>在pelican安装过程中，如果你对某些问题回答“yes”， <tt class="docutils literal"><span class="pre">Makefile</span></tt> 文件则会自动创建，该方法的优点在于 <tt class="docutils literal"><span class="pre">make</span></tt> 命令内置在很多POSIX系统（unix、linux）中，无需安装其它组件即可使用。缺点是非POSIX系统（例如windows）并未包含 <tt class="docutils literal"><span class="pre">make</span></tt> 命令，在此类系统上安装make命令将会变得十分困难。</p>
+<p>如果你想使用 <tt class="docutils literal"><span class="pre">make</span></tt> 命令生成网页，请运行:</p>
+<div class="highlight-python"><pre>$ make html</pre>
+</div>
+<p>如果每次检测到变化时，你希望Pelican会自动重新生成页面（本地测试都是基于手动生成），可以使用如下命令:</p>
+<div class="highlight-python"><pre>$ make regenerate</pre>
+</div>
+<p>为生成的页面启动服务，通过浏览器访问 <a class="reference external" href="http://localhost:8000/">http://localhost:8000/</a> 进行预览:</p>
+<div class="highlight-python"><pre>$ make serve</pre>
+</div>
+<p>正常情况下，需要单独运行 <tt class="docutils literal"><span class="pre">make</span></tt> 命令和 <tt class="docutils literal"><span class="pre">make</span> <span class="pre">serve</span></tt> 命令生成页面，但是现在你可以通过 <tt class="docutils literal"><span class="pre">make</span> <span class="pre">regenerate</span></tt> 命令同时运行:</p>
+<div class="highlight-python"><pre>$ make devserver</pre>
+</div>
+<p>以上命令可以同时生成网页并开启服务，可以直接通过 <a class="reference external" href="http://localhost:8000">http://localhost:8000</a> 访问，如果您完成测试更改，通过以下命令停止服务:</p>
+<div class="highlight-python"><pre>$ ./develop_server.sh stop</pre>
+</div>
+<p>准备发布页面时，可以通过在pelican初始安装时选择的上传方法，例如，我们将使用ssh来同步:</p>
+<div class="highlight-python"><pre>$ make rsync_upload</pre>
+</div>
+<p>如上所示，您的网页应该可以访问了。</p>
+</div>
+</div>
+<div class="section" id="pelican">
+<h2>使用Pelican写作<a class="headerlink" href="#pelican" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id11">
+<h3>文章和页面<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p>Pelican认为“文章”是按时间顺序自动排列的，例如博客上的文章，也是以日期来归类。</p>
+<p>“页面”背后的出发点是：
+“页面”背后的想法是，作者们通常选择固定的或者是不经常改变的内容（比如“关于我们”或者“联系我们”等页面）</p>
+</div>
+<div class="section" id="internal-metadata">
+<span id="id12"></span><h3>文件元数据<a class="headerlink" href="#internal-metadata" title="Permalink to this headline">¶</a></h3>
+<p>Pelican试图更加智能的获取文件系统所需信息（例如，关于文章的分类），但是有些信息必须在文件中以元数据的形式体现。</p>
+<p>如果你以reStructuredText格式写作，可以通过以下的语法格式，在文本文件中提供类似的元数据（文件以 <tt class="docutils literal"><span class="pre">.rst</span></tt> 结尾）:</p>
+<div class="highlight-python"><pre>My super title
+##############
+
+:date: 2010-10-03 10:20
+:modified: 2010-10-04 18:40
+:tags: thats, awesome
+:category: yeah
+:slug: my-super-post
+:author: Alexis Metaireau
+:summary: Short version for index and feeds</pre>
+</div>
+<p>Pelican针对reStructuredText语法，实现支持HTML缩进标签的扩展，如果使用，格式如下:</p>
+<div class="highlight-python"><pre>This will be turned into :abbr:`HTML (HyperText Markup Language)`.</pre>
+</div>
+<p>你也可以使用Markdown语法（文件后缀以 <tt class="docutils literal"><span class="pre">.md</span></tt> 、 <tt class="docutils literal"><span class="pre">.mkd</span></tt> 或者 <tt class="docutils literal"><span class="pre">.mdown</span></tt> 结尾）。Markdown格式的生成需要首先安装 <tt class="docutils literal"><span class="pre">Markdown</span></tt> 包，可以通过 <tt class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">Markdown</span></tt> 命令安装，Markdown元数据语法格式应该如下所示:</p>
+<div class="highlight-python"><pre>Title: My super title
+Date: 2010-12-03 10:20
+Modified: 2010-12-05 19:30
+Category: Python
+Tags: pelican, publishing
+Slug: my-super-post
+Author: Alexis Metaireau
+Summary: Short version for index and feeds
+
+This is the content of my super blog post.</pre>
+</div>
+<p>如果以 <a class="reference external" href="http://www.methods.co.nz/asciidoc/">AsciiDoc</a> 写作，应当以 <tt class="docutils literal"><span class="pre">.asc</span></tt> 为后缀，可以参考 <a class="reference external" href="http://www.methods.co.nz/asciidoc/">AsciiDoc</a> 网站。</p>
+<p>Pelican可以生成以 <tt class="docutils literal"><span class="pre">.html</span></tt> 或者 <tt class="docutils literal"><span class="pre">.htm</span></tt> 结尾的HTML文件，直接解析HTML文件，从meta标签读取元数据，从title标签读取标题，从body标签读取内容:</p>
+<div class="highlight-python"><pre>&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;My super title&lt;/title&gt;
+        &lt;meta name="tags" content="thats, awesome" /&gt;
+        &lt;meta name="date" content="2012-07-09 22:28" /&gt;
+        &lt;meta name="modified" content="2012-07-10 20:14" /&gt;
+        &lt;meta name="category" content="yeah" /&gt;
+        &lt;meta name="author" content="Alexis Métaireau" /&gt;
+        &lt;meta name="summary" content="Short version for index and feeds" /&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        This is the content of my super blog post.
+    &lt;/body&gt;
+&lt;/html&gt;</pre>
+</div>
+<p>对于HTML来说，具有一种异常简单的标准元数据：通过符合Pelican标准的tags元数据，tags可以被指定，或者通过符合HTML标准的keywords元数据，两种方式可以交替使用。</p>
+<p>注意，除了标题以外，文章的元数据是没有强制性的：如果没有指定日期， <tt class="docutils literal"><span class="pre">DEFAULT_DATE</span></tt> 被设置为 <tt class="docutils literal"><span class="pre">fs</span></tt> ，Pelican将依赖文件的“mtime”时间戳，类别可以通过文件所在的目录来决定。例如，某个文件位于 <tt class="docutils literal"><span class="pre">python/foobar/myfoobar.rst</span></tt> ，则具有 <tt class="docutils literal"><span class="pre">foobar</span></tt> 的类别。如果你想通过子文件夹名称作为类别名来组织你的文件，这并非是个好主意。你可以将 <tt class="docutils literal"><span class="pre">USE_FOLDER_AS_CATEGORY</span></tt> 属性设置为 <tt class="docutils literal"><span class="pre">False</span></tt> ，在页面元数据中解析日期时，Pelican支持 <a class="reference external" href="http://www.w3.org/TR/NOTE-datetime">W3C ISO 8601</a> 。</p>
+<p>如果你不明确指定给定文章摘要的元数据，SUMMARY_MAX_LENGTH设置将会指定文章开头的某某字数作为摘要。</p>
+<p>您也可以设置 <tt class="docutils literal"><span class="pre">FILENAME_METADATA</span></tt> 属性，通过正则表达式提取任何文件名的元数据。所有匹配的命名组将会被设置在元数据对象中。 <tt class="docutils literal"><span class="pre">FILENAME_METADATA</span></tt> 默认设置将只从文件名提取日期。例如，如果你想提取date和slug，你可以这样设置： <tt class="docutils literal"><span class="pre">'(?P&lt;date&gt;\d{4}-\d{2}-\d{2})_(?P&lt;slug&gt;.*)'</span></tt></p>
+<p>Please note that the metadata available inside your files takes precedence over
+the metadata extracted from the filename.
+请注意，在文件中可用的元数据优先级高于从文件名中提取的元数据。</p>
+</div>
+<div class="section" id="id13">
+<h3>页面<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<p>如果在content目录下创建一个 <tt class="docutils literal"><span class="pre">pages</span></tt> 文件夹，该文件夹内所有文件将会以静态页面生成，例如 <strong>About</strong> 或者 <strong>Contact</strong> 页面。（例如下面的文件系统布局）</p>
+<p>使用 <tt class="docutils literal"><span class="pre">DISPLAY_PAGES_ON_MENU</span></tt> 设置控制是否在导航栏中显示这些页面（默认设置为 <tt class="docutils literal"><span class="pre">True</span></tt> ）</p>
+<p>如果你不希望在菜单中链接或者列出任何页面，需要添加如下状态：设置该元数据的隐藏属性。这对于设置错误页面（404）很有帮助。</p>
+</div>
+<div class="section" id="ref-linking-to-internal-content">
+<span id="id14"></span><h3>链接到内部内容<a class="headerlink" href="#ref-linking-to-internal-content" title="Permalink to this headline">¶</a></h3>
+<p>从Pelican3.1版本开始，可以指定站点内部链接文件的源content目录层次，而不是文件生成的结构层次。建立当前文字与 其他相邻的文字和图片之间的链接将变得相当容易。（而不是具有确定这些资源在站点生成后如何放置）</p>
+<p>要链接到content目录内部（在 <tt class="docutils literal"><span class="pre">content</span></tt> 目录下的所有文件），使用以下语法： <tt class="docutils literal"><span class="pre">{filename}path/to/file</span></tt>:</p>
+<div class="highlight-python"><pre>website/
+├── content
+│   ├── article1.rst
+│   ├── cat/
+│   │   └── article2.md
+│   └── pages
+│       └── about.md
+└── pelican.conf.py</pre>
+</div>
+<p>在该案例中， <tt class="docutils literal"><span class="pre">article1.rst</span></tt> 格式应如下所示:</p>
+<div class="highlight-python"><pre>The first article
+#################
+
+:date: 2012-12-01 10:02
+
+See below intra-site link examples in reStructuredText format.
+
+`a link relative to content root &lt;{filename}/cat/article2.rst&gt;`_
+`a link relative to current file &lt;{filename}cat/article2.rst&gt;`_</pre>
+</div>
+<p>and <tt class="docutils literal"><span class="pre">article2.md</span></tt>:</p>
+<div class="highlight-python"><pre>Title: The second article
+Date: 2012-12-01 10:02
+
+See below intra-site link examples in Markdown format.
+
+[a link relative to content root]({filename}/article1.md)
+[a link relative to current file]({filename}../article1.md)</pre>
+</div>
+<p>与嵌入non-article或者non-page content目录略有不同，需要在 <tt class="docutils literal"><span class="pre">pelicanconf.py</span></tt> 文件中指定， <tt class="docutils literal"><span class="pre">images</span></tt> 目录默认配置如下，其他的需要手动添加:</p>
+<div class="highlight-python"><pre>content
+├── images
+│   └── han.jpg
+└── misc
+    └── image-test.md</pre>
+</div>
+<p>And <tt class="docutils literal"><span class="pre">image-test.md</span></tt> would include:</p>
+<div class="highlight-python"><pre>![Alt Text]({filename}/images/han.jpg)</pre>
+</div>
+<p>这种方式可以链接任何内容，由于Pelican默认设置 <tt class="docutils literal"><span class="pre">STATIC_PATHS</span></tt> 包括 <tt class="docutils literal"><span class="pre">images</span></tt> ，所以在网页生成的同时， <tt class="docutils literal"><span class="pre">images</span></tt> 目录将会被复制到 <tt class="docutils literal"><span class="pre">output/</span></tt> 目录下。如果期望更换其他目录，比如 <tt class="docutils literal"><span class="pre">pdfs</span></tt> 目录，在页面生成的同时从content目录拷贝文件到output目录，需要将以下内容添加到设置文件中:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">STATIC_PATHS</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;images&#39;</span><span class="p">,</span> <span class="s">&#39;pdfs&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>上面一行内容添加之后，随后的页面生成应该复制 <tt class="docutils literal"><span class="pre">content/pdfs/</span></tt> 目录到 <tt class="docutils literal"><span class="pre">output/pdfs/</span></tt> 目录下。</p>
+<p>你还可以链接到分类或者标签，使用 <tt class="docutils literal"><span class="pre">{tag}标签名</span></tt> 和 <tt class="docutils literal"><span class="pre">{category}foobar</span></tt> 语法。</p>
+<p>为了向后兼容，Pelican除了大括号以外（ <tt class="docutils literal"><span class="pre">{}</span></tt> ）还支持双竖线（ <tt class="docutils literal"><span class="pre">||</span></tt> ）。例如： <tt class="docutils literal"><span class="pre">|filename|an_article.rst</span></tt>,  <tt class="docutils literal"><span class="pre">|tag|tagname</span></tt> ,  <tt class="docutils literal"><span class="pre">|category|foobar</span></tt> .语法格式从 <tt class="docutils literal"><span class="pre">||</span></tt> 过渡到到 <tt class="docutils literal"><span class="pre">{}</span></tt> ，主要是为了避免与Markdown扩展或者reST指令冲突。</p>
+</div>
+<div class="section" id="id15">
+<h3>导入现有的博客<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p>支持从Dotclear, WordPress, 以及RSS来导入博客内容，只需使用一段简单的脚本即可。查阅后面章节内容，了解从其他博客软件导入过程，查看 <a class="reference internal" href="importer.html#import"><em>从其它Blog软件导入数据</em></a> 。</p>
+</div>
+<div class="section" id="id16">
+<h3>翻译<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<p>支持文章翻译。要做到这一点，需要增加文章/页面的 <tt class="docutils literal"><span class="pre">lang</span></tt>  meta属性，设置 <tt class="docutils literal"><span class="pre">DEFAULT_LANG</span></tt> 属性（默认为[en]，英语）。使用这些设置，只有默认语言的文章会被发布，每篇文章都会伴随着可用的翻译列表。</p>
+<p>Pelican使用文章的URL中的 &#8220;slug&#8221; 属性检测文章之间是否相互翻译。slug可以在文件的元数据中手动设置；如果没有明确设定，Pelican将会根据文章的标题自动生成slug。</p>
+<p>参考如下两篇文章，一篇英文文章，另一篇为法语文章。</p>
+<p>英文文章:</p>
+<div class="highlight-python"><pre>Foobar is not dead
+##################
+
+:slug: foobar-is-not-dead
+:lang: en
+
+That's true, foobar is still alive!</pre>
+</div>
+<p>法语文章:</p>
+<div class="highlight-python"><pre>Foobar n'est pas mort !
+#######################
+
+:slug: foobar-is-not-dead
+:lang: fr
+
+Oui oui, foobar est toujours vivant !</pre>
+</div>
+<p>这两篇文章之间，尽管发布的内容不同，仍有唯一的相同点——slug（在此处用作识别符）。如果你并未明确定义slug，必须要确保不同语言版本文章的标题是相同的，因为slug将会根据文章标题自动生成。</p>
+<p>如果你不希望某篇文章的原始版本被 <tt class="docutils literal"><span class="pre">DEFAULT_LANG</span></tt> 设置检测到，需要使用 <tt class="docutils literal"><span class="pre">translation</span></tt> 元数据指定哪些内容是译文:</p>
+<div class="highlight-python"><pre>Foobar is not dead
+##################
+
+:slug: foobar-is-not-dead
+:lang: en
+:translation: true
+
+That's true, foobar is still alive!</pre>
+</div>
+</div>
+<div class="section" id="internal-pygments-options">
+<span id="id17"></span><h3>语法高亮<a class="headerlink" href="#internal-pygments-options" title="Permalink to this headline">¶</a></h3>
+<p>Pelican可以为代码块提供不同的语法高亮，需要在文件内容中使用如下约定：</p>
+<p>以reStructuredText格式为例，使用代码块指令:</p>
+<div class="highlight-python"><pre>.. code-block:: identifier
+
+   &lt;indented code block goes here&gt;</pre>
+</div>
+<p>以Markdown为例，包括语言识别，类似上面的代码块，缩进的标识符和代码:</p>
+<div class="highlight-python"><pre>A block of text.
+
+    :::identifier
+    &lt;code goes here&gt;</pre>
+</div>
+<p>指定标识符（例如 <tt class="docutils literal"><span class="pre">python</span></tt> ， <tt class="docutils literal"><span class="pre">ruby</span></tt> ）应该是出现在列表上可用的语法解析器 <a class="reference external" href="http://pygments.org/docs/lexers/">list of available lexers</a>.</p>
+<p>当使用reStructuredText语法时，以下选项可用:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="18%" />
+<col width="62%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">选项</th>
+<th class="head">有效值</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>anchorlinenos</td>
+<td>N/A</td>
+<td>If present wrap line numbers in &lt;a&gt; tags.</td>
+</tr>
+<tr class="row-odd"><td>classprefix</td>
+<td>string</td>
+<td>String to prepend to token class names</td>
+</tr>
+<tr class="row-even"><td>hl_lines</td>
+<td>numbers</td>
+<td>List of lines to be highlighted.</td>
+</tr>
+<tr class="row-odd"><td>lineanchors</td>
+<td>string</td>
+<td>Wrap each line in an anchor using this
+string and -linenumber.</td>
+</tr>
+<tr class="row-even"><td>linenos</td>
+<td>string</td>
+<td>If present or set to &#8220;table&#8221; output line
+numbers in a table, if set to
+&#8220;inline&#8221; output them inline. &#8220;none&#8221; means
+do not output the line numbers for this
+table.</td>
+</tr>
+<tr class="row-odd"><td>linenospecial</td>
+<td>number</td>
+<td>If set every nth line will be given the
+&#8216;special&#8217; css class.</td>
+</tr>
+<tr class="row-even"><td>linenostart</td>
+<td>number</td>
+<td>Line number for the first line.</td>
+</tr>
+<tr class="row-odd"><td>linenostep</td>
+<td>number</td>
+<td>Print every nth line number.</td>
+</tr>
+<tr class="row-even"><td>lineseparator</td>
+<td>string</td>
+<td>String to print between lines of code,
+&#8216;n&#8217; by default.</td>
+</tr>
+<tr class="row-odd"><td>linespans</td>
+<td>string</td>
+<td>Wrap each line in a span using this and
+-linenumber.</td>
+</tr>
+<tr class="row-even"><td>nobackground</td>
+<td>N/A</td>
+<td>If set do not output background color for
+the wrapping element</td>
+</tr>
+<tr class="row-odd"><td>nowrap</td>
+<td>N/A</td>
+<td>If set do not wrap the tokens at all.</td>
+</tr>
+<tr class="row-even"><td>tagsfile</td>
+<td>string</td>
+<td>ctags file to use for name definitions.</td>
+</tr>
+<tr class="row-odd"><td>tagurlformat</td>
+<td>string</td>
+<td>format for the ctag links.</td>
+</tr>
+</tbody>
+</table>
+<p>注意：Pygments模块可能没有这些可用选项，这主要取决于不同的版本。请参阅 <a class="reference external" href="http://pygments.org/docs/formatters/">Pygments 文档</a> 中 <em>HtmlFormatter</em> 部分，获取更多细节。</p>
+<p>例如，下面的代码块能够显示行号，从153开始，以Pygments格式的CSS类（ <em>pgcss</em> ）使得名称更为独特，避免跟默认的CSS格式冲突:</p>
+<div class="highlight-python"><pre>.. code-block:: identifier
+    :classprefix: pgcss
+    :linenos: table
+    :linenostart: 153
+
+   &lt;indented code block goes here&gt;</pre>
+</div>
+<p>也可以在Pelican设置文件中指定 <tt class="docutils literal"><span class="pre">PYGMENTS_RST_OPTIONS</span></tt> 变量和选项，这将自动应用到每一个代码块。</p>
+<p>例如，如果你想为代码块显示行号，并且显示CSS前缀，变量设置如下:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">PYGMENTS_RST_OPTIONS</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;classprefix&#39;</span><span class="p">:</span> <span class="s">&#39;pgcss&#39;</span><span class="p">,</span> <span class="s">&#39;linenos&#39;</span><span class="p">:</span> <span class="s">&#39;table&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>如果指定，个人代码块设置将会覆盖默认设置文件中的值。</p>
+</div>
+<div class="section" id="id19">
+<h3>发布草稿<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<p>如果你想将文章作为草稿发布（例如：在正式发布之前审核一下），可以增加一条状态：元数据属性为草稿。那么该文章将会以 <tt class="docutils literal"><span class="pre">drafts</span></tt> 文件夹的形式输出，在首页或者其他类别以及标签页中并未显示。</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+    <a href="http://github.com/bravelee/pelican-docs-zh-cn"><img style="position: fixed; top: 0; right: 0; border: 0;"
+    src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+  
+
+  
+
+  </body>
+</html>

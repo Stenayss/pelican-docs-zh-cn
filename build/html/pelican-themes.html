@@ -1,0 +1,197 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pelican-themes &mdash; pelican-docs-zh-cn 3.3.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/pelican.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '3.3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pelican-docs-zh-cn 3.3.0 documentation" href="index.html" />
+    <link rel="next" title="从其它Blog软件导入数据" href="importer.html" />
+    <link rel="prev" title="Pelican内部原理" href="internals.html" /> 
+  </head>
+  <body>
+  
+  
+
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="section" id="pelican-themes">
+<h1>pelican-themes<a class="headerlink" href="#pelican-themes" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>说明<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">pelican-themes</span></tt> 是一个用于管理主题的命令行工具。</p>
+<div class="section" id="id2">
+<h3>用法<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="line-block">
+<div class="line">pelican-themes [-h] [-l] [-i theme path [theme path ...]]</div>
+<div class="line-block">
+<div class="line">[-r theme name [theme name ...]]</div>
+<div class="line">[-s theme path [theme path ...]] [-v] [&#8211;version]</div>
+</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>可选参数:<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></td>
+<td>Show the help an exit</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-l</span>, <span class="option">--list</span></kbd></td>
+<td>Show the themes already installed</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-i <var>theme_path</var></span>, <span class="option">--install <var>theme_path</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>One or more themes to install</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-r <var>theme_name</var></span>, <span class="option">--remove <var>theme_name</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>One or more themes to remove</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-s <var>theme_path</var></span>, <span class="option">--symlink <var>theme_path</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Same as &#8220;&#8211;install&#8221;, but create a symbolic link instead of copying the theme.
+Useful for theme development</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-v</span>, <span class="option">--verbose</span></kbd></td>
+<td>Verbose output</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--version</span></kbd></td>
+<td>Print the version of this script</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>实例<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h3>列出所有已经安装的主题<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>通过 <tt class="docutils literal"><span class="pre">pelican-themes</span></tt> 命令选项 <tt class="docutils literal"><span class="pre">-l</span></tt> or <tt class="docutils literal"><span class="pre">--list</span></tt> , 可以查看所有可用主题 :</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> pelican-themes -l
+<span class="go">notmyidea</span>
+<span class="go">two-column@</span>
+<span class="go">simple</span>
+<span class="gp">$</span> pelican-themes --list
+<span class="go">notmyidea</span>
+<span class="go">two-column@</span>
+<span class="go">simple</span>
+</pre></div>
+</div>
+<p>在该实例中，可以发现3个可用主题: <tt class="docutils literal"><span class="pre">notmyidea</span></tt>, <tt class="docutils literal"><span class="pre">simple</span></tt>, 和 <tt class="docutils literal"><span class="pre">two-column</span></tt>.</p>
+<p><tt class="docutils literal"><span class="pre">two-column</span></tt> 主题使用&#64;结尾，是因为该主题并未复制到Pelican theme路径中， 只是链接，(查看 <a class="reference internal" href="#id8">创建符合链接</a> 获取关于创建符号链接相关信息).</p>
+<p>注意：可以通过 <tt class="docutils literal"><span class="pre">-v</span></tt> 或者 <tt class="docutils literal"><span class="pre">--verbose</span></tt> 结合 <tt class="docutils literal"><span class="pre">--list</span></tt> 选项，获取更详细的输出：</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> pelican-themes -v -l
+<span class="go">/usr/local/lib/python2.6/dist-packages/pelican-2.6.0-py2.6.egg/pelican/themes/notmyidea</span>
+<span class="go">/usr/local/lib/python2.6/dist-packages/pelican-2.6.0-py2.6.egg/pelican/themes/two-column (symbolic link to `/home/skami/Dev/Python/pelican-themes/two-column&#39;)</span>
+<span class="go">/usr/local/lib/python2.6/dist-packages/pelican-2.6.0-py2.6.egg/pelican/themes/simple</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h3>安装主题<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>可以使用 <tt class="docutils literal"><span class="pre">-i</span></tt> 或者 <tt class="docutils literal"><span class="pre">--install</span></tt> 选项安装主题。该选项接受主题安装路径参数，可以与verbose选项相结合：</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> pelican-themes --install ~/Dev/Python/pelican-themes/notmyidea-cms --verbose
+</pre></div>
+</div>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> pelican-themes --install ~/Dev/Python/pelican-themes/notmyidea-cms<span class="se">\</span>
+<span class="go">                           ~/Dev/Python/pelican-themes/martyalchin \</span>
+<span class="go">                           --verbose</span>
+</pre></div>
+</div>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> pelican-themes -vi ~/Dev/Python/pelican-themes/two-column
+</pre></div>
+</div>
+</div>
+<div class="section" id="id7">
+<h3>卸载主题<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">pelican-themes</span></tt> 命令也可以用于卸载主题，使用 <tt class="docutils literal"><span class="pre">-r</span></tt> 或者 <tt class="docutils literal"><span class="pre">--remove</span></tt> 选项附加卸载的主题名称即可，可以结合 <tt class="docutils literal"><span class="pre">--verbose</span></tt> 选项使用。</div></blockquote>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> pelican-themes --remove two-column
+</pre></div>
+</div>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> pelican-themes -r martyachin notmyidea-cmd -v
+</pre></div>
+</div>
+</div>
+<div class="section" id="id8">
+<h3>创建符合链接<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p><tt class="docutils literal"><span class="pre">pelican-themes</span></tt> 命令可以无需复制整个主题到Pelican themes路径，而是直接通过创建符号链接安装主题。</p>
+<p>使用 <tt class="docutils literal"><span class="pre">-s</span></tt> or <tt class="docutils literal"><span class="pre">--symlink</span></tt> 创建符号链接到一个主题，它的工作原理和 <tt class="docutils literal"><span class="pre">--install</span></tt> 选项一致：</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> pelican-themes --symlink ~/Dev/Python/pelican-themes/two-column
+</pre></div>
+</div>
+<p>在该实例中， <tt class="docutils literal"><span class="pre">two-column</span></tt> 主题通过符号链接到Pelican themes path, 因此我们可以使用该主题，同时我们也可以修改而无须每次更改之后重新安装。</p>
+<p>这对于主题开发十分有用:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo pelican-themes -s ~/Dev/Python/pelican-themes/two-column
+<span class="gp">$</span> pelican ~/Blog/content -o /tmp/out -t two-column
+<span class="gp">$</span> firefox /tmp/out/index.html
+<span class="gp">$</span> vim ~/Dev/Pelican/pelican-themes/two-coumn/static/css/main.css
+<span class="gp">$</span> pelican ~/Blog/content -o /tmp/out -t two-column
+<span class="gp">$</span> cp /tmp/bg.png ~/Dev/Pelican/pelican-themes/two-coumn/static/img/bg.png
+<span class="gp">$</span> pelican ~/Blog/content -o /tmp/out -t two-column
+<span class="gp">$</span> vim ~/Dev/Pelican/pelican-themes/two-coumn/templates/index.html
+<span class="gp">$</span> pelican ~/Blog/content -o /tmp/out -t two-column
+</pre></div>
+</div>
+</div>
+<div class="section" id="id9">
+<h3>同时执行多种任务<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">--install</span></tt>, <tt class="docutils literal"><span class="pre">--remove</span></tt> 和 <tt class="docutils literal"><span class="pre">--symlink</span></tt> 选项不是互斥的，因此在同一命令行结合以上选项可以同时执行多项任务：</div></blockquote>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> pelican-themes --remove notmyidea-cms two-column <span class="se">\</span>
+<span class="go">                 --install ~/Dev/Python/pelican-themes/notmyidea-cms-fr \</span>
+<span class="go">                 --symlink ~/Dev/Python/pelican-themes/two-column \</span>
+<span class="go">                 --verbose</span>
+</pre></div>
+</div>
+<p>在该实例中，将会使用 <tt class="docutils literal"><span class="pre">notmyidea-cms-fr</span></tt> 主题替换 <tt class="docutils literal"><span class="pre">notmyidea-cms</span></tt> 主题</p>
+</div>
+</div>
+<div class="section" id="id10">
+<h2>参阅<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://docs.notmyidea.org/alexis/pelican/">http://docs.notmyidea.org/alexis/pelican/</a></li>
+<li><tt class="docutils literal"><span class="pre">/usr/share/doc/pelican/</span></tt> if you have installed Pelican using the <a class="reference external" href="http://skami18.github.com/pelican-packages/">APT repository</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+    <a href="http://github.com/bravelee/pelican-docs-zh-cn"><img style="position: fixed; top: 0; right: 0; border: 0;"
+    src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+  
+
+  
+
+  </body>
+</html>

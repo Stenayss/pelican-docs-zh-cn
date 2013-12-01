@@ -1,0 +1,121 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>小贴士 &mdash; pelican-docs-zh-cn 3.3.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/pelican.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '3.3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pelican-docs-zh-cn 3.3.0 documentation" href="index.html" />
+    <link rel="next" title="How to contribute" href="contribute.html" />
+    <link rel="prev" title="疑问解答 (FAQ)" href="faq.html" /> 
+  </head>
+  <body>
+  
+  
+
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="section" id="id1">
+<h1>小贴士<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>以下内容为一些有用的小贴士。</p>
+<div class="section" id="github">
+<h2>发布到GitHub<a class="headerlink" href="#github" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://help.github.com/categories/20/articles">GitHub Pages</a> 提供一种简洁高效的发布Pelican页面的方法， There are <a class="reference external" href="https://help.github.com/articles/user-organization-and-project-pages">two types of GitHub
+Pages</a>:
+<em>Project Pages</em> and <em>User Pages</em>. 两者都支持Pelican页面发布。</p>
+<div class="section" id="project-pages">
+<h3>Project Pages<a class="headerlink" href="#project-pages" title="Permalink to this headline">¶</a></h3>
+<p>首先需要 <em>push</em>  <tt class="docutils literal"><span class="pre">output</span></tt> 目录中由Pelican生成的文件到Github仓库 <tt class="docutils literal"><span class="pre">gh-pages</span></tt> 。（你需要了解一些关于github的使用方法——译者注）</p>
+<p>ghp-import命令可以简化该过程  <a class="reference external" href="https://github.com/davisp/ghp-import">ghp-import</a>, 通过 <tt class="docutils literal"><span class="pre">easy_install</span></tt> or <tt class="docutils literal"><span class="pre">pip</span></tt> 安装。</p>
+<p>例如，如果站点源目录包含在Github仓库中，并且以Project
+Pages形式发布页面，可以按照如下步骤操作:</p>
+<div class="highlight-python"><pre>$ pelican content -o output -s pelicanconf.py
+$ ghp-import output
+$ git push origin gh-pages</pre>
+</div>
+<p>通过 <tt class="docutils literal"><span class="pre">ghp-import</span> <span class="pre">output</span></tt> 命令对本地 <tt class="docutils literal"><span class="pre">gh-pages</span></tt> 分支 <tt class="docutils literal"><span class="pre">output</span></tt> 目录中的内容进行更新（如果分支不存在，直接创建即可）。 <tt class="docutils literal"><span class="pre">git</span> <span class="pre">push</span> <span class="pre">origin</span> <span class="pre">gh-pages</span></tt> 命令主要功能则是更新并发布远程（Github仓库） <tt class="docutils literal"><span class="pre">gh-pages</span></tt> 分支页面内容。</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">通过 <tt class="docutils literal"><span class="pre">pelican-quickstart</span></tt> 命令安装时创建成的Makefile文件默认设置Pelican发布为 Project Pages， 如上所述。</p>
+</div>
+</div>
+<div class="section" id="user-pages">
+<h3>User Pages<a class="headerlink" href="#user-pages" title="Permalink to this headline">¶</a></h3>
+<p>首先需要 <em>push</em>  <tt class="docutils literal"><span class="pre">output</span></tt> 目录中由Pelican生成的文件到Github仓库 <tt class="docutils literal"><span class="pre">master</span></tt> 分支仓库，形如 <tt class="docutils literal"><span class="pre">&lt;username&gt;.github.io</span></tt> （其中username为你注册github填写的用户名——译者注）。</p>
+<p>其次，使用 <tt class="docutils literal"><span class="pre">ghp-import</span></tt>:</p>
+<div class="highlight-python"><pre>$ pelican content -o output -s pelicanconf.py
+$ ghp-import output
+$ git push git@github.com:elemoine/elemoine.github.io.git gh-pages:master</pre>
+</div>
+<p>通过 <tt class="docutils literal"><span class="pre">git</span> <span class="pre">push</span></tt> 更新Github远程仓库内容。</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">To publish your Pelican site as User Pages, feel free to adjust the
+<tt class="docutils literal"><span class="pre">github</span></tt> target of the Makefile.</p>
+</div>
+</div>
+<div class="section" id="id2">
+<h3>友情提示<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Tip #1:</p>
+<p>可以将多条命令添加到post-commit hook 中，便于每次更改提交，例如, 你可以添加如下命令到
+<tt class="docutils literal"><span class="pre">.git/hooks/post-commit</span></tt>:</p>
+<div class="highlight-python"><pre>pelican content -o output -s pelicanconf.py &amp;&amp; ghp-import output &amp;&amp; git push origin gh-pages</pre>
+</div>
+<p>Tip #2:</p>
+<p>To use a <a class="reference external" href="https://help.github.com/articles/setting-up-a-custom-domain-with-pages">custom domain</a> with
+GitHub Pages, you need to put the domain of your site (e.g.,
+<tt class="docutils literal"><span class="pre">blog.example.com</span></tt>) inside a <tt class="docutils literal"><span class="pre">CNAME</span></tt> file at the root of your site. To do
+this, create the <tt class="docutils literal"><span class="pre">content/extra/</span></tt> directory and add a <tt class="docutils literal"><span class="pre">CNAME</span></tt> file to it.
+Then use the <tt class="docutils literal"><span class="pre">STATIC_PATHS</span></tt> setting to tell Pelican to copy this file to your
+output directory. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">STATIC_PATHS</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;images&#39;</span><span class="p">,</span> <span class="s">&#39;extra/CNAME&#39;</span><span class="p">]</span>
+<span class="n">EXTRA_PATH_METADATA</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;extra/CNAME&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;path&#39;</span><span class="p">:</span> <span class="s">&#39;CNAME&#39;</span><span class="p">},}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="youtube-vimeo">
+<h2>如何在页面中添加YouTube 或者 Vimeo 视频<a class="headerlink" href="#youtube-vimeo" title="Permalink to this headline">¶</a></h2>
+<p>最直接的方法则是将这些视频网站的代码内嵌到源文件中。</p>
+<p>还可以使用Pelcian插件 <tt class="docutils literal"><span class="pre">liquid_tags</span></tt>,
+<tt class="docutils literal"><span class="pre">pelican_youtube</span></tt>, 或者 <tt class="docutils literal"><span class="pre">pelican_vimeo</span></tt> 在页面内容中嵌入视频。</p>
+<p>其次，类似reST和Markdown格式的标记型语言带有插件可以直接内嵌视频地址。You can use <a class="reference external" href="https://gist.github.com/dbrgn/2922648">reST video directive</a> for reST or <a class="reference external" href="https://github.com/italomaia/mdx-video">mdx_video plugin</a> for Markdown.</p>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+    <a href="http://github.com/bravelee/pelican-docs-zh-cn"><img style="position: fixed; top: 0; right: 0; border: 0;"
+    src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+  
+
+  
+
+  </body>
+</html>

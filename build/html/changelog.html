@@ -1,0 +1,283 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Release history &mdash; pelican-docs-zh-cn 3.3.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/pelican.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '3.3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pelican-docs-zh-cn 3.3.0 documentation" href="index.html" />
+    <link rel="prev" title="Some history about Pelican" href="report.html" /> 
+  </head>
+  <body>
+  
+  
+
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="section" id="release-history">
+<h1>Release history<a class="headerlink" href="#release-history" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="next-release">
+<h2>Next release<a class="headerlink" href="#next-release" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Added the <cite>:modified:</cite> metadata field to complement <cite>:date:</cite>.
+Used to specify the last date and time an article was updated independently from the date and time it was published.</li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h2>3.3.0 (2013-09-24)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Drop Python 3.2 support in favor of Python 3.3</li>
+<li>Add <tt class="docutils literal"><span class="pre">Fabfile</span></tt> so Fabric can be used for workflow automation instead of Make</li>
+<li><tt class="docutils literal"><span class="pre">OUTPUT_RETENTION</span></tt> setting can be used to preserve metadata (e.g., VCS
+data such as <tt class="docutils literal"><span class="pre">.hg</span></tt> and <tt class="docutils literal"><span class="pre">.git</span></tt>) from being removed from output directory</li>
+<li>Tumblr import</li>
+<li>Improve logic and consistency when cleaning output folder</li>
+<li>Improve documentation versioning and release automation</li>
+<li>Improve pagination flexibility</li>
+<li>Rename signals for better consistency (some plugins may need to be updated)</li>
+<li>Move metadata extraction from generators to readers; metadata extraction no
+longer article-specific</li>
+<li>Deprecate <tt class="docutils literal"><span class="pre">FILES_TO_COPY</span></tt> in favor of <tt class="docutils literal"><span class="pre">STATIC_PATHS</span></tt> and
+<tt class="docutils literal"><span class="pre">EXTRA_PATH_METADATA</span></tt></li>
+<li>Summaries in Markdown posts no longer include footnotes</li>
+<li>Remove unnecessary whitespace in output via <tt class="docutils literal"><span class="pre">lstrip_blocks</span></tt> Jinja parameter</li>
+<li>Move PDF generation from core to plugin</li>
+<li>Replace <tt class="docutils literal"><span class="pre">MARKUP</span></tt> setting with <tt class="docutils literal"><span class="pre">READERS</span></tt></li>
+<li>Add warning if img tag is missing <tt class="docutils literal"><span class="pre">alt</span></tt> attribute</li>
+<li>Add support for <tt class="docutils literal"><span class="pre">{}</span></tt> in relative links syntax, besides <tt class="docutils literal"><span class="pre">||</span></tt></li>
+<li>Add support for <tt class="docutils literal"><span class="pre">{tag}</span></tt> and <tt class="docutils literal"><span class="pre">{category}</span></tt> relative links</li>
+<li>Add a <tt class="docutils literal"><span class="pre">content_written</span></tt> signal</li>
+</ul>
+</div>
+<div class="section" id="and-3-2-2">
+<h2>3.2.1 and 3.2.2<a class="headerlink" href="#and-3-2-2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Facilitate inclusion in FreeBSD Ports Collection</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>3.2 (2013-04-24)<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Support for Python 3!</li>
+<li>Override page save-to location from meta-data (enables using a static page as
+the site&#8217;s home page, for example)</li>
+<li>Time period archives (per-year, per-month, and per-day archives of posts)</li>
+<li>Posterous blog import</li>
+<li>Improve WordPress blog import</li>
+<li>Migrate plugins to separate repository</li>
+<li>Improve HTML parser</li>
+<li>Provide ability to show or hide categories from menu using
+<tt class="docutils literal"><span class="pre">DISPLAY_CATEGORIES_ON_MENU</span></tt> option</li>
+<li>Auto-regeneration can be told to ignore files via <tt class="docutils literal"><span class="pre">IGNORE_FILES</span></tt> setting</li>
+<li>Improve post-generation feedback to user</li>
+<li>For multilingual posts, use meta-data to designate which is the original
+and which is the translation</li>
+<li>Add <tt class="docutils literal"><span class="pre">.mdown</span></tt> to list of supported Markdown file extensions</li>
+<li>Document-relative URL generation (<tt class="docutils literal"><span class="pre">RELATIVE_URLS</span></tt>) is now off by default</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2>3.1 (2012-12-04)<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Importer now stores slugs within files by default. This can be disabled with
+the <tt class="docutils literal"><span class="pre">--disable-slugs</span></tt> option.</li>
+<li>Improve handling of links to intra-site resources</li>
+<li>Ensure WordPress import adds paragraphs for all types of line endings
+in post content</li>
+<li>Decode HTML entities within WordPress post titles on import</li>
+<li>Improve appearance of LinkedIn icon in default theme</li>
+<li>Add GitHub and Google+ social icons support in default theme</li>
+<li>Optimize social icons</li>
+<li>Add <tt class="docutils literal"><span class="pre">FEED_ALL_ATOM</span></tt> and <tt class="docutils literal"><span class="pre">FEED_ALL_RSS</span></tt> to generate feeds containing all posts regardless of their language</li>
+<li>Split <tt class="docutils literal"><span class="pre">TRANSLATION_FEED</span></tt> into <tt class="docutils literal"><span class="pre">TRANSLATION_FEED_ATOM</span></tt> and <tt class="docutils literal"><span class="pre">TRANSLATION_FEED_RSS</span></tt></li>
+<li>Different feeds can now be enabled/disabled individually</li>
+<li>Allow for blank author: if <tt class="docutils literal"><span class="pre">AUTHOR</span></tt> setting is not set, author won&#8217;t
+default to <tt class="docutils literal"><span class="pre">${USER}</span></tt> anymore, and a post won&#8217;t contain any author
+information if the post author is empty</li>
+<li>Move LESS and Webassets support from Pelican core to plugin</li>
+<li>The <tt class="docutils literal"><span class="pre">DEFAULT_DATE</span></tt> setting now defaults to <tt class="docutils literal"><span class="pre">None</span></tt>, which means that
+articles won&#8217;t be generated unless date metadata is specified</li>
+<li>Add <tt class="docutils literal"><span class="pre">FILENAME_METADATA</span></tt> setting to support metadata extraction from filename</li>
+<li>Add <tt class="docutils literal"><span class="pre">gzip_cache</span></tt> plugin to compress common text files into a <tt class="docutils literal"><span class="pre">.gz</span></tt>
+file within the same directory as the original file, preventing the server
+(e.g. Nginx) from having to compress files during an HTTP call</li>
+<li>Add support for AsciiDoc-formatted content</li>
+<li>Add <tt class="docutils literal"><span class="pre">USE_FOLDER_AS_CATEGORY</span></tt> setting so that feature can be toggled on/off</li>
+<li>Support arbitrary Jinja template files</li>
+<li>Restore basic functional tests</li>
+<li>New signals: <tt class="docutils literal"><span class="pre">generator_init</span></tt>, <tt class="docutils literal"><span class="pre">get_generators</span></tt>, and
+<tt class="docutils literal"><span class="pre">article_generate_preread</span></tt></li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2>3.0 (2012-08-08)<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Refactored the way URLs are handled</li>
+<li>Improved the English documentation</li>
+<li>Fixed packaging using <tt class="docutils literal"><span class="pre">setuptools</span></tt> entrypoints</li>
+<li>Added <tt class="docutils literal"><span class="pre">typogrify</span></tt> support</li>
+<li>Added a way to disable feed generation</li>
+<li>Added support for <tt class="docutils literal"><span class="pre">DIRECT_TEMPLATES</span></tt></li>
+<li>Allow multiple extensions for content files</li>
+<li>Added LESS support</li>
+<li>Improved the import script</li>
+<li>Added functional tests</li>
+<li>Rsync support in the generated Makefile</li>
+<li>Improved feed support (easily pluggable with Feedburner for instance)</li>
+<li>Added support for <tt class="docutils literal"><span class="pre">abbr</span></tt> in reST</li>
+<li>Fixed a bunch of bugs :-)</li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h2>2.8 (2012-02-28)<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Dotclear importer</li>
+<li>Allow the usage of Markdown extensions</li>
+<li>Themes are now easily extensible</li>
+<li>Don&#8217;t output pagination information if there is only one page</li>
+<li>Add a page per author, with all their articles</li>
+<li>Improved the test suite</li>
+<li>Made the themes easier to extend</li>
+<li>Removed Skribit support</li>
+<li>Added a <tt class="docutils literal"><span class="pre">pelican-quickstart</span></tt> script</li>
+<li>Fixed timezone-related issues</li>
+<li>Added some scripts for Windows support</li>
+<li>Date can be specified in seconds</li>
+<li>Never fail when generating posts (skip and continue)</li>
+<li>Allow the use of future dates</li>
+<li>Support having different timezones per language</li>
+<li>Enhanced the documentation</li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h2>2.7 (2011-06-11)<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Use <tt class="docutils literal"><span class="pre">logging</span></tt> rather than echoing to stdout</li>
+<li>Support custom Jinja filters</li>
+<li>Compatibility with Python 2.5</li>
+<li>Added a theme manager</li>
+<li>Packaged for Debian</li>
+<li>Added draft support</li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h2>2.6 (2011-03-08)<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Changes in the output directory structure</li>
+<li>Makes templates easier to work with / create</li>
+<li>Added RSS support (was Atom-only)</li>
+<li>Added tag support for the feeds</li>
+<li>Enhance the documentation</li>
+<li>Added another theme (brownstone)</li>
+<li>Added translations</li>
+<li>Added a way to use cleaner URLs with a rewrite url module (or equivalent)</li>
+<li>Added a tag cloud</li>
+<li>Added an autoreloading feature: the blog is automatically regenerated each time a modification is detected</li>
+<li>Translate the documentation into French</li>
+<li>Import a blog from an RSS feed</li>
+<li>Pagination support</li>
+<li>Added Skribit support</li>
+</ul>
+</div>
+<div class="section" id="id8">
+<h2>2.5 (2010-11-20)<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Import from Wordpress</li>
+<li>Added some new themes (martyalchin / wide-notmyidea)</li>
+<li>First bug report!</li>
+<li>Linkedin support</li>
+<li>Added a FAQ</li>
+<li>Google Analytics support</li>
+<li>Twitter support</li>
+<li>Use relative URLs, not static ones</li>
+</ul>
+</div>
+<div class="section" id="id9">
+<h2>2.4 (2010-11-06)<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Minor themes changes</li>
+<li>Add Disqus support (so we have comments)</li>
+<li>Another code refactoring</li>
+<li>Added config settings about pages</li>
+<li>Blog entries can also be generated in PDF</li>
+</ul>
+</div>
+<div class="section" id="id10">
+<h2>2.3 (2010-10-31)<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Markdown support</li>
+</ul>
+</div>
+<div class="section" id="id11">
+<h2>2.2 (2010-10-30)<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Prettify output</li>
+<li>Manages static pages as well</li>
+</ul>
+</div>
+<div class="section" id="id12">
+<h2>2.1 (2010-10-30)<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Make notmyidea the default theme</li>
+</ul>
+</div>
+<div class="section" id="id13">
+<h2>2.0 (2010-10-30)<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Refactoring to be more extensible</li>
+<li>Change into the setting variables</li>
+</ul>
+</div>
+<div class="section" id="id14">
+<h2>1.2 (2010-09-28)<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Added a debug option</li>
+<li>Added per-category feeds</li>
+<li>Use filesystem to get dates if no metadata is provided</li>
+<li>Add Pygments support</li>
+</ul>
+</div>
+<div class="section" id="id15">
+<h2>1.1 (2010-08-19)<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>First working version</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+    <a href="http://github.com/bravelee/pelican-docs-zh-cn"><img style="position: fixed; top: 0; right: 0; border: 0;"
+    src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+  
+
+  
+
+  </body>
+</html>

@@ -1,0 +1,456 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>主题制作 &mdash; pelican-docs-zh-cn 3.3.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/pelican.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '3.3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pelican-docs-zh-cn 3.3.0 documentation" href="index.html" />
+    <link rel="next" title="插件" href="plugins.html" />
+    <link rel="prev" title="设置" href="settings.html" /> 
+  </head>
+  <body>
+  
+  
+
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body">
+            
+  <div class="section" id="theming-pelican">
+<span id="id1"></span><h1>主题制作<a class="headerlink" href="#theming-pelican" title="Permalink to this headline">¶</a></h1>
+<p>Pelican使用伟大的 <a class="reference external" href="http://jinja.pocoo.org/">Jinja2</a> 模板引擎嵌入到输出的HTML页面中，Jinja2语法十分简单，如果你想制作自己的主题，可以从这类 <a class="reference external" href="https://github.com/getpelican/pelican/tree/master/pelican/themes/simple/templates">&#8220;simple&#8221; 的主题中随时汲取灵感</a> 。</p>
+<div class="section" id="id2">
+<h2>结构<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>制作个人主题，必须遵守以下目录结构:</p>
+<div class="highlight-python"><pre>├── static
+│   ├── css
+│   └── images
+└── templates
+    ├── archives.html         // 显示归类
+    ├── period_archives.html  // 按照日期归类
+    ├── article.html          // 文章处理
+    ├── author.html           // 作者处理
+    ├── authors.html          // 列出所有文章的作者
+    ├── categories.html       // 分类汇总
+    ├── category.html         // 分类处理
+    ├── index.html            // 首页显示所有文章
+    ├── page.html             // 页面处理
+    ├── tag.html              // 标签处理
+    └── tags.html             // 标签汇总，生成云标签</pre>
+</div>
+<ul class="simple">
+<li><cite>static</cite> 目录包含所有的静态资源，将被复制到output目录 <cite>theme</cite> 文件夹，以上文件包括CSS以及image目录，这只是案例，可以随心所欲定制。</li>
+<li><cite>templates</cite> 目录包含所有模板文件，上面列出的模板文件是强制性的，你也可以添加自己的模板。</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2>模板以及变量<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>该思路语法简单，嵌入到HTML页面中，该文档描述主题中应该存在的模板，以及在生成页面的同时，哪些变量会被传递给模板。</p>
+<p>所有的模板文件都将接收到大写的自定义变量，可以直接访问。</p>
+<div class="section" id="id4">
+<h3>全局变量<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>以下设置针对所有模板具有通用性。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="6%" />
+<col width="94%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">变量</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>output_file</td>
+<td>目前正在生成的文件名称，例如，当Pelican进行网页渲染时，output_file则为 &#8220;index.html&#8221;</td>
+</tr>
+<tr class="row-odd"><td>articles</td>
+<td>按照日期降序排列的文章列表, 所有的元素都是 <cite>Article</cite> 对象, 因此可以访问其属性 (e.g. title, summary, author etc.). 有时也会带来不便 (例如在tags页面). 你会在 <cite>all_articles</cite> 变量中发现它的信息。</td>
+</tr>
+<tr class="row-even"><td>dates</td>
+<td>按照日期升序排列的文章列表。</td>
+</tr>
+<tr class="row-odd"><td>tags</td>
+<td>（标签和文章）元组列表，包含所有tags</td>
+</tr>
+<tr class="row-even"><td>categories</td>
+<td>（分类和文章）元组列表，包含所有分类和相关文章（的值）</td>
+</tr>
+<tr class="row-odd"><td>pages</td>
+<td>页面列表</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id5">
+<h3>排序<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>采取比较的方法进行URl封装（当前分类、标签和作者），使得它们易于按照名称排序:</p>
+<div class="highlight-python"><pre>{% for tag, articles in tags|sort %}</pre>
+</div>
+<p>如果你想基于不同的标准排序, Jinja的排序命令 <a class="reference external" href="http://jinja.pocoo.org/docs/templates/#sort">Jinja&#8217;s sort
+command</a> 有多项选择。</p>
+</div>
+<div class="section" id="id7">
+<h3>日期格式<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>根据设置以及语言环境进行日期格式化 (<tt class="docutils literal"><span class="pre">DATE_FORMATS</span></tt>/<tt class="docutils literal"><span class="pre">DEFAULT_DATE_FORMAT</span></tt>) ，并且提供了 <tt class="docutils literal"><span class="pre">locale_date</span></tt> 属性。此外， <tt class="docutils literal"><span class="pre">date</span></tt> 属性将是 <a class="reference external" href="http://docs.python.org/2/library/datetime.html#datetime-objects">datetime</a> 对象，如果你需要自定义日期格式，使用Jinja filter  <tt class="docutils literal"><span class="pre">strftime</span></tt> ，用法和python的 <a class="reference external" href="http://docs.python.org/2/library/datetime.html#strftime-strptime-behavior">strftime</a> 格式类似，filter会根据语言环境设置格式化日期:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{{</span> <span class="n">article</span><span class="o">.</span><span class="n">date</span><span class="o">|</span><span class="n">strftime</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%d</span><span class="s"> %B %Y&#39;</span><span class="p">)</span> <span class="p">}}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="index-html">
+<h3>index.html<a class="headerlink" href="#index-html" title="Permalink to this headline">¶</a></h3>
+<p>博客的首页，生成位置：output/index.html</p>
+<p>如果分页可用，子页面将会保存为 output/index`n`.html.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="27%" />
+<col width="73%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">变量</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>articles_paginator</td>
+<td>文章列表分页对象</td>
+</tr>
+<tr class="row-odd"><td>articles_page</td>
+<td>当前文章页面</td>
+</tr>
+<tr class="row-even"><td>dates_paginator</td>
+<td>文章列表分页对象, 按照日期升序排列</td>
+</tr>
+<tr class="row-odd"><td>dates_page</td>
+<td>文章列表分页对象, 按照日期升序排列</td>
+</tr>
+<tr class="row-even"><td>page_name</td>
+<td>&#8216;index&#8217; &#8211; 有效的分页链接</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="author-html">
+<h3>author.html<a class="headerlink" href="#author-html" title="Permalink to this headline">¶</a></h3>
+<p>该模板针对作者进行处理，输出位置： output/author/<cite>author_name</cite>.html</p>
+<p>如果分页可用，子页面将会根据 AUTHOR_SAVE_AS 设置进行保存 (<cite>Default:</cite> output/author/<cite>author_name&#8217;n&#8217;</cite>.html)</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">变量</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>author</td>
+<td>作者</td>
+</tr>
+<tr class="row-odd"><td>articles</td>
+<td>此作者的所有文章</td>
+</tr>
+<tr class="row-even"><td>dates</td>
+<td>此作者的所有文章, 按照日期升序排列</td>
+</tr>
+<tr class="row-odd"><td>articles_paginator</td>
+<td>文章列表分页对象</td>
+</tr>
+<tr class="row-even"><td>articles_page</td>
+<td>当前文章页面</td>
+</tr>
+<tr class="row-odd"><td>dates_paginator</td>
+<td>文章列表分页对象, 按照日期升序排列</td>
+</tr>
+<tr class="row-even"><td>dates_page</td>
+<td>当前文章页面, 按照日期升序排列</td>
+</tr>
+<tr class="row-odd"><td>page_name</td>
+<td>AUTHOR_URL  <cite>{slug}</cite> 之后的内容将被删除 &#8211; 有利于分页链接</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="category-html">
+<h3>category.html<a class="headerlink" href="#category-html" title="Permalink to this headline">¶</a></h3>
+<p>该模板将会针对每个存在的分类进行处理，输出位置：output/category/<cite>category_name</cite>.html.</p>
+<p>如果分页可用，子页面将会根据 CATEGORY_SAVE_AS 设置进行保存 (<cite>Default:</cite> output/category/<cite>category_name&#8217;n&#8217;</cite>.html)</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="76%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">变量</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>category</td>
+<td>处理分类名称</td>
+</tr>
+<tr class="row-odd"><td>articles</td>
+<td>文章分类</td>
+</tr>
+<tr class="row-even"><td>dates</td>
+<td>文章分类, 按照日期升序排列</td>
+</tr>
+<tr class="row-odd"><td>articles_paginator</td>
+<td>文章列表分页对象</td>
+</tr>
+<tr class="row-even"><td>articles_page</td>
+<td>当前文章页面</td>
+</tr>
+<tr class="row-odd"><td>dates_paginator</td>
+<td>文章列表分页对象,按照日期升序排列</td>
+</tr>
+<tr class="row-even"><td>dates_page</td>
+<td>当前文章页面, 按照日期升序排列</td>
+</tr>
+<tr class="row-odd"><td>page_name</td>
+<td>CATEGORY_URL  <cite>{slug}</cite> 之后的内容将被删除 &#8211; 有利于分页链接</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="article-html">
+<h3>article.html<a class="headerlink" href="#article-html" title="Permalink to this headline">¶</a></h3>
+<p>该模板将会处理每一篇文章，保存.html文件位置：output/<cite>article_name</cite>.html，以下是得到的具体变量。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">变量</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>article</td>
+<td>显示文章对象</td>
+</tr>
+<tr class="row-odd"><td>category</td>
+<td>当前文章分类名</td>
+</tr>
+</tbody>
+</table>
+<p>在文章源文件件中，任何header头部元数据都将作为 <tt class="docutils literal"><span class="pre">article</span></tt> 对象的可用字段。处了全小写字符以外，该字段名与元数据字段名相同。</p>
+<p>例如，在文章元数据中添加 <cite>FacebookImage</cite> 字段，如下所示:</p>
+<div class="highlight-python"><pre>.. code-block:: markdown</pre>
+</div>
+<blockquote>
+<div>Title: I love Python more than music
+Date: 2013-11-06 10:06
+Tags: personal, python
+Category: Tech
+Slug: python-je-l-aime-a-mourir
+Author: Francis Cabrel
+FacebookImage: <a class="reference external" href="http://franciscabrel.com/images/pythonlove.png">http://franciscabrel.com/images/pythonlove.png</a></div></blockquote>
+<p>新的元数据在 <cite>article.html</cite> 模板中为 <cite>article.facebookimage</cite>  。可以在Facebook open graph标签中提供图像，更改每一篇文章:</p>
+<div class="highlight-python"><pre>.. code-block:: html+jinja</pre>
+</div>
+<blockquote>
+<div>&lt;meta property=&#8221;og:image&#8221; content=&#8221;{{ article.facebookimage }}&#8221;/&gt;</div></blockquote>
+</div>
+<div class="section" id="page-html">
+<h3>page.html<a class="headerlink" href="#page-html" title="Permalink to this headline">¶</a></h3>
+<p>该模板将会处理每一个页面，保存相关的.html文件位置： output/page_name.html。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">变量</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>page</td>
+<td>显示页面对象. 可以访问它的title, slug, 以及 content.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="tag-html">
+<h3>tag.html<a class="headerlink" href="#tag-html" title="Permalink to this headline">¶</a></h3>
+<p>模板会处理每一个标签，保存相关的.html文件路径为： output/tag/<cite>tag_name</cite>.html。</p>
+<p>如果分页可用，子页面将会根据 TAG_SAVE_AS 设置进行保存 (<cite>Default:</cite> output/tag/<cite>tag_name&#8217;n&#8217;</cite>.html)</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="74%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">变量</th>
+<th class="head">说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>tag</td>
+<td>处理标签名</td>
+</tr>
+<tr class="row-odd"><td>articles</td>
+<td>与此标签相关的文章</td>
+</tr>
+<tr class="row-even"><td>dates</td>
+<td>与此标签相关的文章, 按照日期升序排列</td>
+</tr>
+<tr class="row-odd"><td>articles_paginator</td>
+<td>文章列表分页对象</td>
+</tr>
+<tr class="row-even"><td>articles_page</td>
+<td>当前文章页面</td>
+</tr>
+<tr class="row-odd"><td>dates_paginator</td>
+<td>文章列表分页对象,按照日期升序排列</td>
+</tr>
+<tr class="row-even"><td>dates_page</td>
+<td>当前文章页面, 按照日期升序排列</td>
+</tr>
+<tr class="row-odd"><td>page_name</td>
+<td>TAG_URL  <cite>{slug}</cite> 之后的内容将被删除 &#8211; 有利于分页链接</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="feeds">
+<h2>Feeds<a class="headerlink" href="#feeds" title="Permalink to this headline">¶</a></h2>
+<p>feed变量在3.0版本中发生变化，现在每个变量都明确地列出ATOM或者RSS的名称。默认依然为ATOM，较老的主题需要及时更新，以下是一份完整的feed变量:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">FEED_ATOM</span>
+<span class="n">FEED_RSS</span>
+<span class="n">FEED_ALL_ATOM</span>
+<span class="n">FEED_ALL_RSS</span>
+<span class="n">CATEGORY_FEED_ATOM</span>
+<span class="n">CATEGORY_FEED_RSS</span>
+<span class="n">TAG_FEED_ATOM</span>
+<span class="n">TAG_FEED_RSS</span>
+<span class="n">TRANSLATION_FEED_ATOM</span>
+<span class="n">TRANSLATION_FEED_RSS</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>继承<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>自从3.0版本开始，Pelican支持继承 <tt class="docutils literal"><span class="pre">simple</span></tt> 主题，因此你可以在自定义主题中复用 <tt class="docutils literal"><span class="pre">simple</span></tt> 主题模板。</p>
+<p>如果 <tt class="docutils literal"><span class="pre">templates/</span></tt> 目录下某个关键性文件丢失，将会使用 <tt class="docutils literal"><span class="pre">simple</span></tt> 主题中的模板进行匹配替换。因此如果 <tt class="docutils literal"><span class="pre">simple</span></tt> 主题中的HTML模板结构适合你，则无需重新编写新的模板。</p>
+<p>你还可以使用 <tt class="docutils literal"><span class="pre">{%</span> <span class="pre">extends</span> <span class="pre">%}</span></tt> 指令，在自定义主题中根据 <tt class="docutils literal"><span class="pre">simple</span></tt> 主题模板进行扩展，如下所示:</p>
+<div class="highlight-python"><pre>.. code-block:: html+jinja</pre>
+</div>
+<blockquote>
+<div><p>{% extends &#8221;!simple/index.html&#8221; %}   &lt;!&#8211; extends the <tt class="docutils literal"><span class="pre">index.html</span></tt> template from the <tt class="docutils literal"><span class="pre">simple</span></tt> theme &#8211;&gt;</p>
+<p>{% extends &#8220;index.html&#8221; %}   &lt;!&#8211; &#8220;regular&#8221; extending &#8211;&gt;</p>
+</div></blockquote>
+<div class="section" id="id9">
+<h3>实例<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>可以简单的使用两个文件创建主题。</p>
+<div class="section" id="base-html">
+<h4>base.html<a class="headerlink" href="#base-html" title="Permalink to this headline">¶</a></h4>
+<p>第一个文件： <tt class="docutils literal"><span class="pre">templates/base.html</span></tt> 模板:</p>
+<div class="highlight-html+jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">extends</span> <span class="s2">&quot;!simple/base.html&quot;</span> <span class="cp">%}</span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">head</span> <span class="cp">%}</span>
+<span class="cp">{{</span> <span class="nb">super</span><span class="o">()</span> <span class="cp">}}</span>
+   <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span> <span class="na">href=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">SITEURL</span> <span class="cp">}}</span><span class="s">/theme/css/style.css&quot;</span> <span class="nt">/&gt;</span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li>第一行，基于 <tt class="docutils literal"><span class="pre">simple</span></tt> 主题，扩展 <tt class="docutils literal"><span class="pre">base.html</span></tt> 模板页，不必重写该文件。</li>
+<li>第三行，打开 <tt class="docutils literal"><span class="pre">simple</span></tt> 主题中已定义的 <tt class="docutils literal"><span class="pre">head</span></tt> 块。</li>
+<li>第四行，函数 <tt class="docutils literal"><span class="pre">super()</span></tt> 在 <tt class="docutils literal"><span class="pre">head</span></tt> 块中插入内容。</li>
+<li>第五行，为页面添加样式列表。</li>
+<li>最后一行，关闭 <tt class="docutils literal"><span class="pre">head</span></tt> 块。</li>
+</ol>
+<p>可以基于该文件进行扩展，所有页面都可以使用该样式列表（stylesheet）。</p>
+</div>
+<div class="section" id="style-css">
+<h4>style.css<a class="headerlink" href="#style-css" title="Permalink to this headline">¶</a></h4>
+<p>第二个文件则是CSS样式表： <tt class="docutils literal"><span class="pre">static/css/style.css</span></tt></p>
+<div class="highlight-css"><div class="highlight"><pre><span class="nt">body</span> <span class="p">{</span>
+    <span class="k">font-family</span> <span class="o">:</span> <span class="k">monospace</span> <span class="p">;</span>
+    <span class="k">font-size</span> <span class="o">:</span> <span class="m">100</span><span class="o">%</span> <span class="p">;</span>
+    <span class="k">background-color</span> <span class="o">:</span> <span class="nb">white</span> <span class="p">;</span>
+    <span class="k">color</span> <span class="o">:</span> <span class="m">#111</span> <span class="p">;</span>
+    <span class="k">width</span> <span class="o">:</span> <span class="m">80</span><span class="o">%</span> <span class="p">;</span>
+    <span class="k">min-width</span> <span class="o">:</span> <span class="m">400px</span> <span class="p">;</span>
+    <span class="k">min-height</span> <span class="o">:</span> <span class="m">200px</span> <span class="p">;</span>
+    <span class="k">padding</span> <span class="o">:</span> <span class="m">1em</span> <span class="p">;</span>
+    <span class="k">margin</span> <span class="o">:</span> <span class="m">5</span><span class="o">%</span> <span class="m">10</span><span class="o">%</span> <span class="p">;</span>
+    <span class="k">border</span> <span class="o">:</span> <span class="k">thin</span> <span class="k">solid</span> <span class="nb">gray</span> <span class="p">;</span>
+    <span class="k">border</span><span class="o">-</span><span class="n">radius</span> <span class="o">:</span> <span class="m">5px</span> <span class="p">;</span>
+    <span class="k">display</span> <span class="o">:</span> <span class="k">block</span> <span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">a</span><span class="nd">:link</span>    <span class="p">{</span> <span class="k">color</span> <span class="o">:</span> <span class="nb">blue</span> <span class="p">;</span> <span class="k">text-decoration</span> <span class="o">:</span> <span class="k">none</span> <span class="p">;</span>      <span class="p">}</span>
+<span class="nt">a</span><span class="nd">:hover</span>   <span class="p">{</span> <span class="k">color</span> <span class="o">:</span> <span class="nb">blue</span> <span class="p">;</span> <span class="k">text-decoration</span> <span class="o">:</span> <span class="k">underline</span> <span class="p">;</span> <span class="p">}</span>
+<span class="nt">a</span><span class="nd">:visited</span> <span class="p">{</span> <span class="k">color</span> <span class="o">:</span> <span class="nb">blue</span> <span class="p">;</span>                               <span class="p">}</span>
+
+<span class="nt">h1</span> <span class="nt">a</span> <span class="p">{</span> <span class="k">color</span> <span class="o">:</span> <span class="k">inherit</span> <span class="cp">!important</span> <span class="p">}</span>
+<span class="nt">h2</span> <span class="nt">a</span> <span class="p">{</span> <span class="k">color</span> <span class="o">:</span> <span class="k">inherit</span> <span class="cp">!important</span> <span class="p">}</span>
+<span class="nt">h3</span> <span class="nt">a</span> <span class="p">{</span> <span class="k">color</span> <span class="o">:</span> <span class="k">inherit</span> <span class="cp">!important</span> <span class="p">}</span>
+<span class="nt">h4</span> <span class="nt">a</span> <span class="p">{</span> <span class="k">color</span> <span class="o">:</span> <span class="k">inherit</span> <span class="cp">!important</span> <span class="p">}</span>
+<span class="nt">h5</span> <span class="nt">a</span> <span class="p">{</span> <span class="k">color</span> <span class="o">:</span> <span class="k">inherit</span> <span class="cp">!important</span> <span class="p">}</span>
+<span class="nt">h6</span> <span class="nt">a</span> <span class="p">{</span> <span class="k">color</span> <span class="o">:</span> <span class="k">inherit</span> <span class="cp">!important</span> <span class="p">}</span>
+
+<span class="nt">pre</span> <span class="p">{</span>
+    <span class="k">margin</span> <span class="o">:</span> <span class="m">2em</span> <span class="m">1em</span> <span class="m">2em</span> <span class="m">4em</span> <span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nf">#menu</span> <span class="nt">li</span> <span class="p">{</span>
+    <span class="k">display</span> <span class="o">:</span> <span class="k">inline</span> <span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nf">#post-list</span> <span class="p">{</span>
+    <span class="k">margin-bottom</span> <span class="o">:</span> <span class="m">1em</span> <span class="p">;</span>
+    <span class="k">margin-top</span> <span class="o">:</span> <span class="m">1em</span> <span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id10">
+<h4>下载<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
+<p>样例下载： <a class="reference download internal" href="_downloads/theme-basic.zip"><tt class="xref download docutils literal"><span class="pre">here</span></tt></a>.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+    <a href="http://github.com/bravelee/pelican-docs-zh-cn"><img style="position: fixed; top: 0; right: 0; border: 0;"
+    src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+  
+
+  
+
+  </body>
+</html>
