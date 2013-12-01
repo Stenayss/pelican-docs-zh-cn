@@ -1,49 +1,49 @@
 Pelican
 =======
 
-Pelican 是一个用 Python_ 实现的静态网站生成器。
+Pelican是一种静态网站生成器，使用Python_语言编写。
 
-* 用您选定的编辑器( 如： vim_ )直接写出您的内容，支持 reStructuredText_ ， Markdown_ ，和 AsciiDoc_ 格式
-* 包含一个简单的命令行工具用以(重新)生成您的站点
-* 可方便地与分布式版本控制系统和网络钩子配合使用
-* 完全静态输出，可托管在任何地方
+* 使用您喜欢的编辑器（Vim!）直接编写内容，支持 reStructuredText_ , Markdown_ , 或者 AsciiDoc_ 等格式。
+* 使用简单的命令行工具（重新）生成站点内容。
+* 易于结合版本控制系统及其web应用搭配使用。
+* 全静态化输出，易于部署。
 
 特性
 ----
 
-Pelican 当前支持：
+Pelican当前版本支持以下特性：
 
-* 文章(如：博客帖子)和页面(如：“关于”，“项目”，“联系方式”)
-* 评论，通过一个外部服务( Disqus_ )实现。(请记住：Disqus 很有用，但它是一个外部服务，因此评论数据将会多少有点脱离您的控制，同时潜在地存在数据丢失的可能性。)
-* 主题支持(主题是用 Jinja2_ 模板创建的)
-* 用多种语言发表文章
-* Atom/RSS 供稿
-* 代码语法高亮
-* 文章/页面生成PDF (可选的)
-* 从WordPress，Dotclear，或者RSS源导入
-* 集成外部工具，如：Twitter，Google Analytics等 (可选的)
+* 文章类（例如博客网站）和单页类（例如："About", "Projects", "Contact"等页面）
+* 通过扩展支持评论功能（ Disqus_ ）（请注意Disqus是一种第三方服务，所有的评论数据在你控制之外，可能会面临潜在的数据丢失等风险。）
+* 主题支持（使用 Jinja2_ 模板创建主题）
+* 支持多种语言发布文章
+* Atom/RSS 输出
+* 语法高亮
+* 导入WordPress, Dotclear, 或者RSS源数据
+* 集成第三方工具: Twitter, Google Analytics 等（可选）
 
-为什么取名“Pelican”？
------------------------
+“Pelican”命名由来
+-------------------
 
-“Pelican”是由 *calepin* 颠倒字母而来的， *calepin* 在法语里是“笔记本”的意思。
+“Pelican”是由单词 *calepin* 逆序而来，在法语中表示“笔记”。；）
 
-源代码
-------
+源码
+----
 
-您可以在这里访问到源代码： https://github.com/getpelican/pelican
+您可以通过 https://github.com/getpelican/pelican 获取源码。
 
-反馈 / 联系我们
----------------
+反馈/联系我们
+-------------
 
-如果您想看到 Pelican 的新特性，那就别再犹豫，您可以提供建议，克隆代码库等。 :doc:`参与建设<contribute>` 的方式有很多种。它是开源的，伙计！
+如果你想Pelican具备新的特性，请不吝赐教，可以通过克隆代码仓库进行修改并提供建议。:doc:`参与建设<contribute>` 的方式有很多种，因为它是开源的，小伙伴。
 
-有任何意见或建议，请发送消息至 authors#getpelican.com ！您也可以加入 `#pelican on Freenode`_ 讨论组，如果您手边没有一个IRC客户端，请使用 webchat_ 进行快速反馈。
+有任何建议和意见请发邮件至：authors@getpelican.com
+为了得到快速回答，你可以通过IRC频道 `#pelican on Freenode`_ 加入该团队——如果你身边没有得心应手的IRC聊天客户端，请使用 webchat_ 进行快速反馈。如果你通过IRC提出一个问题，并未快速得到回应，请不要离开该频道！由于时区不同，可能需要几个小时，如果你足够耐心，依然保持在线，会有人持续对你的询问进行回应。
 
 文档
 ----
 
-一个法语版的文档可访问： Pelican_ 。
+法语版的使用说明文档在此查看: Pelican_docs_French_
 
 .. toctree::
    :maxdepth: 2
@@ -64,14 +64,13 @@ Pelican 当前支持：
 .. Links
 
 .. _Python: http://www.python.org/
-.. _vim: http://www.vim.org/
 .. _reStructuredText: http://docutils.sourceforge.net/rst.html
 .. _Markdown: http://daringfireball.net/projects/markdown/
 .. _AsciiDoc: http://www.methods.co.nz/asciidoc/index.html
-.. _Disqus: https://disqus.com/
 .. _Jinja2: http://jinja.pocoo.org/
 .. _`Pelican documentation`: http://docs.getpelican.com/latest/
 .. _`Pelican's internals`: http://docs.getpelican.com/en/latest/internals.html
 .. _`#pelican on Freenode`: irc://irc.freenode.net/pelican
 .. _webchat: http://webchat.freenode.net/?channels=pelican&uio=d4
-.. _Pelican: https://pelican.readthedocs.org/en/latest/fr/index.html
+.. _Pelican_docs_French: http://docs.getpelican.com/en/3.3.0/fr/index.html
+.. _Disqus: https://disqus.com/

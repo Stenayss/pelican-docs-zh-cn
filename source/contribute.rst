@@ -1,5 +1,5 @@
-如何贡献
-########
+How to contribute
+#################
 
 There are many ways to contribute to Pelican. You can improve the
 documentation, add missing features, and fix bugs (or just report them). You
@@ -11,8 +11,8 @@ so, please adhere to the following guidelines.
 
 .. include:: ../CONTRIBUTING.rst
 
-设置开发环境
-============
+Setting up the development environment
+======================================
 
 While there are many ways to set up one's development environment, following
 is a method that uses `virtualenv <http://www.virtualenv.org/>`_. If you don't
@@ -47,8 +47,8 @@ Or using ``pip``::
 
     $ pip install -e .
 
-代码规范
-========
+Coding standards
+================
 
 Try to respect what is described in the `PEP8 specification
 <http://www.python.org/dev/peps/pep-0008/>`_ when making contributions. This
@@ -57,8 +57,8 @@ can be eased via the `pep8 <http://pypi.python.org/pypi/pep8>`_ or `flake8
 particular will give you some useful hints about ways in which the
 code/formatting can be improved.
 
-构建文档
-========
+Building the docs
+=================
 
 If you make changes to the documentation, you should preview your changes
 before committing them::
@@ -69,8 +69,8 @@ before committing them::
 
 Open ``_build/html/index.html`` in your browser to preview the documentation.
 
-运行测试套件
-============
+Running the test suite
+======================
 
 Each time you add a feature, there are two things to do regarding tests:
 check that the existing tests pass, and add tests for the new feature
@@ -88,9 +88,10 @@ Pelican, and the changes to that output are expected and deemed correct given
 the nature of your changes, then you should update the output used by the
 functional tests. To do so, you can use the following two commands::
 
-    $ pelican -o pelican/tests/output/custom/ -s samples/pelican.conf.py \
+    $ LC_ALL=en_US.utf8 pelican -o pelican/tests/output/custom/ \
+        -s samples/pelican.conf.py samples/content/
+    $ LC_ALL=en_US.utf8 pelican -o pelican/tests/output/basic/ \
         samples/content/
-    $ pelican -o pelican/tests/output/basic/ samples/content/
 
 Testing on Python 2 and 3
 -------------------------
@@ -103,8 +104,8 @@ Python 3-compatible version of dependent packages.
 
 .. _Tox: http://testrun.org/tox/latest/
 
-Python 3 开发贴士
-=================
+Python 3 development tips
+=========================
 
 Here are some tips that may be useful when doing some code for both Python 2.7
 and Python 3 at the same time:

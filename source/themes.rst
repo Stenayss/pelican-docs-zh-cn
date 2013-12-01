@@ -1,239 +1,206 @@
 .. _theming-pelican:
 
-怎样给Pelican创建主题
-#####################
+主题制作
+########
 
-Pelican uses the great `Jinja2 <http://jinja.pocoo.org/>`_ templating engine to
-generate its HTML output. Jinja2 syntax is really simple. If you want to
-create your own theme, feel free to take inspiration from the `"simple" theme
-<https://github.com/getpelican/pelican/tree/master/pelican/themes/simple/templates>`_.
+Pelican使用伟大的 `Jinja2 <http://jinja.pocoo.org/>`_ 模板引擎嵌入到输出的HTML页面中，Jinja2语法十分简单，如果你想制作自己的主题，可以从这类 `"simple" 的主题中随时汲取灵感 <https://github.com/getpelican/pelican/tree/master/pelican/themes/simple/templates>`_ 。
 
 结构
 ====
 
-To make your own theme, you must follow the following structure::
+制作个人主题，必须遵守以下目录结构::
 
     ├── static
     │   ├── css
     │   └── images
     └── templates
-        ├── archives.html         // to display archives
-        ├── period_archives.html  // to display time-period archives
-        ├── article.html          // processed for each article
-        ├── author.html           // processed for each author
-        ├── authors.html          // must list all the authors
-        ├── categories.html       // must list all the categories
-        ├── category.html         // processed for each category
-        ├── index.html            // the index. List all the articles
-        ├── page.html             // processed for each page
-        ├── tag.html              // processed for each tag
-        └── tags.html             // must list all the tags. Can be a tag cloud.
+        ├── archives.html         // 显示归类
+        ├── period_archives.html  // 按照日期归类
+        ├── article.html          // 文章处理
+        ├── author.html           // 作者处理
+        ├── authors.html          // 列出所有文章的作者
+        ├── categories.html       // 分类汇总
+        ├── category.html         // 分类处理
+        ├── index.html            // 首页显示所有文章
+        ├── page.html             // 页面处理
+        ├── tag.html              // 标签处理
+        └── tags.html             // 标签汇总，生成云标签
 
-* `static` contains all the static assets, which will be copied to the output
-  `theme` folder. I've put the CSS and image folders here, but they are
-  just examples. Put what you need here.
+* `static` 目录包含所有的静态资源，将被复制到output目录 `theme` 文件夹，以上文件包括CSS以及image目录，这只是案例，可以随心所欲定制。
 
-* `templates` contains all the templates that will be used to generate the content.
-  I've just put the mandatory templates here; you can define your own if it helps
-  you keep things organized while creating your theme.
+* `templates` 目录包含所有模板文件，上面列出的模板文件是强制性的，你也可以添加自己的模板。
 
-模板和变量
-==========
+模板以及变量
+============
 
-The idea is to use a simple syntax that you can embed into your HTML pages.
-This document describes which templates should exist in a theme, and which
-variables will be passed to each template at generation time.
+该思路语法简单，嵌入到HTML页面中，该文档描述主题中应该存在的模板，以及在生成页面的同时，哪些变量会被传递给模板。
 
-All templates will receive the variables defined in your settings file, if they
-are in all-caps. You can access them directly.
+所有的模板文件都将接收到大写的自定义变量，可以直接访问。
 
-公共变量
+全局变量
 --------
 
-All of these settings will be available to all templates.
+以下设置针对所有模板具有通用性。
 
 =============   ===================================================
-Variable        Description
+变量              说明
 =============   ===================================================
-output_file     The name of the file currently being generated. For
-                instance, when Pelican is rendering the homepage,
-                output_file will be "index.html".
-articles        The list of articles, ordered descending by date
-                All the elements are `Article` objects, so you can
-                access their attributes (e.g. title, summary, author
-                etc.). Sometimes this is shadowed (for instance in
-                the tags page). You will then find info about it
-                in the `all_articles` variable.
-dates           The same list of articles, but ordered by date,
-                ascending
-tags            A list of (tag, articles) tuples, containing all
-                the tags.
-categories      A list of (category, articles) tuples, containing
-                all the categories.
-                and the list of respective articles (values)
-pages           The list of pages
+output_file     目前正在生成的文件名称，例如，当Pelican进行网页渲染时，output_file则为 "index.html"
+articles        按照日期降序排列的文章列表, 所有的元素都是 `Article` 对象, 因此可以访问其属性 (e.g. title, summary, author etc.). 有时也会带来不便 (例如在tags页面). 你会在 `all_articles` 变量中发现它的信息。
+dates           按照日期升序排列的文章列表。
+tags            （标签和文章）元组列表，包含所有tags
+categories      （分类和文章）元组列表，包含所有分类和相关文章（的值）
+pages           页面列表
 =============   ===================================================
 
 排序
 ----
 
-URL wrappers (currently categories, tags, and authors), have
-comparison methods that allow them to be easily sorted by name::
+采取比较的方法进行URl封装（当前分类、标签和作者），使得它们易于按照名称排序::
 
     {% for tag, articles in tags|sort %}
 
-If you want to sort based on different criteria, `Jinja's sort
-command`__ has a number of options.
+如果你想基于不同的标准排序, Jinja的排序命令 `Jinja's sort
+command`__ 有多项选择。
 
 __ http://jinja.pocoo.org/docs/templates/#sort
 
 
-日期格式化
-----------
+日期格式
+--------
 
-Pelican formats the date with according to your settings and locale 
-(``DATE_FORMATS``/``DEFAULT_DATE_FORMAT``) and provides a 
-``locale_date`` attribute. On the other hand, ``date`` attribute will
-be a `datetime`_ object. If you need custom formatting for a date 
-different than your settings, use the Jinja filter ``strftime`` 
-that comes with Pelican. Usage is same as Python `strftime`_ format, 
-but the filter will do the right thing and format your date according
-to the locale given in your settings::
+根据设置以及语言环境进行日期格式化 (``DATE_FORMATS``/``DEFAULT_DATE_FORMAT``) ，并且提供了 ``locale_date`` 属性。此外， ``date`` 属性将是 `datetime`_ 对象，如果你需要自定义日期格式，使用Jinja filter  ``strftime`` ，用法和python的 `strftime`_ 格式类似，filter会根据语言环境设置格式化日期::
 
     {{ article.date|strftime('%d %B %Y') }}
 
 .. _datetime: http://docs.python.org/2/library/datetime.html#datetime-objects
 .. _strftime: http://docs.python.org/2/library/datetime.html#strftime-strptime-behavior
 
-首页
-----
+index.html
+----------
 
-This is the home page of your blog, generated at output/index.html.
+博客的首页，生成位置：output/index.html
 
-If pagination is active, subsequent pages will reside in output/index`n`.html.
-
-===================     ===================================================
-Variable                Description
-===================     ===================================================
-articles_paginator      A paginator object for the list of articles
-articles_page           The current page of articles
-dates_paginator         A paginator object for the article list, ordered by
-                        date, ascending.
-dates_page              The current page of articles, ordered by date,
-                        ascending.
-page_name               'index' -- useful for pagination links
-===================     ===================================================
-
-作者页
-------
-
-This template will be processed for each of the existing authors, with
-output generated at output/author/`author_name`.html.
-
-If pagination is active, subsequent pages will reside as defined by setting
-AUTHOR_SAVE_AS (`Default:` output/author/`author_name'n'`.html).
+如果分页可用，子页面将会保存为 output/index`n`.html.
 
 ===================     ===================================================
-Variable                Description
+变量                     说明
 ===================     ===================================================
-author                  The name of the author being processed
-articles                Articles by this author
-dates                   Articles by this author, but ordered by date,
-                        ascending
-articles_paginator      A paginator object for the list of articles
-articles_page           The current page of articles
-dates_paginator         A paginator object for the article list, ordered by
-                        date, ascending.
-dates_page              The current page of articles, ordered by date,
-                        ascending.
-page_name               AUTHOR_URL where everything after `{slug}` is
-                        removed -- useful for pagination links
+articles_paginator      文章列表分页对象
+articles_page           当前文章页面
+dates_paginator         文章列表分页对象, 按照日期升序排列
+dates_page              文章列表分页对象, 按照日期升序排列
+page_name               'index' -- 有效的分页链接
 ===================     ===================================================
 
-分类页
-------
+author.html
+-------------
 
-This template will be processed for each of the existing categories, with
-output generated at output/category/`category_name`.html.
+该模板针对作者进行处理，输出位置： output/author/`author_name`.html
 
-If pagination is active, subsequent pages will reside as defined by setting
-CATEGORY_SAVE_AS (`Default:` output/category/`category_name'n'`.html).
+如果分页可用，子页面将会根据 AUTHOR_SAVE_AS 设置进行保存 (`Default:` output/author/`author_name'n'`.html)
 
 ===================     ===================================================
-Variable                Description
+变量                      说明
 ===================     ===================================================
-category                The name of the category being processed
-articles                Articles for this category
-dates                   Articles for this category, but ordered by date,
-                        ascending
-articles_paginator      A paginator object for the list of articles
-articles_page           The current page of articles
-dates_paginator         A paginator object for the list of articles,
-                        ordered by date, ascending
-dates_page              The current page of articles, ordered by date,
-                        ascending
-page_name               CATEGORY_URL where everything after `{slug}` is
-                        removed -- useful for pagination links
+author                  作者
+articles                此作者的所有文章
+dates                   此作者的所有文章, 按照日期升序排列
+articles_paginator      文章列表分页对象
+articles_page           当前文章页面
+dates_paginator         文章列表分页对象, 按照日期升序排列
+dates_page              当前文章页面, 按照日期升序排列
+page_name               AUTHOR_URL  `{slug}` 之后的内容将被删除 -- 有利于分页链接
 ===================     ===================================================
 
-文章页
-------
+category.html
+-------------
 
-This template will be processed for each article, with .html files saved
-as output/`article_name`.html. Here are the specific variables it gets.
+该模板将会针对每个存在的分类进行处理，输出位置：output/category/`category_name`.html.
+
+如果分页可用，子页面将会根据 CATEGORY_SAVE_AS 设置进行保存 (`Default:` output/category/`category_name'n'`.html)
+
+===================     ===================================================
+变量                      说明
+===================     ===================================================
+category                处理分类名称
+articles                文章分类
+dates                   文章分类, 按照日期升序排列
+articles_paginator      文章列表分页对象
+articles_page           当前文章页面
+dates_paginator         文章列表分页对象,按照日期升序排列
+dates_page              当前文章页面, 按照日期升序排列
+page_name               CATEGORY_URL  `{slug}` 之后的内容将被删除 -- 有利于分页链接
+===================     ===================================================
+
+article.html
+-------------
+
+该模板将会处理每一篇文章，保存.html文件位置：output/`article_name`.html，以下是得到的具体变量。
 
 =============   ===================================================
-Variable        Description
+变量             说明
 =============   ===================================================
-article         The article object to be displayed
-category        The name of the category for the current article
-=============   ===================================================
-
-静态页
-------
-
-This template will be processed for each page, with corresponding .html files
-saved as output/`page_name`.html.
-
-=============   ===================================================
-Variable        Description
-=============   ===================================================
-page            The page object to be displayed. You can access its
-                title, slug, and content.
+article         显示文章对象
+category        当前文章分类名
 =============   ===================================================
 
-标签页
-------
+在文章源文件件中，任何header头部元数据都将作为 ``article`` 对象的可用字段。处了全小写字符以外，该字段名与元数据字段名相同。
 
-This template will be processed for each tag, with corresponding .html files
-saved as output/tag/`tag_name`.html.
+例如，在文章元数据中添加 `FacebookImage` 字段，如下所示::
 
-If pagination is active, subsequent pages will reside as defined in setting
-TAG_SAVE_AS (`Default:` output/tag/`tag_name'n'`.html).
+.. code-block:: markdown
+
+    Title: I love Python more than music
+    Date: 2013-11-06 10:06
+    Tags: personal, python
+    Category: Tech
+    Slug: python-je-l-aime-a-mourir
+    Author: Francis Cabrel
+    FacebookImage: http://franciscabrel.com/images/pythonlove.png
+
+新的元数据在 `article.html` 模板中为 `article.facebookimage`  。可以在Facebook open graph标签中提供图像，更改每一篇文章::
+
+.. code-block:: html+jinja
+
+    <meta property="og:image" content="{{ article.facebookimage }}"/>
+
+
+page.html
+---------
+
+该模板将会处理每一个页面，保存相关的.html文件位置： output/page_name.html。
+
+=============   ===================================================
+变量              说明
+=============   ===================================================
+page            显示页面对象. 可以访问它的title, slug, 以及 content.
+=============   ===================================================
+
+tag.html
+--------
+
+模板会处理每一个标签，保存相关的.html文件路径为： output/tag/`tag_name`.html。
+
+如果分页可用，子页面将会根据 TAG_SAVE_AS 设置进行保存 (`Default:` output/tag/`tag_name'n'`.html)
 
 ===================     ===================================================
-Variable                Description
+变量                       说明
 ===================     ===================================================
-tag                     The name of the tag being processed
-articles                Articles related to this tag
-dates                   Articles related to this tag, but ordered by date,
-                        ascending
-articles_paginator      A paginator object for the list of articles
-articles_page           The current page of articles
-dates_paginator         A paginator object for the list of articles,
-                        ordered by date, ascending
-dates_page              The current page of articles, ordered by date,
-                        ascending
-page_name               TAG_URL where everything after `{slug}` is removed
-                        -- useful for pagination links
+tag                     处理标签名
+articles                与此标签相关的文章
+dates                   与此标签相关的文章, 按照日期升序排列
+articles_paginator      文章列表分页对象
+articles_page           当前文章页面
+dates_paginator         文章列表分页对象,按照日期升序排列
+dates_page              当前文章页面, 按照日期升序排列
+page_name               TAG_URL  `{slug}` 之后的内容将被删除 -- 有利于分页链接
 ===================     ===================================================
 
-供稿
-====
+Feeds
+=====
 
-The feed variables changed in 3.0. Each variable now explicitly lists ATOM or
-RSS in the name. ATOM is still the default. Old themes will need to be updated.
-Here is a complete list of the feed variables::
+feed变量在3.0版本中发生变化，现在每个变量都明确地列出ATOM或者RSS的名称。默认依然为ATOM，较老的主题需要及时更新，以下是一份完整的feed变量::
 
     FEED_ATOM
     FEED_RSS
@@ -247,18 +214,15 @@ Here is a complete list of the feed variables::
     TRANSLATION_FEED_RSS
 
 
+
 继承
 ====
 
-Since version 3.0, Pelican supports inheritance from the ``simple`` theme, so
-you can re-use the ``simple`` theme templates in your own themes.
+自从3.0版本开始，Pelican支持继承 ``simple`` 主题，因此你可以在自定义主题中复用 ``simple`` 主题模板。
 
-If one of the mandatory files in the ``templates/`` directory of your theme is
-missing, it will be replaced by the matching template from the ``simple`` theme.
-So if the HTML structure of a template in the ``simple`` theme is right for you,
-you don't have to write a new template from scratch.
+如果 ``templates/`` 目录下某个关键性文件丢失，将会使用 ``simple`` 主题中的模板进行匹配替换。因此如果 ``simple`` 主题中的HTML模板结构适合你，则无需重新编写新的模板。
 
-You can also extend templates from the ``simple`` themes in your own themes by using the ``{% extends %}`` directive as in the following example:
+你还可以使用 ``{% extends %}`` 指令，在自定义主题中根据 ``simple`` 主题模板进行扩展，如下所示::
 
 .. code-block:: html+jinja
 
@@ -267,15 +231,15 @@ You can also extend templates from the ``simple`` themes in your own themes by u
     {% extends "index.html" %}   <!-- "regular" extending -->
 
 
-样例
+实例
 ----
 
-With this system, it is possible to create a theme with just two files.
+可以简单的使用两个文件创建主题。
 
 base.html
 """""""""
 
-The first file is the ``templates/base.html`` template:
+第一个文件： ``templates/base.html`` 模板:
 
 .. code-block:: html+jinja
 
@@ -286,19 +250,18 @@ The first file is the ``templates/base.html`` template:
        <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/theme/css/style.css" />
     {% endblock %}
 
+1. 第一行，基于 ``simple`` 主题，扩展 ``base.html`` 模板页，不必重写该文件。
+2. 第三行，打开 ``simple`` 主题中已定义的 ``head`` 块。
+3. 第四行，函数 ``super()`` 在 ``head`` 块中插入内容。
+4. 第五行，为页面添加样式列表。
+5. 最后一行，关闭 ``head`` 块。
 
-1.    On the first line, we extend the ``base.html`` template from the ``simple`` theme, so we don't have to rewrite the entire file.
-2.    On the third line, we open the ``head`` block which has already been defined in the ``simple`` theme.
-3.    On the fourth line, the function ``super()`` keeps the content previously inserted in the ``head`` block.
-4.    On the fifth line, we append a stylesheet to the page.
-5.    On the last line, we close the ``head`` block.
-
-This file will be extended by all the other templates, so the stylesheet will be linked from all pages.
+可以基于该文件进行扩展，所有页面都可以使用该样式列表（stylesheet）。
 
 style.css
 """""""""
 
-The second file is the ``static/css/style.css`` CSS stylesheet:
+第二个文件则是CSS样式表： ``static/css/style.css`` 
 
 .. code-block:: css
 
@@ -341,7 +304,7 @@ The second file is the ``static/css/style.css`` CSS stylesheet:
         margin-top : 1em ;
     }
 
-Download
-""""""""
+下载
+""""
 
-You can download this example theme :download:`here <_static/theme-basic.zip>`.
+样例下载： :download:`here <_static/theme-basic.zip>`.

@@ -1,33 +1,29 @@
 .. _import:
 
-====================
- 从其他博客软件导入
-====================
+========================
+ 从其它Blog软件导入数据
+========================
 
 
-描述
+说明
 ====
 
-``pelican-import`` is a command-line tool for converting articles from other
-software to reStructuredText or Markdown. The supported import formats are:
+``pelican-import`` 是一种基于命令行的工具，负责将其它blog中的文章数据转换为reStructuredText 或 Markdown 格式，支持的转换格式为：
 
 - WordPress XML export
 - Dotclear export
 - Posterous API
+- Tumblr API
 - RSS/Atom feed
 
-The conversion from HTML to reStructuredText or Markdown relies on `Pandoc`_.
-For Dotclear, if the source posts are written with Markdown syntax, they will
-not be converted (as Pelican also supports Markdown).
+将HTML格式转换为reStructuredText 或 Markdown格式，主要依赖 `Pandoc`_ ，关于Dotclear，如果源文件使用Markdown语法书写，则无需转换。
 
+依赖包
+======
 
-依赖
-====
+``pelican-import`` 包括一些未安装的依赖包：
 
-``pelican-import`` has some dependencies not required by the rest of Pelican:
-
-- *BeautifulSoup4* and *lxml*, for WordPress and Dotclear import. Can be installed like
-  any other Python package (``pip install BeautifulSoup4 lxml``).
+- *BeautifulSoup4* and *lxml*, 用于WordPress 和 Dotclear 转换. 安装方式和其它Python package安装方法类似 (``pip install BeautifulSoup4 lxml``).
 - *Feedparser*, for feed import (``pip install feedparser``).
 - *Pandoc*, see the `Pandoc site`_ for installation instructions on your
   operating system.
@@ -41,34 +37,37 @@ not be converted (as Pelican also supports Markdown).
 
 ::
 
-    pelican-import [-h] [--wpfile] [--dotclear] [--posterous] [--feed] [-o OUTPUT]
+    pelican-import [-h] [--wpfile] [--dotclear] [--posterous] [--tumblr] [--feed] [-o OUTPUT]
                    [-m MARKUP] [--dir-cat] [--dir-page] [--strip-raw] [--disable-slugs]
-                   [-e EMAIL] [-p PASSWORD]
-                   input|api_token
+                   [-e EMAIL] [-p PASSWORD] [-b BLOGNAME]
+                   input|api_token|api_key
 
-位置参数
---------
+Positional arguments
+--------------------
 
-  input                 The input file to read
+  input                 解析输入文件
   api_token             [Posterous only] api_token can be obtained from http://posterous.com/api/
+  api_key               [Tumblr only] api_key can be obtained from http://www.tumblr.com/oauth/apps
 
 可选参数
 --------
 
-  -h, --help            Show this help message and exit
-  --wpfile              WordPress XML export (default: False)
-  --dotclear            Dotclear export (default: False)
+  -h, --help            帮助和退出
+  --wpfile              WordPress XML格式输出 (default: False)
+  --dotclear            Dotclear 输出 (default: False)
   --posterous           Posterous API (default: False)
+  --tumblr              Tumblr API (default: False)
   --feed                Feed to parse (default: False)
   -o OUTPUT, --output OUTPUT
-                        Output path (default: output)
+                        输出路径 (default: output)
   -m MARKUP, --markup MARKUP
-                        Output markup format (supports rst & markdown)
+                        输出标记格式 (supports rst & markdown)
                         (default: rst)
-  --dir-cat             Put files in directories with categories name
+  --dir-cat             基于类别名称的目录文件
                         (default: False)
   --dir-page            Put files recognised as pages in "pages/" sub-
                           directory (wordpress import only) (default: False)
+  --filter-author       仅导入指定作者的文章内容
   --strip-raw           Strip raw HTML code that can't be converted to markup
                         such as flash embeds or iframes (wordpress import
                         only) (default: False)
@@ -80,9 +79,11 @@ not be converted (as Pelican also supports Markdown).
                         Email used to authenticate Posterous API
   -p PASSWORD, --password=PASSWORD
                         Password used to authenticate Posterous API
+  -b BLOGNAME, --blogname=BLOGNAME
+                        Blog name used in Tumblr API
 
 
-样例
+实例
 ====
 
 For WordPress::
@@ -97,9 +98,12 @@ for Posterous::
 
     $ pelican-import --posterous -o ~/output --email=<email_address> --password=<password> <api_token>
 
+For Tumblr::
 
-测试
-====
+    $ pelican-import --tumblr -o ~/output --blogname=<blogname> <api_token>
+
+Tests
+=====
 
 To test the module, one can use sample files:
 

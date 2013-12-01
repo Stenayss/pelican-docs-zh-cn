@@ -1,5 +1,5 @@
-关于Pelican的一些历史
-#####################
+Some history about Pelican
+##########################
 
 .. warning::
 
@@ -18,7 +18,7 @@ thanks to the feedback of some users, it took me a very few time to
 provide fixes on it. So far, I've re-factored the Pelican code by two
 times; each time took less than 30 minutes.
 
-使用案例
+Use case
 ========
 
 I was previously using WordPress, a solution you can host on a web
@@ -36,8 +36,8 @@ language you want, and then generate a static HTML weblog.
 To be flexible enough, Pelican has template support, so you can easily write
 your own themes if you want to.
 
-设计过程
-========
+Design process
+==============
 
 Pelican came from a need I have. I started by creating a single file
 application, and I have make it grow to support what it does by now.
@@ -78,8 +78,8 @@ I also deal with contents objects. They can be ``Articles``, ``Pages``,
 ``Quotes``, or whatever you want. They are defined in the ``contents.py``
 module and represent some content to be used by the program.
 
-更多细节
-========
+In more detail
+==============
 
 Here is an overview of the classes involved in Pelican.
 

@@ -1,23 +1,23 @@
-pelican-themes命令
-##################
+pelican-themes
+##############
 
 
 
-描述
+说明
 ====
 
-``pelican-themes`` is a command line tool for managing themes for Pelican.
+``pelican-themes`` 是一个用于管理主题的命令行工具。
 
 
-Usage
-"""""
+用法
+""""
 
 | pelican-themes [-h] [-l] [-i theme path [theme path ...]]
 |                      [-r theme name [theme name ...]]
 |                      [-s theme path [theme path ...]] [-v] [--version]
 
-Optional arguments:
-"""""""""""""""""""
+可选参数:
+"""""""""
 
 
 -h, --help                              Show the help an exit
@@ -37,14 +37,14 @@ Optional arguments:
 
 
 
-例子
+实例
 ====
 
 
-Listing the installed themes
-""""""""""""""""""""""""""""
+列出所有已经安装的主题
+""""""""""""""""""""""
 
-With ``pelican-themes``, you can see the available themes by using the ``-l`` or ``--list`` option:
+通过 ``pelican-themes`` 命令选项 ``-l`` or ``--list`` , 可以查看所有可用主题 :
 
 .. code-block:: console
 
@@ -57,11 +57,11 @@ With ``pelican-themes``, you can see the available themes by using the ``-l`` or
     two-column@
     simple
 
-In this example, we can see there are three themes available: ``notmyidea``, ``simple``, and ``two-column``.
+在该实例中，可以发现3个可用主题: ``notmyidea``, ``simple``, 和 ``two-column``.
 
-``two-column`` is prefixed with an ``@`` because this theme is not copied to the Pelican theme path, but is instead just linked to it (see `Creating symbolic links`_ for details about creating symbolic links).
+``two-column`` 主题使用@结尾，是因为该主题并未复制到Pelican theme路径中， 只是链接，(查看 `创建符合链接`_ 获取关于创建符号链接相关信息).
 
-Note that you can combine the ``--list`` option with the ``-v`` or ``--verbose`` option to get more verbose output, like this:
+注意：可以通过 ``-v`` 或者 ``--verbose`` 结合 ``--list`` 选项，获取更详细的输出：
 
 .. code-block:: console
 
@@ -71,11 +71,10 @@ Note that you can combine the ``--list`` option with the ``-v`` or ``--verbose``
     /usr/local/lib/python2.6/dist-packages/pelican-2.6.0-py2.6.egg/pelican/themes/simple
 
 
-Installing themes
-"""""""""""""""""
+安装主题
+""""""""
 
-You can install one or more themes using the ``-i`` or ``--install`` option.
-This option takes as argument the path(s) of the theme(s) you want to install, and can be combined with the verbose option:
+可以使用 ``-i`` 或者 ``--install`` 选项安装主题。该选项接受主题安装路径参数，可以与verbose选项相结合：
 
 .. code-block:: console
 
@@ -92,11 +91,10 @@ This option takes as argument the path(s) of the theme(s) you want to install, a
     # pelican-themes -vi ~/Dev/Python/pelican-themes/two-column
 
 
-Removing themes
-"""""""""""""""
+卸载主题
+""""""""
 
-The ``pelican-themes`` command can also remove themes from the Pelican themes path.
-The ``-r`` or ``--remove`` option takes as argument the name(s) of the theme(s) you want to remove, and can be combined with the ``--verbose`` option.
+ ``pelican-themes`` 命令也可以用于卸载主题，使用 ``-r`` 或者 ``--remove`` 选项附加卸载的主题名称即可，可以结合 ``--verbose`` 选项使用。
 
 .. code-block:: console
 
@@ -110,20 +108,20 @@ The ``-r`` or ``--remove`` option takes as argument the name(s) of the theme(s) 
 
 
 
-Creating symbolic links
-"""""""""""""""""""""""
+创建符合链接
+""""""""""""
 
-``pelican-themes`` can also install themes by creating symbolic links instead of copying entire themes into the Pelican themes path.
+``pelican-themes`` 命令可以无需复制整个主题到Pelican themes路径，而是直接通过创建符号链接安装主题。
 
-To symbolically link a theme, you can use the ``-s`` or ``--symlink``, which works exactly as the ``--install`` option:
+使用 ``-s`` or ``--symlink`` 创建符号链接到一个主题，它的工作原理和 ``--install`` 选项一致：
 
 .. code-block:: console
 
     # pelican-themes --symlink ~/Dev/Python/pelican-themes/two-column
 
-In this example, the ``two-column`` theme is now symbolically linked to the Pelican themes path, so we can use it, but we can also modify it without having to reinstall it after each modification.
+在该实例中， ``two-column`` 主题通过符号链接到Pelican themes path, 因此我们可以使用该主题，同时我们也可以修改而无须每次更改之后重新安装。
 
-This is useful for theme development:
+这对于主题开发十分有用:
 
 .. code-block:: console
 
@@ -139,11 +137,10 @@ This is useful for theme development:
 
 
 
-Doing several things at once
-""""""""""""""""""""""""""""
+同时执行多种任务
+""""""""""""""""
 
-The ``--install``, ``--remove`` and ``--symlink`` option are not mutually exclusive, so you can combine them in the same command line to do more than one operation at time, like this:
-
+ ``--install``, ``--remove`` 和 ``--symlink`` 选项不是互斥的，因此在同一命令行结合以上选项可以同时执行多项任务：
 
 .. code-block:: console
 
@@ -152,13 +149,12 @@ The ``--install``, ``--remove`` and ``--symlink`` option are not mutually exclus
                      --symlink ~/Dev/Python/pelican-themes/two-column \
                      --verbose
 
-In this example, the theme ``notmyidea-cms`` is replaced by the theme ``notmyidea-cms-fr``
+在该实例中，将会使用 ``notmyidea-cms-fr`` 主题替换 ``notmyidea-cms`` 主题
 
 
 
-
-另请参阅
-========
+参阅
+====
 
 -   http://docs.notmyidea.org/alexis/pelican/
 -   ``/usr/share/doc/pelican/`` if you have installed Pelican using the `APT repository <http://skami18.github.com/pelican-packages/>`_
