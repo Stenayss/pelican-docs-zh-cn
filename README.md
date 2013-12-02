@@ -3,9 +3,7 @@
 ----------
 
 
-<center>![logo](http://docs.getpelican.com/en/3.3.0/_static/pelican.png)</center>
-
-<center>
+<center>![logo](http://docs.getpelican.com/en/3.3.0/_static/pelican.png)
 ###Release：3.3.0（2013-09-24）
 ###感谢我的父母和妻子
 ###By Bravelee
