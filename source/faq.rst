@@ -43,7 +43,7 @@ Pygments对于生成内容添加一些类，这些类通过CSS控制主题语法
 
 查看 :ref:`theming-pelican`.
 
-使用Markdown语法，显示 ``No valid files found in content`` 错误。
+使用Markdown语法，显示 No valid files found in content 错误。
 =================================================================
 
 Markdown并非是Pelican唯一依赖的语法格式，因此关于Markdown格式问题，需要明确是否安装Markdown库。
