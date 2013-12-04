@@ -36,7 +36,7 @@
     
 ## 关于
 
->Email: <ms4dam0n@gmail.com>
+>Email: ms4dam0n at gmail dot com
 
 >Twitter: [@ms4dam0n](https://twitter.com/ms4dam0n)
 
