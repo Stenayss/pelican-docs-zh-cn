@@ -5,7 +5,7 @@
 
 <center>![logo](http://docs.getpelican.com/en/3.3.0/_static/pelican.png)
 ###Release：3.3.0（2013-09-24）
-###感谢我的父母和妻子
+###感谢我的家人
 ###By Bravelee
 </center>
 
@@ -29,11 +29,7 @@
     1. 错误修正
     
 	2. 细节优化
-	
-	3. 待添加...
-	
-	4. 待添加...
-    
+	   
 ## 关于
 
 >Email: ms4dam0n at gmail dot com
